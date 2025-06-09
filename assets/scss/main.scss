@@ -4,31 +4,31 @@
  */
 
 // Abstracts - Variables, functions, mixins
-@import 'abstracts/variables';
-@import 'abstracts/functions';
-@import 'abstracts/mixins';
+@use 'abstracts/variables' as *;
+@use 'abstracts/functions' as *;
+@use 'abstracts/mixins' as *;
 
 // Base - Reset, typography, base elements
-@import 'base/reset';
-@import 'base/typography';
-@import 'base/base';
+@use 'base/reset' as *;
+@use 'base/typography' as *;
+@use 'base/base' as *;
 
 // Layout - Header, footer, grid, navigation
-@import 'layout/header';
-@import 'layout/navigation';
-@import 'layout/footer';
-@import 'layout/grid';
+@use 'layout/header' as *;
+@use 'layout/navigation' as *;
+@use 'layout/footer' as *;
+@use 'layout/grid' as *;
 
 // Components - Reusable UI components
-@import 'components/buttons';
-@import 'components/forms';
-@import 'components/cards';
-@import 'components/modals';
-@import 'components/accessibility';
-@import 'components/performance';
-@import 'components/seo';
+@use 'components/buttons' as *;
+@use 'components/forms' as *;
+@use 'components/cards' as *;
+@use 'components/modals' as *;
+@use 'components/accessibility' as *;
+@use 'components/performance' as *;
+@use 'components/seo' as *;
 
 // Pages - Page-specific styles
-@import 'pages/home';
-@import 'pages/single';
-@import 'pages/archive';
+@use 'pages/home' as *;
+@use 'pages/single' as *;
+@use 'pages/archive' as *;
