@@ -139,6 +139,10 @@ if (class_exists('WooCommerce')) {
 }
 ```
 
+#### ✅ WooCommerce Compatibility
+Consulta [docs/woocommerce.md](docs/woocommerce.md) per dettagli su template e
+stili dedicati.
+
 ### Multilingua
 Supporto nativo per:
 - WPML
