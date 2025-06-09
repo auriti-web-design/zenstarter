@@ -18,7 +18,29 @@ if (!defined('ABSPATH')) {
 <head>
     <meta charset="<?php bloginfo('charset'); ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="format-detection" content="telephone=no">
     <link rel="profile" href="https://gmpg.org/xfn/11">
+    
+    <!-- Performance: DNS prefetch for external resources -->
+    <link rel="dns-prefetch" href="//fonts.googleapis.com">
+    <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    
+    <!-- SEO: Base meta description (can be overridden by SEO plugins) -->
+    <?php if (is_front_page() && !get_post_meta(get_option('page_on_front'), '_yoast_wpseo_metadesc', true)) : ?>
+        <meta name="description" content="<?php echo esc_attr(wp_trim_words(get_bloginfo('description'), 30)); ?>">
+    <?php endif; ?>
+    
+    <!-- SEO: Open Graph basic tags -->
+    <meta property="og:type" content="<?php echo is_single() ? 'article' : 'website'; ?>">
+    <meta property="og:title" content="<?php echo esc_attr(wp_get_document_title()); ?>">
+    <meta property="og:url" content="<?php echo esc_url(get_permalink()); ?>">
+    <meta property="og:site_name" content="<?php echo esc_attr(get_bloginfo('name')); ?>">
+    <?php if (has_post_thumbnail() && is_single()) : ?>
+        <meta property="og:image" content="<?php echo esc_url(get_the_post_thumbnail_url(get_the_ID(), 'large')); ?>">
+    <?php endif; ?>
+    
+    <!-- Performance: Preload critical fonts -->
+    <link rel="preload" href="<?php echo esc_url(ZENSTARTER_ASSETS_URL); ?>/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin>
     
     <?php wp_head(); ?>
 </head>

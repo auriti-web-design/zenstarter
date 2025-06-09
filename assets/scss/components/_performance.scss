@@ -1,0 +1,406 @@
+/**
+ * Performance Optimization Styles
+ * 
+ * CSS optimizations for faster loading and better user experience
+ * 
+ * @package Zenstarter
+ * @since 1.0.0
+ */
+
+/* Font Loading Optimization */
+@font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 100 900;
+    font-display: swap; /* Improves font loading performance */
+    src: url('../fonts/inter-var.woff2') format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* Critical CSS - Above the fold styles */
+.critical-css {
+    
+    /* Header optimization */
+    .site-header {
+        contain: layout style;
+        will-change: transform;
+    }
+    
+    /* Navigation optimization */
+    .main-navigation {
+        contain: layout;
+        
+        .nav-menu {
+            contain: layout style;
+        }
+    }
+    
+    /* Hero section optimization */
+    .zen-hero {
+        contain: layout style paint;
+        will-change: transform;
+        
+        &--has-background-image {
+            background-attachment: scroll; /* Prevents repaints on mobile */
+            
+            @media (min-width: 768px) {
+                background-attachment: fixed;
+            }
+        }
+    }
+}
+
+/* Lazy Loading Optimization */
+img[loading="lazy"] {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    
+    &.loaded {
+        opacity: 1;
+    }
+    
+    /* Fallback for browsers without native lazy loading */
+    &.lazyload {
+        opacity: 0;
+    }
+    
+    &.lazyloaded {
+        opacity: 1;
+    }
+}
+
+/* Image optimization with aspect ratios */
+.wp-block-image,
+.post-thumbnail,
+.zen-card__image,
+.zen-hero {
+    
+    img {
+        height: auto;
+        max-width: 100%;
+        
+        /* Prevent layout shift */
+        &[width][height] {
+            aspect-ratio: attr(width) / attr(height);
+        }
+        
+        /* Modern image formats optimization */
+        &[src*=".webp"],
+        &[src*=".avif"] {
+            image-rendering: -webkit-optimize-contrast;
+            image-rendering: optimize-contrast;
+        }
+    }
+}
+
+/* Responsive images with performance hints */
+.responsive-image {
+    position: relative;
+    overflow: hidden;
+    
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        
+        /* Optimize image decoding */
+        decoding: async;
+        
+        /* Priority hint for important images */
+        &.priority-high {
+            fetchpriority: high;
+        }
+        
+        &.priority-low {
+            fetchpriority: low;
+        }
+    }
+    
+    /* Loading placeholder */
+    &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(90deg, 
+            var(--wp--preset--color--light-gray, #f1f5f9) 25%, 
+            transparent 37%, 
+            var(--wp--preset--color--light-gray, #f1f5f9) 63%
+        );
+        background-size: 400% 100%;
+        animation: loading-shimmer 1.5s ease-in-out infinite;
+        z-index: 1;
+    }
+    
+    &.loaded::before {
+        display: none;
+    }
+}
+
+@keyframes loading-shimmer {
+    0% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: -100% 50%;
+    }
+}
+
+/* Video optimization */
+video {
+    max-width: 100%;
+    height: auto;
+    
+    &[preload="metadata"] {
+        /* Optimize video loading */
+        background: var(--wp--preset--color--light-gray, #f1f5f9);
+    }
+    
+    &[poster] {
+        object-fit: cover;
+    }
+}
+
+/* Iframe optimization (embeds) */
+iframe {
+    max-width: 100%;
+    
+    &[loading="lazy"] {
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        
+        &.loaded {
+            opacity: 1;
+        }
+    }
+}
+
+/* Critical rendering path optimization */
+.above-fold {
+    /* Styles for above-the-fold content */
+    contain: layout style paint;
+    
+    /* Optimize first paint */
+    .site-header,
+    .zen-hero,
+    .wp-block-cover {
+        will-change: transform;
+    }
+}
+
+.below-fold {
+    /* Styles for below-the-fold content */
+    contain: layout;
+    
+    /* Defer non-critical animations */
+    .zen-card,
+    .zen-testimonial,
+    .zen-cta {
+        animation-play-state: paused;
+        
+        &.in-viewport {
+            animation-play-state: running;
+        }
+    }
+}
+
+/* CSS Grid optimization */
+.posts-grid,
+.zen-grid {
+    contain: layout;
+    
+    /* Optimize grid layout performance */
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    
+    /* Subgrid support where available */
+    @supports (grid-template-rows: subgrid) {
+        .zen-card {
+            grid-row: span 2;
+            display: grid;
+            grid-template-rows: subgrid;
+        }
+    }
+}
+
+/* Flexbox optimization */
+.flex-container {
+    contain: layout;
+    
+    /* Optimize flex performance */
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    
+    .flex-item {
+        flex: 1 1 300px;
+        min-width: 0; /* Prevent flex item overflow */
+    }
+}
+
+/* Transform optimization */
+.has-transform {
+    /* Use transform3d for hardware acceleration */
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+    
+    &:hover,
+    &.is-animated {
+        will-change: transform;
+    }
+    
+    &:not(:hover):not(.is-animated) {
+        will-change: auto;
+    }
+}
+
+/* Scroll optimization */
+.smooth-scroll {
+    scroll-behavior: smooth;
+    
+    @media (prefers-reduced-motion: reduce) {
+        scroll-behavior: auto;
+    }
+}
+
+/* Intersection Observer optimization */
+.observe-visibility {
+    /* Prepare elements for visibility observation */
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+    
+    &.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    
+    @media (prefers-reduced-motion: reduce) {
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
+}
+
+/* Resource hints optimization */
+.preload-fonts {
+    /* Applied to body when fonts should be preloaded */
+    font-display: swap;
+}
+
+/* Critical CSS inlining helper */
+.critical-inline {
+    /* Styles that should be inlined for critical path */
+    display: block;
+    visibility: visible;
+}
+
+/* Defer non-critical CSS */
+.non-critical {
+    /* Hidden by default, revealed when non-critical CSS loads */
+    visibility: hidden;
+    
+    &.css-loaded {
+        visibility: visible;
+    }
+}
+
+/* Web Vitals optimization */
+.optimize-cls {
+    /* Prevent Cumulative Layout Shift */
+    
+    /* Reserve space for dynamic content */
+    min-height: 100px;
+    
+    /* Stable layout for loading states */
+    &.loading {
+        position: relative;
+        
+        &::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 40px;
+            height: 40px;
+            margin: -20px 0 0 -20px;
+            border: 3px solid var(--wp--preset--color--light-gray, #f1f5f9);
+            border-top-color: var(--wp--preset--color--primary, #2563eb);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+    }
+    
+    &.loaded {
+        min-height: auto;
+        
+        &::after {
+            display: none;
+        }
+    }
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Service Worker optimization */
+.sw-update-available {
+    position: fixed;
+    bottom: 1rem;
+    left: 1rem;
+    right: 1rem;
+    background: var(--wp--preset--color--primary, #2563eb);
+    color: white;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 9999;
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+    
+    &.show {
+        transform: translateY(0);
+    }
+    
+    .update-button {
+        background: white;
+        color: var(--wp--preset--color--primary, #2563eb);
+        border: none;
+        padding: 0.5rem 1rem;
+        border-radius: 0.25rem;
+        font-weight: 600;
+        cursor: pointer;
+        margin-left: 1rem;
+        
+        &:hover {
+            background: var(--wp--preset--color--light-gray, #f1f5f9);
+        }
+    }
+}
+
+/* Print performance */
+@media print {
+    .zen-hero,
+    .zen-cta,
+    .zen-testimonial {
+        /* Simplify for print to improve performance */
+        background: none !important;
+        box-shadow: none !important;
+        transform: none !important;
+        animation: none !important;
+    }
+    
+    img {
+        /* Optimize images for print */
+        max-width: 100% !important;
+        height: auto !important;
+        page-break-inside: avoid;
+    }
+}

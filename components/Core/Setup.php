@@ -35,6 +35,13 @@ class Setup {
         add_action('widgets_init', array($this, 'register_sidebars'));
         add_filter('body_class', array($this, 'body_classes'));
         add_action('wp_head', array($this, 'add_pingback_url'));
+        
+        // Accessibility and SEO improvements
+        add_action('wp_head', array($this, 'add_accessibility_features'));
+        add_action('wp_footer', array($this, 'add_accessibility_scripts'));
+        add_filter('wp_nav_menu_args', array($this, 'enhance_nav_menu_accessibility'));
+        add_filter('the_content', array($this, 'enhance_content_accessibility'));
+        add_action('wp_head', array($this, 'add_performance_hints'));
     }
     
     /**
@@ -521,6 +528,243 @@ class Setup {
     public function add_pingback_url() {
         if (is_singular() && pings_open()) {
             printf('<link rel="pingback" href="%s">', esc_url(get_bloginfo('pingback_url')));
+        }
+    }
+    
+    /**
+     * Add accessibility features to wp_head
+     * WCAG 2.1 AA compliance improvements
+     */
+    public function add_accessibility_features() {
+        // Add viewport meta for better mobile accessibility
+        echo '<meta name="theme-color" content="#2563eb">' . "\n";
+        
+        // Add language direction for RTL support
+        if (is_rtl()) {
+            echo '<meta name="direction" content="rtl">' . "\n";
+        }
+        
+        // Add accessibility toolbar detection
+        echo '<script>
+            document.documentElement.classList.add("js");
+            if (window.navigator.userAgent.includes("JAWS") || window.navigator.userAgent.includes("NVDA")) {
+                document.documentElement.classList.add("screen-reader");
+            }
+        </script>' . "\n";
+        
+        // Add focus-visible polyfill CDN
+        echo '<script src="https://cdn.jsdelivr.net/npm/focus-visible@5.2.0/dist/focus-visible.min.js" defer></script>' . "\n";
+    }
+    
+    /**
+     * Add accessibility scripts to footer
+     */
+    public function add_accessibility_scripts() {
+        ?>
+        <script>
+        // Enhanced keyboard navigation
+        document.addEventListener('DOMContentLoaded', function() {
+            // Skip link functionality
+            const skipLink = document.querySelector('.skip-link');
+            if (skipLink) {
+                skipLink.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.focus();
+                        target.scrollIntoView({ behavior: 'smooth' });
+                    }
+                });
+            }
+            
+            // Enhanced button accessibility
+            const buttons = document.querySelectorAll('button[aria-expanded]');
+            buttons.forEach(function(button) {
+                button.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape' && this.getAttribute('aria-expanded') === 'true') {
+                        this.setAttribute('aria-expanded', 'false');
+                        this.focus();
+                    }
+                });
+            });
+            
+            // Improve link accessibility
+            const links = document.querySelectorAll('a[href="#"]');
+            links.forEach(function(link) {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                });
+            });
+        });
+        </script>
+        <?php
+    }
+    
+    /**
+     * Enhance navigation menu accessibility
+     */
+    public function enhance_nav_menu_accessibility($args) {
+        // Add ARIA labels to navigation menus
+        if (!isset($args['menu_id'])) {
+            return $args;
+        }
+        
+        switch ($args['menu_id']) {
+            case 'primary-menu':
+                $args['container_aria_label'] = __('Main Navigation', 'zenstarter');
+                break;
+            case 'footer-menu':
+                $args['container_aria_label'] = __('Footer Navigation', 'zenstarter');
+                break;
+            case 'mobile-menu':
+                $args['container_aria_label'] = __('Mobile Navigation', 'zenstarter');
+                break;
+        }
+        
+        return $args;
+    }
+    
+    /**
+     * Enhance content accessibility
+     */
+    public function enhance_content_accessibility($content) {
+        // Add proper heading structure
+        $content = preg_replace_callback(
+            '/<h([1-6])([^>]*)>(.*?)<\/h[1-6]>/i',
+            function($matches) {
+                $level = $matches[1];
+                $attributes = $matches[2];
+                $text = $matches[3];
+                
+                // Add id for anchor linking if not present
+                if (!preg_match('/id=/', $attributes)) {
+                    $id = sanitize_title($text);
+                    $attributes .= ' id="' . esc_attr($id) . '"';
+                }
+                
+                return '<h' . $level . $attributes . '>' . $text . '</h' . $level . '>';
+            },
+            $content
+        );
+        
+        // Enhance image accessibility
+        $content = preg_replace_callback(
+            '/<img([^>]+)>/i',
+            function($matches) {
+                $img_tag = $matches[0];
+                
+                // Add loading="lazy" if not present
+                if (!preg_match('/loading=/', $img_tag)) {
+                    $img_tag = str_replace('<img', '<img loading="lazy"', $img_tag);
+                }
+                
+                // Add decoding="async" if not present
+                if (!preg_match('/decoding=/', $img_tag)) {
+                    $img_tag = str_replace('<img', '<img decoding="async"', $img_tag);
+                }
+                
+                return $img_tag;
+            },
+            $content
+        );
+        
+        return $content;
+    }
+    
+    /**
+     * Add performance hints to wp_head
+     */
+    public function add_performance_hints() {
+        // Resource hints for better performance
+        echo '<link rel="dns-prefetch" href="//fonts.googleapis.com">' . "\n";
+        echo '<link rel="dns-prefetch" href="//fonts.gstatic.com">' . "\n";
+        echo '<link rel="dns-prefetch" href="//www.google-analytics.com">' . "\n";
+        
+        // Preconnect to critical third-party origins
+        echo '<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>' . "\n";
+        echo '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>' . "\n";
+        
+        // Add critical CSS for above-the-fold content
+        if (is_front_page()) {
+            echo '<style id="critical-css">
+                .site-header { position: relative; z-index: 100; }
+                .zen-hero { min-height: 60vh; display: flex; align-items: center; }
+                .skip-link:focus { position: absolute; left: 1rem; top: 1rem; z-index: 999999; }
+            </style>' . "\n";
+        }
+        
+        // Add structured data for better SEO
+        $this->add_structured_data();
+    }
+    
+    /**
+     * Add structured data (Schema.org) for SEO
+     */
+    private function add_structured_data() {
+        $schema = array();
+        
+        // Website schema
+        $schema[] = array(
+            '@context' => 'https://schema.org',
+            '@type' => 'WebSite',
+            'name' => get_bloginfo('name'),
+            'description' => get_bloginfo('description'),
+            'url' => home_url(),
+            'potentialAction' => array(
+                '@type' => 'SearchAction',
+                'target' => home_url('/?s={search_term_string}'),
+                'query-input' => 'required name=search_term_string'
+            )
+        );
+        
+        // Organization schema
+        $schema[] = array(
+            '@context' => 'https://schema.org',
+            '@type' => 'Organization',
+            'name' => get_bloginfo('name'),
+            'url' => home_url(),
+            'logo' => array(
+                '@type' => 'ImageObject',
+                'url' => get_theme_mod('custom_logo') ? wp_get_attachment_image_url(get_theme_mod('custom_logo'), 'full') : ''
+            )
+        );
+        
+        // Article schema for single posts
+        if (is_single() && 'post' === get_post_type()) {
+            global $post;
+            
+            $schema[] = array(
+                '@context' => 'https://schema.org',
+                '@type' => 'Article',
+                'headline' => get_the_title(),
+                'description' => get_the_excerpt(),
+                'image' => get_the_post_thumbnail_url($post, 'large'),
+                'author' => array(
+                    '@type' => 'Person',
+                    'name' => get_the_author()
+                ),
+                'publisher' => array(
+                    '@type' => 'Organization',
+                    'name' => get_bloginfo('name'),
+                    'logo' => array(
+                        '@type' => 'ImageObject',
+                        'url' => get_theme_mod('custom_logo') ? wp_get_attachment_image_url(get_theme_mod('custom_logo'), 'full') : ''
+                    )
+                ),
+                'datePublished' => get_the_date('c'),
+                'dateModified' => get_the_modified_date('c'),
+                'mainEntityOfPage' => array(
+                    '@type' => 'WebPage',
+                    '@id' => get_permalink()
+                )
+            );
+        }
+        
+        // Output schema
+        if (!empty($schema)) {
+            echo '<script type="application/ld+json">';
+            echo wp_json_encode($schema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+            echo '</script>' . "\n";
         }
     }
 }
