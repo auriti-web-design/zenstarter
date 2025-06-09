@@ -30,6 +30,8 @@ class Setup {
     private function init_hooks() {
         add_action('after_setup_theme', array($this, 'theme_setup'));
         add_action('init', array($this, 'register_block_patterns'));
+        add_action('init', array($this, 'register_custom_blocks'));
+        add_action('init', array($this, 'register_block_categories'));
         add_action('widgets_init', array($this, 'register_sidebars'));
         add_filter('body_class', array($this, 'body_classes'));
         add_action('wp_head', array($this, 'add_pingback_url'));
@@ -109,6 +111,97 @@ class Setup {
             array('label' => __('Zenstarter', 'zenstarter'))
         );
     }
+    
+    /**
+     * Register custom block categories
+     */
+    public function register_block_categories() {
+        // Register block category for custom blocks
+        if (function_exists('register_block_type')) {
+            add_filter('block_categories_all', array($this, 'add_custom_block_categories'), 10, 2);
+        }
+    }
+    
+    /**
+     * Add custom block categories to the block editor
+     */
+    public function add_custom_block_categories($categories, $post) {
+        return array_merge(
+            array(
+                array(
+                    'slug' => 'zenstarter',
+                    'title' => __('Zenstarter Blocks', 'zenstarter'),
+                    'icon' => 'admin-generic',
+                ),
+            ),
+            $categories
+        );
+    }
+    
+    /**
+     * Register custom Gutenberg blocks
+     */
+    public function register_custom_blocks() {
+        // Check if function exists (WordPress 5.0+)
+        if (!function_exists('register_block_type')) {
+            return;
+        }
+        
+        // Register zen-box block
+        $this->register_zen_box_block();
+    }
+    
+    /**
+     * Register the zen-box block
+     */
+    private function register_zen_box_block() {
+        // Register the block with compiled assets
+        register_block_type('zenstarter/zen-box', array(
+            'editor_script' => 'zenstarter-zen-box-editor',
+            'editor_style' => 'zenstarter-zen-box-editor-style',
+            'style' => 'zenstarter-zen-box-style',
+        ));
+        
+        // Enqueue compiled assets
+        add_action('enqueue_block_editor_assets', array($this, 'enqueue_zen_box_editor_assets'));
+        add_action('wp_enqueue_scripts', array($this, 'enqueue_zen_box_frontend_assets'));
+    }
+    
+    /**
+     * Enqueue zen-box editor assets
+     */
+    public function enqueue_zen_box_editor_assets() {
+        wp_enqueue_script(
+            'zenstarter-zen-box-editor',
+            ZENSTARTER_ASSETS_URL . '/blocks/zen-box/index.js',
+            array('wp-blocks', 'wp-element', 'wp-editor', 'wp-block-editor', 'wp-components', 'wp-i18n', 'wp-compose', 'wp-data'),
+            ZENSTARTER_VERSION,
+            true
+        );
+        
+        wp_enqueue_style(
+            'zenstarter-zen-box-editor-style',
+            ZENSTARTER_ASSETS_URL . '/blocks/zen-box/editor.css',
+            array('wp-edit-blocks'),
+            ZENSTARTER_VERSION
+        );
+    }
+    
+    /**
+     * Enqueue zen-box frontend assets
+     */
+    public function enqueue_zen_box_frontend_assets() {
+        // Only enqueue if the block is used on the page
+        if (has_block('zenstarter/zen-box')) {
+            wp_enqueue_style(
+                'zenstarter-zen-box-style',
+                ZENSTARTER_ASSETS_URL . '/blocks/zen-box/style.css',
+                array(),
+                ZENSTARTER_VERSION
+            );
+        }
+    }
+    
     
     /**
      * Register theme sidebars

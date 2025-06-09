@@ -1,0 +1,198 @@
+/**
+ * Zen Box Block Editor Styles
+ * Editor-specific styles for the zen-box block
+ */
+
+.wp-block-zenstarter-zen-box {
+    // Editor-specific base styles
+    position: relative;
+    min-height: 50px;
+    
+    // Make sure the block is visible in editor
+    &:empty::before {
+        content: '';
+        display: block;
+        min-height: 50px;
+    }
+    
+    // Editor wrapper styles
+    .zen-box__content {
+        // Ensure proper display of InnerBlocks
+        .block-editor-inner-blocks {
+            min-height: inherit;
+        }
+        
+        // Block appender styles
+        .block-editor-button-block-appender {
+            color: var(--wp-admin-theme-color, #007cba);
+            
+            &:hover {
+                color: var(--wp-admin-theme-color-darker-20, #005a87);
+            }
+        }
+    }
+    
+    // Container type editor indicators
+    &.zen-box--narrow {
+        position: relative;
+        
+        &::before {
+            content: 'Narrow Container';
+            position: absolute;
+            top: -20px;
+            left: 0;
+            font-size: 11px;
+            color: #757575;
+            background: #f0f0f0;
+            padding: 2px 6px;
+            border-radius: 2px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            z-index: 1;
+        }
+    }
+    
+    &.zen-box--wide {
+        position: relative;
+        
+        &::before {
+            content: 'Wide Container';
+            position: absolute;
+            top: -20px;
+            left: 0;
+            font-size: 11px;
+            color: #757575;
+            background: #f0f0f0;
+            padding: 2px 6px;
+            border-radius: 2px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            z-index: 1;
+        }
+    }
+    
+    &.zen-box--full {
+        position: relative;
+        
+        &::before {
+            content: 'Full Width Container';
+            position: absolute;
+            top: -20px;
+            left: 0;
+            font-size: 11px;
+            color: #757575;
+            background: #f0f0f0;
+            padding: 2px 6px;
+            border-radius: 2px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            z-index: 1;
+        }
+    }
+    
+    // Vertical alignment editor indicators
+    &.zen-box--align-center,
+    &.zen-box--align-bottom,
+    &.zen-box--align-stretch {
+        border: 1px dashed #007cba;
+        border-radius: 2px;
+        
+        &::after {
+            position: absolute;
+            bottom: -20px;
+            right: 0;
+            font-size: 11px;
+            color: #007cba;
+            background: rgba(0, 124, 186, 0.1);
+            padding: 2px 6px;
+            border-radius: 2px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            z-index: 1;
+        }
+    }
+    
+    &.zen-box--align-center::after {
+        content: 'Center Aligned';
+    }
+    
+    &.zen-box--align-bottom::after {
+        content: 'Bottom Aligned';
+    }
+    
+    &.zen-box--align-stretch::after {
+        content: 'Stretch Aligned';
+    }
+    
+    // Shadow preview in editor
+    &.zen-box--shadow-small {
+        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    }
+    
+    &.zen-box--shadow-medium {
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    }
+    
+    &.zen-box--shadow-large {
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    }
+    
+    &.zen-box--shadow-xl {
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    }
+    
+    // Selected state styles
+    &.is-selected {
+        outline: 1px solid var(--wp-admin-theme-color, #007cba);
+        outline-offset: -1px;
+    }
+    
+    // Hover state for better UX
+    &:hover {
+        &:not(.is-selected) {
+            outline: 1px solid rgba(0, 124, 186, 0.3);
+            outline-offset: -1px;
+        }
+    }
+    
+    // Focus within for keyboard navigation
+    &:focus-within {
+        outline: 2px solid var(--wp-admin-theme-color, #007cba);
+        outline-offset: -2px;
+    }
+    
+    // Empty state styles
+    &:empty {
+        border: 2px dashed #ddd;
+        padding: 2rem;
+        text-align: center;
+        color: #757575;
+        
+        &::before {
+            content: 'Zen Box - Add content inside';
+            font-size: 14px;
+            font-weight: 500;
+        }
+    }
+    
+    // Nested zen-box styles
+    .wp-block-zenstarter-zen-box {
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        
+        // Reduce visual noise for nested blocks
+        &::before,
+        &::after {
+            opacity: 0.5;
+            font-size: 10px;
+        }
+    }
+}
+
+// Block controls positioning
+.wp-block-zenstarter-zen-box {
+    .block-editor-block-list__block-edit {
+        position: relative;
+    }
+    
+    // Adjust block toolbar positioning for zen-box
+    .block-editor-block-contextual-toolbar {
+        z-index: 31;
+    }
+}

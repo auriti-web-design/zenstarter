@@ -151,7 +151,9 @@ class Assets {
                 true
             );
         }
+        
     }
+    
     
     /**
      * Enqueue conditional assets based on page type

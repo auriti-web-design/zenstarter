@@ -1,0 +1,219 @@
+/**
+ * Zen Box Block Editor Styles - Compiled Fallback
+ * Editor-specific styles for the zen-box block
+ */
+
+.wp-block-zenstarter-zen-box {
+    position: relative;
+    min-height: 50px;
+}
+
+.wp-block-zenstarter-zen-box:empty::before {
+    content: '';
+    display: block;
+    min-height: 50px;
+}
+
+.wp-block-zenstarter-zen-box .zen-box__content .block-editor-inner-blocks {
+    min-height: inherit;
+    width: 100%;
+}
+
+.wp-block-zenstarter-zen-box .zen-box__content .block-editor-block-list__layout {
+    min-height: 80px;
+}
+
+.wp-block-zenstarter-zen-box .zen-box__content .block-editor-button-block-appender {
+    color: var(--wp-admin-theme-color, #007cba);
+    width: 100%;
+    justify-content: center;
+    margin: 0;
+}
+
+.wp-block-zenstarter-zen-box .zen-box__content .block-editor-button-block-appender:hover {
+    color: var(--wp-admin-theme-color-darker-20, #005a87);
+}
+
+.wp-block-zenstarter-zen-box .zen-box__content .block-editor-button-block-appender.block-editor-button-block-appender {
+    padding: 40px 24px;
+    border: 2px dashed #ddd;
+    border-radius: 4px;
+    background: transparent;
+    position: relative;
+    font-size: 14px;
+    text-align: center;
+    width: 100%;
+    min-height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.wp-block-zenstarter-zen-box .zen-box__content .block-editor-button-block-appender:hover {
+    border-color: var(--wp-admin-theme-color, #007cba);
+    background: rgba(0, 124, 186, 0.05);
+}
+
+.wp-block-zenstarter-zen-box .zen-box__content .block-editor-button-block-appender.block-editor-button-block-appender::before {
+    content: 'Click to add content inside Zen Box';
+    display: block;
+    margin-bottom: 8px;
+    color: #666;
+    font-weight: 500;
+}
+
+.wp-block-zenstarter-zen-box .zen-box__content .block-editor-button-block-appender .block-editor-inserter__toggle {
+    margin: 0;
+}
+
+.wp-block-zenstarter-zen-box.zen-box--narrow {
+    position: relative;
+}
+
+.wp-block-zenstarter-zen-box.zen-box--narrow::before {
+    content: 'Narrow Container';
+    position: absolute;
+    top: -20px;
+    left: 0;
+    font-size: 11px;
+    color: #757575;
+    background: #f0f0f0;
+    padding: 2px 6px;
+    border-radius: 2px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    z-index: 1;
+}
+
+.wp-block-zenstarter-zen-box.zen-box--wide {
+    position: relative;
+}
+
+.wp-block-zenstarter-zen-box.zen-box--wide::before {
+    content: 'Wide Container';
+    position: absolute;
+    top: -20px;
+    left: 0;
+    font-size: 11px;
+    color: #757575;
+    background: #f0f0f0;
+    padding: 2px 6px;
+    border-radius: 2px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    z-index: 1;
+}
+
+.wp-block-zenstarter-zen-box.zen-box--full {
+    position: relative;
+}
+
+.wp-block-zenstarter-zen-box.zen-box--full::before {
+    content: 'Full Width Container';
+    position: absolute;
+    top: -20px;
+    left: 0;
+    font-size: 11px;
+    color: #757575;
+    background: #f0f0f0;
+    padding: 2px 6px;
+    border-radius: 2px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    z-index: 1;
+}
+
+.wp-block-zenstarter-zen-box.zen-box--align-center,
+.wp-block-zenstarter-zen-box.zen-box--align-bottom,
+.wp-block-zenstarter-zen-box.zen-box--align-stretch {
+    border: 1px dashed #007cba;
+    border-radius: 2px;
+}
+
+.wp-block-zenstarter-zen-box.zen-box--align-center::after,
+.wp-block-zenstarter-zen-box.zen-box--align-bottom::after,
+.wp-block-zenstarter-zen-box.zen-box--align-stretch::after {
+    position: absolute;
+    bottom: -20px;
+    right: 0;
+    font-size: 11px;
+    color: #007cba;
+    background: rgba(0, 124, 186, 0.1);
+    padding: 2px 6px;
+    border-radius: 2px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    z-index: 1;
+}
+
+.wp-block-zenstarter-zen-box.zen-box--align-center::after {
+    content: 'Center Aligned';
+}
+
+.wp-block-zenstarter-zen-box.zen-box--align-bottom::after {
+    content: 'Bottom Aligned';
+}
+
+.wp-block-zenstarter-zen-box.zen-box--align-stretch::after {
+    content: 'Stretch Aligned';
+}
+
+.wp-block-zenstarter-zen-box.zen-box--shadow-small {
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+}
+
+.wp-block-zenstarter-zen-box.zen-box--shadow-medium {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.wp-block-zenstarter-zen-box.zen-box--shadow-large {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.wp-block-zenstarter-zen-box.zen-box--shadow-xl {
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+.wp-block-zenstarter-zen-box.is-selected {
+    outline: 1px solid var(--wp-admin-theme-color, #007cba);
+    outline-offset: -1px;
+}
+
+.wp-block-zenstarter-zen-box:hover:not(.is-selected) {
+    outline: 1px solid rgba(0, 124, 186, 0.3);
+    outline-offset: -1px;
+}
+
+.wp-block-zenstarter-zen-box:focus-within {
+    outline: 2px solid var(--wp-admin-theme-color, #007cba);
+    outline-offset: -2px;
+}
+
+.wp-block-zenstarter-zen-box:empty {
+    border: 2px dashed #ddd;
+    padding: 2rem;
+    text-align: center;
+    color: #757575;
+}
+
+.wp-block-zenstarter-zen-box:empty::before {
+    content: 'Zen Box - Add content inside';
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.wp-block-zenstarter-zen-box .wp-block-zenstarter-zen-box {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.wp-block-zenstarter-zen-box .wp-block-zenstarter-zen-box::before,
+.wp-block-zenstarter-zen-box .wp-block-zenstarter-zen-box::after {
+    opacity: 0.5;
+    font-size: 10px;
+}
+
+.wp-block-zenstarter-zen-box .block-editor-block-list__block-edit {
+    position: relative;
+}
+
+.wp-block-zenstarter-zen-box .block-editor-block-contextual-toolbar {
+    z-index: 31;
+}
