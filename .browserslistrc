@@ -1,0 +1,21 @@
+# Browserslist configuration for Zenstarter theme
+# https://github.com/browserslist/browserslist
+
+# Production browsers
+> 1%
+last 2 versions
+not dead
+
+# Support modern browsers
+Chrome >= 60
+Firefox >= 60
+Safari >= 12
+Edge >= 79
+
+# Exclude Internet Explorer
+not IE 11
+not IE_Mob 11
+
+# Include specific mobile browsers
+iOS >= 12
+Android >= 6

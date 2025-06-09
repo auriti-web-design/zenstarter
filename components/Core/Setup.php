@@ -29,8 +29,6 @@ class Setup {
      */
     private function init_hooks() {
         add_action('after_setup_theme', array($this, 'theme_setup'));
-        add_action('wp_enqueue_scripts', array($this, 'enqueue_assets'));
-        add_action('enqueue_block_editor_assets', array($this, 'enqueue_editor_assets'));
         add_action('init', array($this, 'register_block_patterns'));
         add_action('widgets_init', array($this, 'register_sidebars'));
         add_filter('body_class', array($this, 'body_classes'));
@@ -41,11 +39,10 @@ class Setup {
      * Load additional theme components
      */
     private function load_components() {
-        // Load other components when available
-        if (class_exists('Theme\Core\Assets')) {
-            new \Theme\Core\Assets();
-        }
+        // Initialize Assets management
+        new \Theme\Core\Assets();
         
+        // Load other components when available
         if (class_exists('Theme\Utils\Helpers')) {
             new \Theme\Utils\Helpers();
         }
@@ -100,60 +97,6 @@ class Setup {
             add_theme_support('wc-product-gallery-lightbox');
             add_theme_support('wc-product-gallery-slider');
         }
-    }
-    
-    /**
-     * Enqueue theme assets
-     */
-    public function enqueue_assets() {
-        // Main stylesheet
-        wp_enqueue_style(
-            'zenstarter-style',
-            ZENSTARTER_ASSETS_URL . '/css/main.css',
-            array(),
-            ZENSTARTER_VERSION
-        );
-        
-        // Main JavaScript
-        wp_enqueue_script(
-            'zenstarter-script',
-            ZENSTARTER_ASSETS_URL . '/js/main.js',
-            array('jquery'),
-            ZENSTARTER_VERSION,
-            true
-        );
-        
-        // Localize script for AJAX
-        wp_localize_script('zenstarter-script', 'zenstarter_ajax', array(
-            'ajax_url' => admin_url('admin-ajax.php'),
-            'nonce' => wp_create_nonce('zenstarter_nonce'),
-            'site_url' => home_url()
-        ));
-        
-        // Comment reply script
-        if (is_singular() && comments_open() && get_option('thread_comments')) {
-            wp_enqueue_script('comment-reply');
-        }
-    }
-    
-    /**
-     * Enqueue editor assets
-     */
-    public function enqueue_editor_assets() {
-        wp_enqueue_style(
-            'zenstarter-editor',
-            ZENSTARTER_ASSETS_URL . '/css/editor.css',
-            array(),
-            ZENSTARTER_VERSION
-        );
-        
-        wp_enqueue_script(
-            'zenstarter-editor',
-            ZENSTARTER_ASSETS_URL . '/js/editor.js',
-            array('wp-blocks', 'wp-dom-ready', 'wp-edit-post'),
-            ZENSTARTER_VERSION,
-            true
-        );
     }
     
     /**

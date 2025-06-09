@@ -21,6 +21,10 @@ export default defineConfig(({ mode }) => {
         },
         output: {
           assetFileNames: (assetInfo) => {
+            if (!assetInfo.name) {
+              return 'assets/[name]-[hash][extname]'
+            }
+            
             const info = assetInfo.name.split('.')
             let extType = info[info.length - 1]
             
