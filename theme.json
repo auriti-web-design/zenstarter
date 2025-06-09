@@ -1,6 +1,13 @@
 {
   "$schema": "https://schemas.wp.org/trunk/theme.json",
   "version": 2,
+  "patterns": true,
+  "templateParts": true,
+  "postTypes": {
+    "page": {
+      "customTemplates": ["default"]
+    }
+  },
   "editor-styles": [
     "style.css",
     "assets/dist/editor.css"

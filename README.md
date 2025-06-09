@@ -17,6 +17,7 @@
 - 🚀 **Performance Optimized** (Core Web Vitals)
 - ♿ **Accessibility First** (WCAG 2.1)
 - 🌐 **i18n Ready** con traduzioni complete
+- 📝 **Blog avanzato** con loop personalizzabile e post correlati
 - 📱 **Mobile-First Design**
 
 ## 📁 Struttura del Progetto
@@ -202,6 +203,7 @@ Documentazione completa in `/docs/`:
 - [Sviluppo](docs/sviluppo.md)
 - [Creazione Blocchi](docs/creazione-blocchi.md)
 - [Personalizzazione](docs/personalizzazione.md)
+- [Blog](docs/blog.md)
 - [Deployment](docs/deployment.md)
 
 ## 🤝 Contribuire
