@@ -1,0 +1,422 @@
+/**
+ * Zen Grid Block - Editor Styles
+ * 
+ * Editor-specific styles for optimal block editing experience
+ *
+ * @package Zenstarter
+ * @subpackage Blocks
+ * @version 1.0.0
+ */
+
+.wp-block-zenstarter-zen-grid {
+    position: relative;
+    width: 100%;
+    border: 1px solid #e0e0e0;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    margin: 1rem 0;
+    
+    // CSS Custom Properties for dynamic values
+    --zen-grid-columns: 2;
+    --zen-grid-columns-tablet: 2;
+    --zen-grid-columns-mobile: 1;
+    --zen-grid-gap: 1.5rem;
+    --zen-grid-min-width: 200px;
+    
+    /**
+     * Inner Grid Container in Editor
+     */
+    .zen-grid__inner {
+        display: grid;
+        grid-template-columns: repeat(var(--zen-grid-columns), 1fr);
+        gap: var(--zen-grid-gap);
+        width: 100%;
+        min-height: 100px;
+        position: relative;
+        
+        // Grid guides overlay
+        &::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                repeating-linear-gradient(
+                    90deg,
+                    transparent 0,
+                    transparent calc((100% - var(--zen-grid-gap) * (var(--zen-grid-columns) - 1)) / var(--zen-grid-columns)),
+                    rgba(0, 124, 186, 0.1) calc((100% - var(--zen-grid-gap) * (var(--zen-grid-columns) - 1)) / var(--zen-grid-columns)),
+                    rgba(0, 124, 186, 0.1) calc((100% - var(--zen-grid-gap) * (var(--zen-grid-columns) - 1)) / var(--zen-grid-columns) + var(--zen-grid-gap))
+                );
+            pointer-events: none;
+            z-index: 1;
+            border-radius: 4px;
+        }
+        
+        // Block appender styling
+        .block-editor-button-block-appender {
+            color: var(--wp-admin-theme-color, #007cba);
+            border: 2px dashed #ddd;
+            border-radius: 4px;
+            padding: 1.5rem;
+            margin: 0.5rem;
+            width: auto;
+            min-height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            z-index: 2;
+            position: relative;
+            
+            &:hover {
+                border-color: var(--wp-admin-theme-color, #007cba);
+                background: rgba(0, 124, 186, 0.05);
+            }
+            
+            &::before {
+                content: 'Add grid item';
+                display: block;
+                margin-bottom: 8px;
+                font-weight: 500;
+                color: #666;
+                font-size: 14px;
+            }
+        }
+        
+        // Nested blocks styling
+        .wp-block {
+            z-index: 2;
+            position: relative;
+            min-height: 60px;
+            border: 1px dashed rgba(0, 124, 186, 0.2);
+            border-radius: 4px;
+            padding: 0.5rem;
+            
+            &:hover {
+                border-color: rgba(0, 124, 186, 0.4);
+            }
+            
+            &.is-selected {
+                border-color: var(--wp-admin-theme-color, #007cba);
+                border-style: solid;
+            }
+        }
+    }
+    
+    /**
+     * Gap Size Variations in Editor
+     */
+    &.zen-grid--gap-none {
+        --zen-grid-gap: 0;
+    }
+    
+    &.zen-grid--gap-small {
+        --zen-grid-gap: 0.75rem;
+    }
+    
+    &.zen-grid--gap-medium {
+        --zen-grid-gap: 1.5rem;
+    }
+    
+    &.zen-grid--gap-large {
+        --zen-grid-gap: 2.5rem;
+    }
+    
+    /**
+     * Vertical Alignment Variations in Editor
+     */
+    &.zen-grid--valign-top {
+        .zen-grid__inner {
+            align-items: start;
+        }
+    }
+    
+    &.zen-grid--valign-center {
+        .zen-grid__inner {
+            align-items: center;
+        }
+    }
+    
+    &.zen-grid--valign-bottom {
+        .zen-grid__inner {
+            align-items: end;
+        }
+    }
+    
+    &.zen-grid--valign-stretch {
+        .zen-grid__inner {
+            align-items: stretch;
+            
+            .wp-block {
+                height: 100%;
+            }
+        }
+    }
+    
+    /**
+     * Horizontal Alignment Variations in Editor
+     */
+    &.zen-grid--halign-left {
+        .zen-grid__inner {
+            justify-items: start;
+        }
+    }
+    
+    &.zen-grid--halign-center {
+        .zen-grid__inner {
+            justify-items: center;
+        }
+    }
+    
+    &.zen-grid--halign-right {
+        .zen-grid__inner {
+            justify-items: end;
+        }
+    }
+    
+    &.zen-grid--halign-justify {
+        .zen-grid__inner {
+            justify-items: stretch;
+        }
+    }
+    
+    /**
+     * Auto-fit Layout in Editor
+     */
+    &.zen-grid--auto-fit {
+        .zen-grid__inner {
+            grid-template-columns: repeat(auto-fit, minmax(var(--zen-grid-min-width), 1fr));
+            
+            &::before {
+                background-image: none;
+                background: repeating-linear-gradient(
+                    90deg,
+                    rgba(0, 124, 186, 0.1) 0,
+                    rgba(0, 124, 186, 0.1) var(--zen-grid-min-width),
+                    transparent var(--zen-grid-min-width),
+                    transparent calc(var(--zen-grid-min-width) + var(--zen-grid-gap))
+                );
+            }
+        }
+    }
+    
+    /**
+     * Equal Height Columns in Editor
+     */
+    &.zen-grid--equal-height {
+        .zen-grid__inner {
+            align-items: stretch;
+            
+            .wp-block {
+                height: 100%;
+                min-height: 120px;
+                display: flex;
+                flex-direction: column;
+            }
+        }
+    }
+    
+    /**
+     * Visual Indicators for Settings
+     */
+    &::before {
+        content: attr(data-columns) ' columns';
+        position: absolute;
+        top: -20px;
+        left: 0;
+        background: rgba(0, 124, 186, 0.9);
+        color: white;
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-size: 11px;
+        font-weight: 500;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        z-index: 10;
+    }
+    
+    &.zen-grid--auto-fit::before {
+        content: 'Auto-fit: min ' attr(data-min-width);
+    }
+    
+    &.zen-grid--equal-height::after {
+        content: 'Equal Height';
+        position: absolute;
+        top: -20px;
+        right: 0;
+        background: rgba(155, 81, 224, 0.9);
+        color: white;
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-size: 11px;
+        font-weight: 500;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        z-index: 10;
+    }
+    
+    &.zen-grid--reverse-mobile::after {
+        content: 'Reverse Mobile';
+        position: absolute;
+        bottom: -20px;
+        right: 0;
+        background: rgba(239, 68, 68, 0.9);
+        color: white;
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-size: 11px;
+        font-weight: 500;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        z-index: 10;
+    }
+    
+    &.zen-grid--animated::after {
+        content: 'Animated: ' attr(data-animation);
+        position: absolute;
+        bottom: -20px;
+        left: 0;
+        background: rgba(234, 88, 12, 0.9);
+        color: white;
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-size: 11px;
+        font-weight: 500;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        z-index: 10;
+    }
+    
+    /**
+     * Responsive Column Indicators
+     */
+    &[data-columns-tablet]:not([data-columns-tablet=""])::before {
+        content: attr(data-columns) '/' attr(data-columns-tablet) '/' attr(data-columns-mobile) ' cols (D/T/M)';
+    }
+    
+    /**
+     * Block Selection States
+     */
+    &.is-selected {
+        outline: 2px solid var(--wp-admin-theme-color, #007cba);
+        outline-offset: -2px;
+        
+        .zen-grid__inner {
+            &::before {
+                opacity: 0.3;
+            }
+        }
+    }
+    
+    &:hover:not(.is-selected) {
+        outline: 1px solid rgba(0, 124, 186, 0.3);
+        outline-offset: -1px;
+    }
+    
+    /**
+     * Focus States for Accessibility
+     */
+    &:focus-within {
+        outline: 2px solid var(--wp-admin-theme-color, #007cba);
+        outline-offset: -2px;
+    }
+    
+    /**
+     * Responsive Editor View
+     */
+    @media (max-width: 1080px) {
+        padding: 0.75rem;
+        
+        &::before,
+        &::after {
+            font-size: 10px;
+            padding: 3px 6px;
+        }
+        
+        .zen-grid__inner {
+            grid-template-columns: repeat(var(--zen-grid-columns-tablet), 1fr);
+            
+            &::before {
+                background-image: 
+                    repeating-linear-gradient(
+                        90deg,
+                        transparent 0,
+                        transparent calc((100% - var(--zen-grid-gap) * (var(--zen-grid-columns-tablet) - 1)) / var(--zen-grid-columns-tablet)),
+                        rgba(0, 124, 186, 0.1) calc((100% - var(--zen-grid-gap) * (var(--zen-grid-columns-tablet) - 1)) / var(--zen-grid-columns-tablet)),
+                        rgba(0, 124, 186, 0.1) calc((100% - var(--zen-grid-gap) * (var(--zen-grid-columns-tablet) - 1)) / var(--zen-grid-columns-tablet) + var(--zen-grid-gap))
+                    );
+            }
+        }
+    }
+    
+    @media (max-width: 600px) {
+        padding: 0.5rem;
+        
+        // Hide indicators on very small screens
+        &::before,
+        &::after {
+            display: none;
+        }
+        
+        .zen-grid__inner {
+            grid-template-columns: repeat(var(--zen-grid-columns-mobile), 1fr);
+            
+            &::before {
+                background-image: 
+                    repeating-linear-gradient(
+                        90deg,
+                        transparent 0,
+                        transparent calc((100% - var(--zen-grid-gap) * (var(--zen-grid-columns-mobile) - 1)) / var(--zen-grid-columns-mobile)),
+                        rgba(0, 124, 186, 0.1) calc((100% - var(--zen-grid-gap) * (var(--zen-grid-columns-mobile) - 1)) / var(--zen-grid-columns-mobile)),
+                        rgba(0, 124, 186, 0.1) calc((100% - var(--zen-grid-gap) * (var(--zen-grid-columns-mobile) - 1)) / var(--zen-grid-columns-mobile) + var(--zen-grid-gap))
+                    );
+            }
+        }
+    }
+    
+    /**
+     * Empty State
+     */
+    &:not(:has(.wp-block)) {
+        .zen-grid__inner {
+            min-height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px dashed #ddd;
+            border-radius: 8px;
+            
+            &::before {
+                display: none;
+            }
+            
+            &::after {
+                content: 'Grid Container - Add blocks to create grid layout';
+                color: #999;
+                font-style: italic;
+                font-size: 14px;
+                text-align: center;
+                position: static;
+                background: none;
+                padding: 0;
+                border-radius: 0;
+            }
+        }
+    }
+    
+    /**
+     * Inspector Controls Styling
+     */
+    .components-panel__body {
+        .components-range-control__wrapper {
+            margin-bottom: 1rem;
+        }
+        
+        .components-toggle-control {
+            margin-bottom: 1rem;
+        }
+        
+        .components-unit-control {
+            margin-bottom: 1rem;
+        }
+    }
+}

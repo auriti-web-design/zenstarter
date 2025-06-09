@@ -1,0 +1,147 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 2,
+  "name": "zenstarter/zen-grid",
+  "version": "1.0.0",
+  "title": "Zen Grid",
+  "category": "zenstarter",
+  "icon": "grid-view",
+  "description": "A responsive grid container with flexible column layouts and gap controls. Perfect for organizing content in structured layouts.",
+  "keywords": [
+    "grid",
+    "layout",
+    "columns",
+    "responsive",
+    "container",
+    "zen"
+  ],
+  "textdomain": "zenstarter",
+  "supports": {
+    "align": true,
+    "anchor": true,
+    "className": true,
+    "customClassName": true,
+    "html": false,
+    "spacing": {
+      "margin": true,
+      "padding": true,
+      "blockGap": true
+    },
+    "color": {
+      "background": true,
+      "text": true,
+      "gradients": true
+    },
+    "typography": {
+      "fontSize": true,
+      "lineHeight": true,
+      "textAlign": true,
+      "fontWeight": true,
+      "fontFamily": true
+    },
+    "__experimentalBorder": {
+      "color": true,
+      "radius": true,
+      "style": true,
+      "width": true
+    },
+    "__experimentalLayout": {
+      "allowSwitching": false,
+      "allowInheriting": false,
+      "default": {
+        "type": "grid"
+      }
+    }
+  },
+  "attributes": {
+    "backgroundColor": {
+      "type": "string"
+    },
+    "textColor": {
+      "type": "string"
+    },
+    "gradient": {
+      "type": "string"
+    },
+    "style": {
+      "type": "object"
+    },
+    "columns": {
+      "type": "number",
+      "default": 2,
+      "minimum": 1,
+      "maximum": 6
+    },
+    "columnsTablet": {
+      "type": "number",
+      "default": 2,
+      "minimum": 1,
+      "maximum": 4
+    },
+    "columnsMobile": {
+      "type": "number",
+      "default": 1,
+      "minimum": 1,
+      "maximum": 2
+    },
+    "gap": {
+      "type": "string",
+      "default": "medium",
+      "enum": ["none", "small", "medium", "large", "custom"]
+    },
+    "customGap": {
+      "type": "string",
+      "default": "1rem"
+    },
+    "verticalAlignment": {
+      "type": "string",
+      "default": "top",
+      "enum": ["top", "center", "bottom", "stretch"]
+    },
+    "horizontalAlignment": {
+      "type": "string",
+      "default": "left",
+      "enum": ["left", "center", "right", "justify"]
+    },
+    "autoFit": {
+      "type": "boolean",
+      "default": false
+    },
+    "minColumnWidth": {
+      "type": "string",
+      "default": "200px"
+    },
+    "equalHeight": {
+      "type": "boolean",
+      "default": false
+    },
+    "reverseOnMobile": {
+      "type": "boolean",
+      "default": false
+    },
+    "animationEnabled": {
+      "type": "boolean",
+      "default": false
+    },
+    "animationType": {
+      "type": "string",
+      "default": "fadeIn",
+      "enum": ["fadeIn", "slideUp", "slideLeft", "slideRight", "stagger"]
+    },
+    "animationDelay": {
+      "type": "number",
+      "default": 0,
+      "minimum": 0,
+      "maximum": 2000
+    }
+  },
+  "providesContext": {
+    "zenstarter/gridColumns": "columns",
+    "zenstarter/gridGap": "gap",
+    "zenstarter/gridAlignment": "horizontalAlignment"
+  },
+  "usesContext": ["postId", "postType"],
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./editor.css",
+  "style": "file:./style.css"
+}

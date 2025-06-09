@@ -350,6 +350,53 @@ La libreria blocchi Zenstarter utilizza un approccio modulare con:
 - Server-side rendering (PHP)
 - JavaScript frontend per animazioni
 
+#### 3. **✅ Zen CTA** - Call-to-Action Avanzato
+**File**: `blocks/zen-cta/`
+- Contenuto personalizzabile con InnerBlocks
+- Stili pulsante: Primary, Secondary, Outline, Ghost
+- Dimensioni: Small, Medium, Large
+- Layout: Vertical, Horizontal, Centered
+- Icone personalizzabili (prima/dopo)
+- Animazioni: fadeIn, slideUp, slideLeft, slideRight, bounce
+- Link control per URL esterni/interni
+- Supporto per target="_blank"
+
+#### 4. **✅ Zen Testimonial** - Testimonianze Professionali
+**File**: `blocks/zen-testimonial/`
+- Avatar caricabile con sizing (Small, Medium, Large)
+- Sistema rating a stelle (1-5)
+- Layout: Vertical, Horizontal, Centered, Card
+- Quote icon posizionabile (Before, After, Background)
+- Meta information (nome, ruolo, azienda)
+- Animazioni: fadeIn, slideUp, slideLeft, slideRight, zoomIn
+- Alignment content: Left, Center, Right
+- Aspect ratio image personalizzabile
+
+#### 5. **✅ Zen Grid** - Layout Grid Responsivo
+**File**: `blocks/zen-grid/`
+- Grid CSS nativo con colonne responsive
+- Configurazione: Desktop (1-6), Tablet (1-4), Mobile (1-2)
+- Gap customizzabile: None, Small, Medium, Large, Custom
+- Auto-fit con larghezza minima colonne
+- Equal height per colonne uniform
+- Vertical alignment: Top, Center, Bottom, Stretch
+- Horizontal alignment: Left, Center, Right, Justify
+- Reverse on mobile per ordine elementi
+- Animazioni staggered per grid items
+
+#### 6. **✅ Zen Card** - Componente Card Modulare
+**File**: `blocks/zen-card/`
+- Image support con posizioni: Top, Left, Right, Background, None
+- Aspect ratio: Auto, Square, Landscape, Portrait, Wide
+- Layout: Vertical, Horizontal, Overlay, Minimal
+- Meta information posizionabile (Top/Bottom)
+- Button integrato con stili multipli
+- Shadow levels personalizzabili
+- Hover effects: None, Lift, Scale, Glow, Rotate, Slide
+- Clickable card con URL personalizzabile
+- Excerpt automatico con controllo lunghezza
+- Content alignment completo
+
 **Caratteristiche Avanzate**:
 ```javascript
 // Animazioni con Intersection Observer
@@ -375,7 +422,31 @@ const ZENSTARTER_BLOCKS = [
         name: 'zen-hero', 
         title: 'Zen Hero',
         enabled: true,
-        hasCompiledAssets: true
+        hasCompiledAssets: false
+    },
+    {
+        name: 'zen-cta',
+        title: 'Zen CTA',
+        enabled: true,
+        hasCompiledAssets: false
+    },
+    {
+        name: 'zen-testimonial',
+        title: 'Zen Testimonial',
+        enabled: true,
+        hasCompiledAssets: false
+    },
+    {
+        name: 'zen-grid',
+        title: 'Zen Grid',
+        enabled: true,
+        hasCompiledAssets: false
+    },
+    {
+        name: 'zen-card',
+        title: 'Zen Card',
+        enabled: true,
+        hasCompiledAssets: false
     }
 ];
 ```
@@ -386,6 +457,10 @@ const ZENSTARTER_BLOCKS = [
 private function register_custom_blocks() {
     $this->register_zen_box_block();
     $this->register_zen_hero_block();
+    $this->register_zen_cta_block();
+    $this->register_zen_testimonial_block();
+    $this->register_zen_grid_block();
+    $this->register_zen_card_block();
 }
 ```
 
@@ -548,12 +623,55 @@ private function register_zen_cta_block() {
 
 ### 📦 **Roadmap Blocchi Futuri**
 
-3. **📅 Zen CTA** - Call-to-action avanzato
-4. **💬 Zen Testimonial** - Testimonianze con rating
-5. **📊 Zen Stats** - Contatori animati
-6. **🎨 Zen Gallery** - Galleria con lightbox
-7. **📝 Zen Content** - Content split con media
-8. **📞 Zen Contact** - Form di contatto
+**✅ Completati (Fase 6)**:
+- ✅ **Zen CTA** - Call-to-action avanzato
+- ✅ **Zen Testimonial** - Testimonianze con rating  
+- ✅ **Zen Grid** - Layout grid responsivo
+- ✅ **Zen Card** - Componente card modulare
+
+**🚧 Prossime Fasi**:
+7. **📊 Zen Stats** - Contatori animati
+8. **🎨 Zen Gallery** - Galleria con lightbox
+9. **📝 Zen Content** - Content split con media
+10. **📞 Zen Contact** - Form di contatto
+11. **🎠 Zen Carousel** - Slider/carousel componente
+12. **📱 Zen Accordion** - Accordion/collapsible content
+
+### 🎨 **Combinazioni di Blocchi Raccomandate**
+
+#### **Landing Page Completa**
+```
+🏗️ Zen Hero (background + titolo + CTA)
+   └── InnerBlocks: Heading + Paragraph + Zen CTA
+
+📊 Zen Grid (3 colonne)
+   ├── Zen Card (Servizio 1)
+   ├── Zen Card (Servizio 2)  
+   └── Zen Card (Servizio 3)
+
+💬 Zen Grid (2 colonne)
+   ├── Zen Testimonial (Cliente 1)
+   └── Zen Testimonial (Cliente 2)
+
+🎯 Zen CTA (finale conversion)
+```
+
+#### **Sezione Testimonials**
+```
+📱 Zen Grid (auto-fit, min-width: 300px)
+   ├── Zen Card (layout: overlay + testimonianza)
+   ├── Zen Card (layout: vertical + avatar)
+   └── Zen Card (layout: horizontal + rating)
+```
+
+#### **Gallery Team/Staff**
+```
+🏗️ Zen Grid (4 colonne desktop, 2 tablet, 1 mobile)
+   ├── Zen Card (team member 1 - image + nome + ruolo)
+   ├── Zen Card (team member 2 - clickable per bio)
+   ├── Zen Card (team member 3 - minimal layout)
+   └── Zen Card (team member 4 - social links)
+```
 
 ### 🎯 **Best Practices per Nuovi Blocchi**
 

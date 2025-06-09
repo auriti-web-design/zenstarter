@@ -1,0 +1,203 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 2,
+  "name": "zenstarter/zen-card",
+  "version": "1.0.0",
+  "title": "Zen Card",
+  "category": "zenstarter",
+  "icon": "id-alt",
+  "description": "A flexible card component with image, content, and actions. Perfect for showcasing content in grid layouts, testimonials, team members, and more.",
+  "keywords": [
+    "card",
+    "content",
+    "image",
+    "layout",
+    "team",
+    "zen"
+  ],
+  "textdomain": "zenstarter",
+  "supports": {
+    "align": false,
+    "anchor": true,
+    "className": true,
+    "customClassName": true,
+    "html": false,
+    "spacing": {
+      "margin": true,
+      "padding": true,
+      "blockGap": true
+    },
+    "color": {
+      "background": true,
+      "text": true,
+      "gradients": true,
+      "link": true
+    },
+    "typography": {
+      "fontSize": true,
+      "lineHeight": true,
+      "textAlign": true,
+      "fontWeight": true,
+      "fontFamily": true
+    },
+    "__experimentalBorder": {
+      "color": true,
+      "radius": true,
+      "style": true,
+      "width": true
+    }
+  },
+  "attributes": {
+    "backgroundColor": {
+      "type": "string"
+    },
+    "textColor": {
+      "type": "string"
+    },
+    "gradient": {
+      "type": "string"
+    },
+    "style": {
+      "type": "object"
+    },
+    "cardImage": {
+      "type": "object",
+      "default": null
+    },
+    "cardImageId": {
+      "type": "number"
+    },
+    "cardImageUrl": {
+      "type": "string",
+      "default": ""
+    },
+    "cardImageAlt": {
+      "type": "string",
+      "default": ""
+    },
+    "imagePosition": {
+      "type": "string",
+      "default": "top",
+      "enum": ["top", "left", "right", "background", "none"]
+    },
+    "imageSize": {
+      "type": "string",
+      "default": "medium",
+      "enum": ["small", "medium", "large", "full"]
+    },
+    "imageAspectRatio": {
+      "type": "string",
+      "default": "auto",
+      "enum": ["auto", "square", "landscape", "portrait", "wide"]
+    },
+    "cardTitle": {
+      "type": "string",
+      "default": ""
+    },
+    "titleLevel": {
+      "type": "number",
+      "default": 3,
+      "minimum": 1,
+      "maximum": 6
+    },
+    "cardContent": {
+      "type": "string",
+      "default": ""
+    },
+    "showExcerpt": {
+      "type": "boolean",
+      "default": true
+    },
+    "excerptLength": {
+      "type": "number",
+      "default": 20,
+      "minimum": 5,
+      "maximum": 50
+    },
+    "cardMeta": {
+      "type": "string",
+      "default": ""
+    },
+    "showMeta": {
+      "type": "boolean",
+      "default": false
+    },
+    "metaPosition": {
+      "type": "string",
+      "default": "bottom",
+      "enum": ["top", "bottom"]
+    },
+    "buttonText": {
+      "type": "string",
+      "default": ""
+    },
+    "buttonUrl": {
+      "type": "string",
+      "default": ""
+    },
+    "buttonTarget": {
+      "type": "string",
+      "default": "_self",
+      "enum": ["_self", "_blank"]
+    },
+    "buttonStyle": {
+      "type": "string",
+      "default": "primary",
+      "enum": ["primary", "secondary", "outline", "ghost", "link"]
+    },
+    "buttonSize": {
+      "type": "string",
+      "default": "medium",
+      "enum": ["small", "medium", "large"]
+    },
+    "showButton": {
+      "type": "boolean",
+      "default": false
+    },
+    "cardLayout": {
+      "type": "string",
+      "default": "vertical",
+      "enum": ["vertical", "horizontal", "overlay", "minimal"]
+    },
+    "contentAlignment": {
+      "type": "string",
+      "default": "left",
+      "enum": ["left", "center", "right"]
+    },
+    "shadowLevel": {
+      "type": "string",
+      "default": "medium",
+      "enum": ["none", "small", "medium", "large", "custom"]
+    },
+    "hoverEffect": {
+      "type": "string",
+      "default": "lift",
+      "enum": ["none", "lift", "scale", "glow", "rotate", "slide"]
+    },
+    "animationEnabled": {
+      "type": "boolean",
+      "default": false
+    },
+    "animationType": {
+      "type": "string",
+      "default": "fadeIn",
+      "enum": ["fadeIn", "slideUp", "slideLeft", "slideRight", "zoomIn", "flipIn"]
+    },
+    "isClickable": {
+      "type": "boolean",
+      "default": false
+    },
+    "clickableUrl": {
+      "type": "string",
+      "default": ""
+    }
+  },
+  "providesContext": {
+    "zenstarter/cardLayout": "cardLayout",
+    "zenstarter/cardAlignment": "contentAlignment"
+  },
+  "usesContext": ["postId", "postType", "zenstarter/gridColumns"],
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./editor.css",
+  "style": "file:./style.css"
+}

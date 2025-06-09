@@ -588,7 +588,7 @@
             __('header', 'zenstarter')
         ],
         supports: {
-            align: ['wide', 'full'],
+            align: true,
             anchor: true,
             className: true,
             spacing: {

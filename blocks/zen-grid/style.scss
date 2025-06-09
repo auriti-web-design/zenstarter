@@ -1,0 +1,461 @@
+/**
+ * Zen Grid Block - Frontend Styles
+ * 
+ * Comprehensive styling for the zen-grid block with
+ * responsive CSS Grid layout and animation support
+ *
+ * @package Zenstarter
+ * @subpackage Blocks
+ * @version 1.0.0
+ */
+
+.zen-grid {
+    position: relative;
+    width: 100%;
+    isolation: isolate;
+    
+    // CSS Custom Properties for dynamic values
+    --zen-grid-columns: 2;
+    --zen-grid-columns-tablet: 2;
+    --zen-grid-columns-mobile: 1;
+    --zen-grid-gap: 1.5rem;
+    --zen-grid-min-width: 200px;
+    --zen-grid-animation-delay: 0ms;
+    
+    /**
+     * Inner Grid Container
+     */
+    &__inner {
+        display: grid;
+        grid-template-columns: repeat(var(--zen-grid-columns), 1fr);
+        gap: var(--zen-grid-gap);
+        width: 100%;
+    }
+    
+    /**
+     * Gap Size Variations
+     */
+    &--gap-none {
+        --zen-grid-gap: 0;
+    }
+    
+    &--gap-small {
+        --zen-grid-gap: 0.75rem;
+    }
+    
+    &--gap-medium {
+        --zen-grid-gap: 1.5rem;
+    }
+    
+    &--gap-large {
+        --zen-grid-gap: 2.5rem;
+    }
+    
+    &--gap-custom {
+        .zen-grid__inner {
+            gap: var(--zen-grid-gap);
+        }
+    }
+    
+    /**
+     * Vertical Alignment Variations
+     */
+    &--valign-top {
+        .zen-grid__inner {
+            align-items: start;
+        }
+    }
+    
+    &--valign-center {
+        .zen-grid__inner {
+            align-items: center;
+        }
+    }
+    
+    &--valign-bottom {
+        .zen-grid__inner {
+            align-items: end;
+        }
+    }
+    
+    &--valign-stretch {
+        .zen-grid__inner {
+            align-items: stretch;
+        }
+    }
+    
+    /**
+     * Horizontal Alignment Variations
+     */
+    &--halign-left {
+        .zen-grid__inner {
+            justify-items: start;
+        }
+    }
+    
+    &--halign-center {
+        .zen-grid__inner {
+            justify-items: center;
+        }
+    }
+    
+    &--halign-right {
+        .zen-grid__inner {
+            justify-items: end;
+        }
+    }
+    
+    &--halign-justify {
+        .zen-grid__inner {
+            justify-items: stretch;
+        }
+    }
+    
+    /**
+     * Auto-fit Layout
+     */
+    &--auto-fit {
+        .zen-grid__inner {
+            grid-template-columns: repeat(auto-fit, minmax(var(--zen-grid-min-width), 1fr));
+        }
+    }
+    
+    /**
+     * Equal Height Columns
+     */
+    &--equal-height {
+        .zen-grid__inner {
+            align-items: stretch;
+            
+            > * {
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+            }
+        }
+    }
+    
+    /**
+     * Animation States
+     */
+    &--animated {
+        .zen-grid__inner > * {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+            transition-delay: var(--zen-grid-animation-delay, 0ms);
+        }
+        
+        &.zen-grid--in-view {
+            .zen-grid__inner > * {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    }
+    
+    // Animation variations
+    &--fadeIn {
+        .zen-grid__inner > * {
+            opacity: 0;
+            transform: none;
+        }
+        
+        &.zen-grid--in-view {
+            .zen-grid__inner > * {
+                opacity: 1;
+            }
+        }
+    }
+    
+    &--slideUp {
+        .zen-grid__inner > * {
+            opacity: 0;
+            transform: translateY(50px);
+        }
+        
+        &.zen-grid--in-view {
+            .zen-grid__inner > * {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    }
+    
+    &--slideLeft {
+        .zen-grid__inner > * {
+            opacity: 0;
+            transform: translateX(-50px);
+        }
+        
+        &.zen-grid--in-view {
+            .zen-grid__inner > * {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+    }
+    
+    &--slideRight {
+        .zen-grid__inner > * {
+            opacity: 0;
+            transform: translateX(50px);
+        }
+        
+        &.zen-grid--in-view {
+            .zen-grid__inner > * {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+    }
+    
+    &--stagger {
+        .zen-grid__inner > * {
+            opacity: 0;
+            transform: translateY(30px);
+            
+            // Stagger delay for each grid item
+            @for $i from 1 through 12 {
+                &:nth-child(#{$i}) {
+                    transition-delay: calc(var(--zen-grid-animation-delay, 0ms) + #{($i - 1) * 100ms});
+                }
+            }
+        }
+        
+        &.zen-grid--in-view {
+            .zen-grid__inner > * {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    }
+    
+    /**
+     * Responsive Design - Tablet
+     */
+    @media (max-width: 1024px) {
+        .zen-grid__inner {
+            grid-template-columns: repeat(var(--zen-grid-columns-tablet), 1fr);
+        }
+        
+        // Auto-fit on tablet
+        &--auto-fit {
+            .zen-grid__inner {
+                grid-template-columns: repeat(auto-fit, minmax(calc(var(--zen-grid-min-width) * 0.8), 1fr));
+            }
+        }
+        
+        // Adjust gaps for tablet
+        &--gap-large {
+            --zen-grid-gap: 2rem;
+        }
+    }
+    
+    /**
+     * Responsive Design - Mobile
+     */
+    @media (max-width: 768px) {
+        .zen-grid__inner {
+            grid-template-columns: repeat(var(--zen-grid-columns-mobile), 1fr);
+        }
+        
+        // Auto-fit on mobile
+        &--auto-fit {
+            .zen-grid__inner {
+                grid-template-columns: repeat(auto-fit, minmax(calc(var(--zen-grid-min-width) * 0.6), 1fr));
+            }
+        }
+        
+        // Adjust gaps for mobile
+        &--gap-large {
+            --zen-grid-gap: 1.5rem;
+        }
+        
+        &--gap-medium {
+            --zen-grid-gap: 1rem;
+        }
+        
+        // Reverse column order on mobile
+        &--reverse-mobile {
+            .zen-grid__inner {
+                direction: rtl;
+                
+                > * {
+                    direction: ltr;
+                }
+            }
+        }
+    }
+    
+    @media (max-width: 480px) {
+        // Force single column on very small screens unless specifically set
+        &:not(.zen-grid--mobile-2) {
+            .zen-grid__inner {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        // Further reduce gaps
+        &--gap-large {
+            --zen-grid-gap: 1rem;
+        }
+        
+        &--gap-medium {
+            --zen-grid-gap: 0.75rem;
+        }
+        
+        &--gap-small {
+            --zen-grid-gap: 0.5rem;
+        }
+    }
+    
+    /**
+     * Responsive Column Classes
+     */
+    // Desktop variations (1-6 columns)
+    @for $i from 1 through 6 {
+        &--desktop-#{$i} {
+            --zen-grid-columns: #{$i};
+        }
+    }
+    
+    // Tablet variations (1-4 columns)
+    @media (max-width: 1024px) {
+        @for $i from 1 through 4 {
+            &--tablet-#{$i} {
+                --zen-grid-columns-tablet: #{$i};
+            }
+        }
+    }
+    
+    // Mobile variations (1-2 columns)
+    @media (max-width: 768px) {
+        @for $i from 1 through 2 {
+            &--mobile-#{$i} {
+                --zen-grid-columns-mobile: #{$i};
+            }
+        }
+    }
+    
+    /**
+     * Grid Item Utilities
+     */
+    .zen-grid-item {
+        // Full width item
+        &--full-width {
+            grid-column: 1 / -1;
+        }
+        
+        // Span multiple columns
+        &--span-2 { grid-column: span 2; }
+        &--span-3 { grid-column: span 3; }
+        &--span-4 { grid-column: span 4; }
+        &--span-5 { grid-column: span 5; }
+        &--span-6 { grid-column: span 6; }
+        
+        // Responsive spans
+        @media (max-width: 768px) {
+            &--span-2,
+            &--span-3,
+            &--span-4,
+            &--span-5,
+            &--span-6 {
+                grid-column: span 1;
+            }
+        }
+    }
+    
+    /**
+     * Accessibility Improvements
+     */
+    @media (prefers-reduced-motion: reduce) {
+        &--animated {
+            .zen-grid__inner > * {
+                animation: none !important;
+                transition: none !important;
+                opacity: 1 !important;
+                transform: none !important;
+            }
+        }
+    }
+    
+    /**
+     * High Contrast Mode Support
+     */
+    @media (prefers-contrast: high) {
+        .zen-grid__inner > * {
+            outline: 1px solid currentColor;
+            outline-offset: -1px;
+        }
+    }
+    
+    /**
+     * Print Styles
+     */
+    @media print {
+        &--animated {
+            .zen-grid__inner > * {
+                opacity: 1 !important;
+                transform: none !important;
+            }
+        }
+        
+        // Force single column for print
+        .zen-grid__inner {
+            grid-template-columns: 1fr !important;
+            gap: 1rem !important;
+        }
+    }
+    
+    /**
+     * Dark Mode Support
+     */
+    @media (prefers-color-scheme: dark) {
+        // Any dark mode specific grid adjustments
+    }
+    
+    /**
+     * RTL Support
+     */
+    [dir="rtl"] & {
+        &--halign-left {
+            .zen-grid__inner {
+                justify-items: end;
+            }
+        }
+        
+        &--halign-right {
+            .zen-grid__inner {
+                justify-items: start;
+            }
+        }
+        
+        &--reverse-mobile {
+            @media (max-width: 768px) {
+                .zen-grid__inner {
+                    direction: ltr;
+                }
+            }
+        }
+    }
+    
+    /**
+     * Container Query Support (Future Enhancement)
+     */
+    @supports (container-type: inline-size) {
+        container-type: inline-size;
+        
+        @container (max-width: 768px) {
+            .zen-grid__inner {
+                grid-template-columns: repeat(var(--zen-grid-columns-mobile), 1fr);
+            }
+        }
+        
+        @container (min-width: 769px) and (max-width: 1024px) {
+            .zen-grid__inner {
+                grid-template-columns: repeat(var(--zen-grid-columns-tablet), 1fr);
+            }
+        }
+    }
+}

@@ -1,0 +1,554 @@
+/**
+ * Zen Card Block - Editor Styles
+ * 
+ * Editor-specific styles for optimal block editing experience
+ *
+ * @package Zenstarter
+ * @subpackage Blocks
+ * @version 1.0.0
+ */
+
+.wp-block-zenstarter-zen-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background: var(--wp--preset--color--background, #ffffff);
+    border: 1px solid #e0e0e0;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    margin: 1rem 0;
+    isolation: isolate;
+    
+    /**
+     * Card Image in Editor
+     */
+    .zen-card__image {
+        position: relative;
+        overflow: hidden;
+        flex-shrink: 0;
+        border-bottom: 1px dashed rgba(0, 124, 186, 0.2);
+        
+        &-element {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+    }
+    
+    /**
+     * Background Image in Editor
+     */
+    .zen-card__background {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        z-index: -1;
+        opacity: 0.8; // Slightly transparent in editor for better visibility
+        
+        &::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.3);
+            z-index: 1;
+        }
+    }
+    
+    /**
+     * Card Content in Editor
+     */
+    .zen-card__content {
+        padding: 1.5rem;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        z-index: 2;
+        position: relative;
+        
+        // Rich text components
+        .zen-card__title {
+            &[data-rich-text-placeholder] {
+                color: #999;
+                font-style: italic;
+            }
+            
+            &:focus {
+                outline: 1px solid var(--wp-admin-theme-color, #007cba);
+                outline-offset: 2px;
+            }
+            
+            font-weight: 600;
+            line-height: 1.3;
+            margin: 0;
+            
+            // Responsive font sizes based on heading level
+            &:is(h1) { font-size: clamp(1.75rem, 4vw, 2.25rem); }
+            &:is(h2) { font-size: clamp(1.5rem, 3.5vw, 2rem); }
+            &:is(h3) { font-size: clamp(1.25rem, 3vw, 1.75rem); }
+            &:is(h4) { font-size: clamp(1.125rem, 2.5vw, 1.5rem); }
+            &:is(h5) { font-size: clamp(1rem, 2vw, 1.25rem); }
+            &:is(h6) { font-size: clamp(0.875rem, 1.5vw, 1.125rem); }
+        }
+        
+        .zen-card__text {
+            &[data-rich-text-placeholder] {
+                color: #999;
+                font-style: italic;
+            }
+            
+            &:focus {
+                outline: 1px solid var(--wp-admin-theme-color, #007cba);
+                outline-offset: 2px;
+            }
+            
+            color: var(--wp--preset--color--gray, #64748b);
+            line-height: 1.6;
+            font-size: 1rem;
+            margin: 0;
+            flex: 1;
+        }
+    }
+    
+    /**
+     * Card Meta in Editor
+     */
+    .zen-card__meta {
+        font-size: 0.875rem;
+        color: var(--wp--preset--color--muted, #9ca3af);
+        font-weight: 500;
+        padding: 0.5rem;
+        background: rgba(0, 124, 186, 0.05);
+        border-radius: 4px;
+        border: 1px dashed rgba(0, 124, 186, 0.2);
+        
+        &--top {
+            order: -1;
+        }
+        
+        &--bottom {
+            order: 1;
+            margin-top: auto;
+        }
+    }
+    
+    /**
+     * Card Actions in Editor
+     */
+    .zen-card__actions {
+        margin-top: auto;
+        padding-top: 0.5rem;
+    }
+    
+    /**
+     * Card Button in Editor
+     */
+    .zen-card__button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.75rem 1.5rem;
+        font-weight: 600;
+        text-decoration: none;
+        border-radius: 0.375rem;
+        cursor: pointer;
+        border: 2px solid transparent;
+        text-align: center;
+        font-size: 1rem;
+        pointer-events: none; // Prevent clicks in editor
+        
+        // Button style variations for editor preview
+        &--primary {
+            background: var(--wp--preset--color--primary, #2563eb);
+            color: white;
+            border-color: var(--wp--preset--color--primary, #2563eb);
+        }
+        
+        &--secondary {
+            background: var(--wp--preset--color--secondary, #64748b);
+            color: white;
+            border-color: var(--wp--preset--color--secondary, #64748b);
+        }
+        
+        &--outline {
+            background: transparent;
+            color: var(--wp--preset--color--primary, #2563eb);
+            border-color: var(--wp--preset--color--primary, #2563eb);
+        }
+        
+        &--ghost {
+            background: transparent;
+            color: var(--wp--preset--color--foreground, #0f172a);
+            border-color: transparent;
+        }
+        
+        &--link {
+            background: transparent;
+            color: var(--wp--preset--color--primary, #2563eb);
+            border-color: transparent;
+            padding: 0.5rem 0;
+            text-decoration: underline;
+            text-underline-offset: 2px;
+        }
+        
+        // Button sizes
+        &--small {
+            padding: 0.5rem 1rem;
+            font-size: 0.875rem;
+        }
+        
+        &--medium {
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+        }
+        
+        &--large {
+            padding: 1rem 2rem;
+            font-size: 1.125rem;
+        }
+    }
+    
+    /**
+     * Image Control in Inspector
+     */
+    .zen-card-image-control {
+        margin-bottom: 1rem;
+        
+        .zen-card-image-button {
+            width: 100%;
+            min-height: 60px;
+            border: 2px dashed #ddd;
+            border-radius: 4px;
+            
+            &:hover {
+                border-color: var(--wp-admin-theme-color, #007cba);
+                background: rgba(0, 124, 186, 0.05);
+            }
+        }
+        
+        .zen-card-image-actions {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+            justify-content: center;
+        }
+        
+        .components-responsive-wrapper {
+            max-width: 300px;
+            margin: 0 auto 0.5rem;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+    }
+    
+    /**
+     * Link Control Styling
+     */
+    .zen-card-link-control {
+        margin-bottom: 1rem;
+        
+        .components-base-control__label {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+        
+        .block-editor-link-control {
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-top: 0.5rem;
+        }
+    }
+    
+    /**
+     * Layout Variations in Editor
+     */
+    &.zen-card--horizontal {
+        flex-direction: row;
+        
+        .zen-card__image {
+            width: 50%;
+            min-width: 200px;
+            border-bottom: none;
+            border-right: 1px dashed rgba(0, 124, 186, 0.2);
+        }
+        
+        .zen-card__content {
+            width: 50%;
+        }
+    }
+    
+    &.zen-card--image-left {
+        flex-direction: row;
+        
+        .zen-card__image {
+            width: 40%;
+            min-width: 150px;
+            border-bottom: none;
+            border-right: 1px dashed rgba(0, 124, 186, 0.2);
+        }
+        
+        .zen-card__content {
+            width: 60%;
+        }
+    }
+    
+    &.zen-card--image-right {
+        flex-direction: row-reverse;
+        
+        .zen-card__image {
+            width: 40%;
+            min-width: 150px;
+            border-bottom: none;
+            border-left: 1px dashed rgba(0, 124, 186, 0.2);
+        }
+        
+        .zen-card__content {
+            width: 60%;
+        }
+    }
+    
+    &.zen-card--overlay {
+        position: relative;
+        min-height: 300px;
+        
+        .zen-card__image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 1;
+            border: none;
+        }
+        
+        .zen-card__content {
+            position: relative;
+            z-index: 3;
+            margin-top: auto;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+            color: white;
+            
+            .zen-card__title {
+                color: white;
+            }
+            
+            .zen-card__text {
+                color: rgba(255, 255, 255, 0.9);
+            }
+            
+            .zen-card__meta {
+                color: rgba(255, 255, 255, 0.8);
+                background: rgba(255, 255, 255, 0.1);
+                border-color: rgba(255, 255, 255, 0.2);
+            }
+        }
+    }
+    
+    &.zen-card--minimal {
+        background: transparent;
+        border: 1px dashed #ddd;
+        
+        .zen-card__content {
+            padding: 1rem 0;
+        }
+    }
+    
+    &.zen-card--image-background {
+        color: white;
+        
+        .zen-card__title {
+            color: white;
+        }
+        
+        .zen-card__text {
+            color: rgba(255, 255, 255, 0.9);
+        }
+        
+        .zen-card__meta {
+            color: rgba(255, 255, 255, 0.8);
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+    }
+    
+    /**
+     * Content Alignment Variations in Editor
+     */
+    &.zen-card--align-center {
+        .zen-card__content {
+            text-align: center;
+            align-items: center;
+        }
+    }
+    
+    &.zen-card--align-right {
+        .zen-card__content {
+            text-align: right;
+            align-items: flex-end;
+        }
+    }
+    
+    /**
+     * Visual Indicators for Settings
+     */
+    &::before {
+        content: attr(data-layout) ' layout';
+        position: absolute;
+        top: -20px;
+        left: 0;
+        background: rgba(0, 124, 186, 0.9);
+        color: white;
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-size: 11px;
+        font-weight: 500;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        z-index: 10;
+        text-transform: capitalize;
+    }
+    
+    &.zen-card--clickable::after {
+        content: 'Clickable Card';
+        position: absolute;
+        top: -20px;
+        right: 0;
+        background: rgba(155, 81, 224, 0.9);
+        color: white;
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-size: 11px;
+        font-weight: 500;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        z-index: 10;
+    }
+    
+    &.zen-card--animated::after {
+        content: 'Animated: ' attr(data-animation);
+        position: absolute;
+        bottom: -20px;
+        left: 0;
+        background: rgba(234, 88, 12, 0.9);
+        color: white;
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-size: 11px;
+        font-weight: 500;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        z-index: 10;
+    }
+    
+    &.zen-card--has-meta::after {
+        content: 'Meta: ' attr(data-meta-position);
+        position: absolute;
+        bottom: -20px;
+        right: 0;
+        background: rgba(245, 158, 11, 0.9);
+        color: white;
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-size: 11px;
+        font-weight: 500;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        z-index: 10;
+        text-transform: capitalize;
+    }
+    
+    /**
+     * Block Selection States
+     */
+    &.is-selected {
+        outline: 2px solid var(--wp-admin-theme-color, #007cba);
+        outline-offset: -2px;
+        
+        .zen-card__content {
+            outline: 1px dashed rgba(0, 124, 186, 0.3);
+            outline-offset: 8px;
+        }
+    }
+    
+    &:hover:not(.is-selected) {
+        outline: 1px solid rgba(0, 124, 186, 0.3);
+        outline-offset: -1px;
+    }
+    
+    /**
+     * Focus States for Accessibility
+     */
+    &:focus-within {
+        outline: 2px solid var(--wp-admin-theme-color, #007cba);
+        outline-offset: -2px;
+    }
+    
+    /**
+     * Responsive Editor View
+     */
+    @media (max-width: 1080px) {
+        &::before,
+        &::after {
+            font-size: 10px;
+            padding: 3px 6px;
+        }
+        
+        &.zen-card--horizontal,
+        &.zen-card--image-left,
+        &.zen-card--image-right {
+            flex-direction: column;
+            
+            .zen-card__image {
+                width: 100%;
+                border-right: none;
+                border-left: none;
+                border-bottom: 1px dashed rgba(0, 124, 186, 0.2);
+            }
+            
+            .zen-card__content {
+                width: 100%;
+            }
+        }
+    }
+    
+    @media (max-width: 600px) {
+        // Hide indicators on very small screens
+        &::before,
+        &::after {
+            display: none;
+        }
+        
+        .zen-card__content {
+            padding: 1rem;
+        }
+    }
+    
+    /**
+     * Empty State
+     */
+    &:not(:has(.zen-card__title)):not(:has(.zen-card__text)):not(:has(.zen-card__image)) {
+        border: 2px dashed #ddd;
+        min-height: 200px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        
+        &::before {
+            content: 'Card Block - Add content using the sidebar settings';
+            color: #999;
+            font-style: italic;
+            font-size: 14px;
+            text-align: center;
+            position: static;
+            background: none;
+            padding: 0;
+            border-radius: 0;
+        }
+    }
+}

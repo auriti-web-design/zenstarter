@@ -1,18 +1,18 @@
 {
   "$schema": "https://schemas.wp.org/trunk/block.json",
   "apiVersion": 2,
-  "name": "zenstarter/zen-hero",
+  "name": "zenstarter/zen-testimonial",
   "version": "1.0.0",
-  "title": "Zen Hero",
+  "title": "Zen Testimonial",
   "category": "zenstarter",
-  "icon": "cover-image",
-  "description": "A powerful hero section with background, title, description and call-to-action buttons. Perfect for landing pages and page headers.",
+  "icon": "format-quote",
+  "description": "A testimonial block with avatar, name, role, company, and rating. Perfect for showcasing customer feedback and reviews.",
   "keywords": [
-    "hero",
-    "banner",
-    "header",
-    "intro",
-    "landing",
+    "testimonial",
+    "review",
+    "quote",
+    "customer",
+    "feedback",
     "zen"
   ],
   "textdomain": "zenstarter",
@@ -45,13 +45,6 @@
       "radius": true,
       "style": true,
       "width": true
-    },
-    "__experimentalLayout": {
-      "allowSwitching": false,
-      "allowInheriting": false,
-      "default": {
-        "type": "default"
-      }
     }
   },
   "attributes": {
@@ -67,59 +60,70 @@
     "style": {
       "type": "object"
     },
-    "backgroundImage": {
+    "testimonialText": {
+      "type": "string",
+      "default": ""
+    },
+    "authorName": {
+      "type": "string",
+      "default": ""
+    },
+    "authorRole": {
+      "type": "string",
+      "default": ""
+    },
+    "authorCompany": {
+      "type": "string",
+      "default": ""
+    },
+    "authorImage": {
       "type": "object",
       "default": null
     },
-    "backgroundImageId": {
+    "authorImageId": {
       "type": "number"
     },
-    "backgroundImageUrl": {
-      "type": "string"
-    },
-    "backgroundPosition": {
+    "authorImageUrl": {
       "type": "string",
-      "default": "center center"
+      "default": ""
     },
-    "backgroundSize": {
+    "authorImageAlt": {
       "type": "string",
-      "default": "cover"
+      "default": ""
     },
-    "backgroundRepeat": {
-      "type": "string",
-      "default": "no-repeat"
+    "showRating": {
+      "type": "boolean",
+      "default": false
     },
-    "backgroundAttachment": {
-      "type": "string",
-      "default": "scroll"
-    },
-    "overlayColor": {
-      "type": "string"
-    },
-    "overlayOpacity": {
+    "rating": {
       "type": "number",
-      "default": 0.5
+      "default": 5,
+      "minimum": 1,
+      "maximum": 5
     },
-    "overlayGradient": {
-      "type": "string"
-    },
-    "minHeight": {
+    "layoutStyle": {
       "type": "string",
-      "default": "60vh"
+      "default": "vertical",
+      "enum": ["vertical", "horizontal", "centered", "card"]
     },
     "contentAlignment": {
       "type": "string",
       "default": "center",
       "enum": ["left", "center", "right"]
     },
-    "verticalAlignment": {
+    "avatarSize": {
       "type": "string",
-      "default": "center",
-      "enum": ["top", "center", "bottom"]
+      "default": "medium",
+      "enum": ["small", "medium", "large"]
     },
-    "contentMaxWidth": {
+    "showQuoteIcon": {
+      "type": "boolean",
+      "default": true
+    },
+    "quoteIconPosition": {
       "type": "string",
-      "default": "800px"
+      "default": "before",
+      "enum": ["before", "after", "background"]
     },
     "animationEnabled": {
       "type": "boolean",
@@ -128,28 +132,15 @@
     "animationType": {
       "type": "string",
       "default": "fadeIn",
-      "enum": ["fadeIn", "slideUp", "slideDown", "zoomIn"]
-    },
-    "animationDuration": {
-      "type": "number",
-      "default": 1000
-    },
-    "parallaxEnabled": {
-      "type": "boolean",
-      "default": false
-    },
-    "parallaxSpeed": {
-      "type": "number",
-      "default": 0.5
+      "enum": ["fadeIn", "slideUp", "slideLeft", "slideRight", "zoomIn"]
     }
   },
   "providesContext": {
-    "zenstarter/heroAlignment": "contentAlignment",
-    "zenstarter/heroVerticalAlignment": "verticalAlignment"
+    "zenstarter/testimonialLayout": "layoutStyle",
+    "zenstarter/testimonialAlignment": "contentAlignment"
   },
   "usesContext": ["postId", "postType"],
   "editorScript": "file:./index.js",
   "editorStyle": "file:./editor.css",
-  "style": "file:./style.css",
-  "render": "file:./render.php"
+  "style": "file:./style.css"
 }

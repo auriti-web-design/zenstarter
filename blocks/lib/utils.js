@@ -231,8 +231,8 @@ export const ctaTemplate = [
         placeholder: 'Compelling description...',
         className: 'zen-cta__description'
     }],
-    ['core/button', {
-        className: 'zen-cta__button'
+    ['core/buttons', {
+        className: 'zen-cta__actions'
     }]
 ];
 

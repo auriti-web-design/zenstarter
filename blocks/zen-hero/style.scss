@@ -380,6 +380,42 @@
     }
     
     /**
+     * Alignment Support
+     */
+    &.alignwide {
+        width: 100vw;
+        max-width: 1200px;
+        margin-left: auto;
+        margin-right: auto;
+        
+        @media (max-width: 1240px) {
+            width: calc(100vw - 2rem);
+            margin-left: 1rem;
+            margin-right: 1rem;
+        }
+    }
+    
+    &.alignfull {
+        width: 100vw;
+        max-width: none;
+        margin-left: calc(50% - 50vw);
+        margin-right: calc(50% - 50vw);
+    }
+    
+    &.aligncenter {
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    &.alignleft {
+        margin-right: auto;
+    }
+    
+    &.alignright {
+        margin-left: auto;
+    }
+
+    /**
      * RTL Support
      */
     [dir="rtl"] & {

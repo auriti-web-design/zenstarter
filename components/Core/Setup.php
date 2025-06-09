@@ -152,6 +152,18 @@ class Setup {
         
         // Register zen-hero block
         $this->register_zen_hero_block();
+        
+        // Register zen-cta block
+        $this->register_zen_cta_block();
+        
+        // Register zen-testimonial block
+        $this->register_zen_testimonial_block();
+        
+        // Register zen-grid block
+        $this->register_zen_grid_block();
+        
+        // Register zen-card block
+        $this->register_zen_card_block();
     }
     
     /**
@@ -280,6 +292,182 @@ class Setup {
         }
         
         return $content;
+    }
+    
+    /**
+     * Register the zen-cta block
+     */
+    private function register_zen_cta_block() {
+        register_block_type(ZENSTARTER_PATH . '/blocks/zen-cta/block.json');
+        
+        add_action('enqueue_block_editor_assets', array($this, 'enqueue_zen_cta_editor_assets'));
+        add_action('wp_enqueue_scripts', array($this, 'enqueue_zen_cta_frontend_assets'));
+    }
+    
+    /**
+     * Enqueue zen-cta editor assets
+     */
+    public function enqueue_zen_cta_editor_assets() {
+        wp_enqueue_script(
+            'zenstarter-zen-cta-editor',
+            ZENSTARTER_ASSETS_URL . '/blocks/zen-cta/index.js',
+            array('wp-blocks', 'wp-element', 'wp-editor', 'wp-block-editor', 'wp-components', 'wp-i18n', 'wp-compose', 'wp-data'),
+            ZENSTARTER_VERSION,
+            true
+        );
+        
+        wp_enqueue_style(
+            'zenstarter-zen-cta-editor-style',
+            ZENSTARTER_ASSETS_URL . '/blocks/zen-cta/editor.css',
+            array('wp-edit-blocks'),
+            ZENSTARTER_VERSION
+        );
+    }
+    
+    /**
+     * Enqueue zen-cta frontend assets
+     */
+    public function enqueue_zen_cta_frontend_assets() {
+        if (has_block('zenstarter/zen-cta')) {
+            wp_enqueue_style(
+                'zenstarter-zen-cta-style',
+                ZENSTARTER_ASSETS_URL . '/blocks/zen-cta/style.css',
+                array(),
+                ZENSTARTER_VERSION
+            );
+        }
+    }
+    
+    /**
+     * Register the zen-testimonial block
+     */
+    private function register_zen_testimonial_block() {
+        register_block_type(ZENSTARTER_PATH . '/blocks/zen-testimonial/block.json');
+        
+        add_action('enqueue_block_editor_assets', array($this, 'enqueue_zen_testimonial_editor_assets'));
+        add_action('wp_enqueue_scripts', array($this, 'enqueue_zen_testimonial_frontend_assets'));
+    }
+    
+    /**
+     * Enqueue zen-testimonial editor assets
+     */
+    public function enqueue_zen_testimonial_editor_assets() {
+        wp_enqueue_script(
+            'zenstarter-zen-testimonial-editor',
+            ZENSTARTER_ASSETS_URL . '/blocks/zen-testimonial/index.js',
+            array('wp-blocks', 'wp-element', 'wp-editor', 'wp-block-editor', 'wp-components', 'wp-i18n', 'wp-compose', 'wp-data'),
+            ZENSTARTER_VERSION,
+            true
+        );
+        
+        wp_enqueue_style(
+            'zenstarter-zen-testimonial-editor-style',
+            ZENSTARTER_ASSETS_URL . '/blocks/zen-testimonial/editor.css',
+            array('wp-edit-blocks'),
+            ZENSTARTER_VERSION
+        );
+    }
+    
+    /**
+     * Enqueue zen-testimonial frontend assets
+     */
+    public function enqueue_zen_testimonial_frontend_assets() {
+        if (has_block('zenstarter/zen-testimonial')) {
+            wp_enqueue_style(
+                'zenstarter-zen-testimonial-style',
+                ZENSTARTER_ASSETS_URL . '/blocks/zen-testimonial/style.css',
+                array(),
+                ZENSTARTER_VERSION
+            );
+        }
+    }
+    
+    /**
+     * Register the zen-grid block
+     */
+    private function register_zen_grid_block() {
+        register_block_type(ZENSTARTER_PATH . '/blocks/zen-grid/block.json');
+        
+        add_action('enqueue_block_editor_assets', array($this, 'enqueue_zen_grid_editor_assets'));
+        add_action('wp_enqueue_scripts', array($this, 'enqueue_zen_grid_frontend_assets'));
+    }
+    
+    /**
+     * Enqueue zen-grid editor assets
+     */
+    public function enqueue_zen_grid_editor_assets() {
+        wp_enqueue_script(
+            'zenstarter-zen-grid-editor',
+            ZENSTARTER_ASSETS_URL . '/blocks/zen-grid/index.js',
+            array('wp-blocks', 'wp-element', 'wp-editor', 'wp-block-editor', 'wp-components', 'wp-i18n', 'wp-compose', 'wp-data'),
+            ZENSTARTER_VERSION,
+            true
+        );
+        
+        wp_enqueue_style(
+            'zenstarter-zen-grid-editor-style',
+            ZENSTARTER_ASSETS_URL . '/blocks/zen-grid/editor.css',
+            array('wp-edit-blocks'),
+            ZENSTARTER_VERSION
+        );
+    }
+    
+    /**
+     * Enqueue zen-grid frontend assets
+     */
+    public function enqueue_zen_grid_frontend_assets() {
+        if (has_block('zenstarter/zen-grid')) {
+            wp_enqueue_style(
+                'zenstarter-zen-grid-style',
+                ZENSTARTER_ASSETS_URL . '/blocks/zen-grid/style.css',
+                array(),
+                ZENSTARTER_VERSION
+            );
+        }
+    }
+    
+    /**
+     * Register the zen-card block
+     */
+    private function register_zen_card_block() {
+        register_block_type(ZENSTARTER_PATH . '/blocks/zen-card/block.json');
+        
+        add_action('enqueue_block_editor_assets', array($this, 'enqueue_zen_card_editor_assets'));
+        add_action('wp_enqueue_scripts', array($this, 'enqueue_zen_card_frontend_assets'));
+    }
+    
+    /**
+     * Enqueue zen-card editor assets
+     */
+    public function enqueue_zen_card_editor_assets() {
+        wp_enqueue_script(
+            'zenstarter-zen-card-editor',
+            ZENSTARTER_ASSETS_URL . '/blocks/zen-card/index.js',
+            array('wp-blocks', 'wp-element', 'wp-editor', 'wp-block-editor', 'wp-components', 'wp-i18n', 'wp-compose', 'wp-data'),
+            ZENSTARTER_VERSION,
+            true
+        );
+        
+        wp_enqueue_style(
+            'zenstarter-zen-card-editor-style',
+            ZENSTARTER_ASSETS_URL . '/blocks/zen-card/editor.css',
+            array('wp-edit-blocks'),
+            ZENSTARTER_VERSION
+        );
+    }
+    
+    /**
+     * Enqueue zen-card frontend assets
+     */
+    public function enqueue_zen_card_frontend_assets() {
+        if (has_block('zenstarter/zen-card')) {
+            wp_enqueue_style(
+                'zenstarter-zen-card-style',
+                ZENSTARTER_ASSETS_URL . '/blocks/zen-card/style.css',
+                array(),
+                ZENSTARTER_VERSION
+            );
+        }
     }
     
     /**

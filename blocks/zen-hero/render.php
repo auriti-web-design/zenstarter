@@ -41,6 +41,7 @@ $parallax_speed = $attributes['parallaxSpeed'] ?? 0.5;
 /**
  * Generate CSS classes for the hero wrapper
  */
+if (!function_exists('zen_hero_get_wrapper_classes')) {
 function zen_hero_get_wrapper_classes($attributes) {
     $classes = ['zen-hero'];
     
@@ -85,10 +86,12 @@ function zen_hero_get_wrapper_classes($attributes) {
     
     return implode(' ', array_unique($classes));
 }
+}
 
 /**
  * Generate inline styles for the hero wrapper
  */
+if (!function_exists('zen_hero_get_wrapper_styles')) {
 function zen_hero_get_wrapper_styles($attributes) {
     $styles = [];
     
@@ -160,10 +163,12 @@ function zen_hero_get_wrapper_styles($attributes) {
     
     return !empty($styles) ? implode('; ', $styles) : '';
 }
+}
 
 /**
  * Generate data attributes for JavaScript functionality
  */
+if (!function_exists('zen_hero_get_data_attributes')) {
 function zen_hero_get_data_attributes($attributes) {
     $data_attrs = [];
     
@@ -187,10 +192,12 @@ function zen_hero_get_data_attributes($attributes) {
     
     return $data_attrs;
 }
+}
 
 /**
  * Generate content wrapper styles
  */
+if (!function_exists('zen_hero_get_content_styles')) {
 function zen_hero_get_content_styles($attributes) {
     $styles = [];
     
@@ -201,10 +208,12 @@ function zen_hero_get_content_styles($attributes) {
     
     return !empty($styles) ? implode('; ', $styles) : '';
 }
+}
 
 /**
  * Generate overlay styles
  */
+if (!function_exists('zen_hero_get_overlay_styles')) {
 function zen_hero_get_overlay_styles($attributes) {
     $styles = [];
     
@@ -223,6 +232,7 @@ function zen_hero_get_overlay_styles($attributes) {
     }
     
     return !empty($styles) ? implode('; ', $styles) : '';
+}
 }
 
 // Generate all the required data

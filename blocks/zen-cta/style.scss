@@ -1,0 +1,519 @@
+/**
+ * Zen CTA Block - Frontend Styles
+ * 
+ * Comprehensive styling for the zen-cta block with
+ * responsive design, animations, and multiple layout options
+ *
+ * @package Zenstarter
+ * @subpackage Blocks
+ * @version 1.0.0
+ */
+
+.zen-cta {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 2rem;
+    border-radius: 0.5rem;
+    isolation: isolate;
+    
+    // Default spacing
+    gap: 1.5rem;
+    
+    /**
+     * Content Area
+     */
+    &__content {
+        flex: 1;
+        width: 100%;
+        max-width: 600px;
+        
+        // Ensure proper spacing for inner content
+        > * {
+            margin-bottom: 1rem;
+            
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+    }
+    
+    /**
+     * Title Styling
+     */
+    &__title {
+        font-size: clamp(1.5rem, 4vw, 2.5rem);
+        font-weight: 700;
+        line-height: 1.2;
+        margin: 0 0 1rem 0;
+        color: inherit;
+        
+        // Responsive adjustments
+        @media (max-width: 768px) {
+            font-size: clamp(1.25rem, 5vw, 2rem);
+        }
+    }
+    
+    /**
+     * Description Styling
+     */
+    &__description {
+        font-size: 1.125rem;
+        line-height: 1.6;
+        margin: 0 0 1.5rem 0;
+        opacity: 0.9;
+        color: inherit;
+        
+        @media (max-width: 768px) {
+            font-size: 1rem;
+        }
+    }
+    
+    /**
+     * Action Area (Button Container)
+     */
+    &__action {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        
+        .zen-cta__button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 0.375rem;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            border: 2px solid transparent;
+            text-align: center;
+            
+            // Prevent text selection
+            user-select: none;
+            
+            // Focus states
+            &:focus {
+                outline: 2px solid currentColor;
+                outline-offset: 2px;
+            }
+            
+            // Hover effects
+            &:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            }
+            
+            // Active state
+            &:active {
+                transform: translateY(0);
+            }
+        }
+    }
+    
+    /**
+     * Button Style Variations
+     */
+    &__button {
+        // Primary button (default)
+        &--primary {
+            background: var(--wp--preset--color--primary, #2563eb);
+            color: white;
+            border-color: var(--wp--preset--color--primary, #2563eb);
+            
+            &:hover {
+                background: var(--wp--preset--color--primary-dark, #1d4ed8);
+                border-color: var(--wp--preset--color--primary-dark, #1d4ed8);
+                color: white;
+            }
+        }
+        
+        // Secondary button
+        &--secondary {
+            background: var(--wp--preset--color--secondary, #64748b);
+            color: white;
+            border-color: var(--wp--preset--color--secondary, #64748b);
+            
+            &:hover {
+                background: var(--wp--preset--color--secondary-dark, #475569);
+                border-color: var(--wp--preset--color--secondary-dark, #475569);
+                color: white;
+            }
+        }
+        
+        // Outline button
+        &--outline {
+            background: transparent;
+            color: var(--wp--preset--color--primary, #2563eb);
+            border-color: var(--wp--preset--color--primary, #2563eb);
+            
+            &:hover {
+                background: var(--wp--preset--color--primary, #2563eb);
+                color: white;
+            }
+        }
+        
+        // Ghost button
+        &--ghost {
+            background: transparent;
+            color: var(--wp--preset--color--foreground, #0f172a);
+            border-color: transparent;
+            
+            &:hover {
+                background: var(--wp--preset--color--light-gray, #f1f5f9);
+                color: var(--wp--preset--color--foreground, #0f172a);
+            }
+        }
+        
+        // Button sizes
+        &--small {
+            padding: 0.5rem 1rem;
+            font-size: 0.875rem;
+        }
+        
+        &--medium {
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+        }
+        
+        &--large {
+            padding: 1rem 2rem;
+            font-size: 1.125rem;
+        }
+    }
+    
+    /**
+     * Icon Styling
+     */
+    &__icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        color: var(--wp--preset--color--primary, #2563eb);
+        
+        .dashicons {
+            font-size: inherit;
+            width: auto;
+            height: auto;
+        }
+        
+        &--before {
+            order: -1;
+        }
+        
+        &--after {
+            order: 1;
+        }
+    }
+    
+    /**
+     * Layout Style Variations
+     */
+    // Horizontal layout
+    &--horizontal {
+        flex-direction: row;
+        text-align: left;
+        gap: 2rem;
+        
+        .zen-cta__content {
+            text-align: left;
+        }
+        
+        .zen-cta__action {
+            justify-content: flex-start;
+            flex-shrink: 0;
+        }
+        
+        // Stack on mobile
+        @media (max-width: 768px) {
+            flex-direction: column;
+            text-align: center;
+            
+            .zen-cta__content {
+                text-align: center;
+            }
+            
+            .zen-cta__action {
+                justify-content: center;
+            }
+        }
+    }
+    
+    // Centered layout (more compact)
+    &--centered {
+        padding: 3rem 2rem;
+        
+        .zen-cta__content {
+            max-width: 500px;
+        }
+    }
+    
+    /**
+     * Content Alignment Variations
+     */
+    &--align-left {
+        text-align: left;
+        align-items: flex-start;
+        
+        .zen-cta__content {
+            text-align: left;
+        }
+        
+        .zen-cta__action {
+            justify-content: flex-start;
+        }
+    }
+    
+    &--align-right {
+        text-align: right;
+        align-items: flex-end;
+        
+        .zen-cta__content {
+            text-align: right;
+        }
+        
+        .zen-cta__action {
+            justify-content: flex-end;
+        }
+    }
+    
+    &--align-center {
+        text-align: center;
+        align-items: center;
+        
+        .zen-cta__content {
+            text-align: center;
+        }
+        
+        .zen-cta__action {
+            justify-content: center;
+        }
+    }
+    
+    /**
+     * Icon Position Adjustments
+     */
+    &--has-icon {
+        &.zen-cta--icon-before {
+            .zen-cta__icon--before {
+                margin-bottom: 1rem;
+            }
+        }
+        
+        &.zen-cta--icon-after {
+            .zen-cta__icon--after {
+                margin-top: 1rem;
+            }
+        }
+    }
+    
+    /**
+     * Animation States
+     */
+    &--animated {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.6s ease;
+        
+        &.zen-cta--in-view {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    // Animation variations
+    &--fadeIn {
+        opacity: 0;
+        
+        &.zen-cta--in-view {
+            opacity: 1;
+        }
+    }
+    
+    &--slideUp {
+        opacity: 0;
+        transform: translateY(50px);
+        
+        &.zen-cta--in-view {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    &--slideLeft {
+        opacity: 0;
+        transform: translateX(-50px);
+        
+        &.zen-cta--in-view {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+    
+    &--slideRight {
+        opacity: 0;
+        transform: translateX(50px);
+        
+        &.zen-cta--in-view {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+    
+    &--bounce {
+        opacity: 0;
+        transform: scale(0.8);
+        
+        &.zen-cta--in-view {
+            opacity: 1;
+            transform: scale(1);
+            transition-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+    }
+    
+    /**
+     * Responsive Design
+     */
+    @media (max-width: 768px) {
+        padding: 1.5rem;
+        gap: 1rem;
+        
+        &__title {
+            margin-bottom: 0.75rem;
+        }
+        
+        &__description {
+            margin-bottom: 1rem;
+        }
+        
+        // Force all layouts to stack on mobile
+        &--horizontal {
+            flex-direction: column;
+            text-align: center;
+            
+            .zen-cta__content {
+                text-align: center;
+            }
+            
+            .zen-cta__action {
+                justify-content: center;
+            }
+        }
+    }
+    
+    @media (max-width: 480px) {
+        padding: 1rem;
+        
+        &__button {
+            width: 100%;
+            justify-content: center;
+        }
+    }
+    
+    /**
+     * Accessibility Improvements
+     */
+    @media (prefers-reduced-motion: reduce) {
+        &--animated {
+            animation: none !important;
+            transition: none !important;
+            opacity: 1 !important;
+            transform: none !important;
+        }
+        
+        &__button:hover {
+            transform: none;
+        }
+    }
+    
+    /**
+     * High Contrast Mode Support
+     */
+    @media (prefers-contrast: high) {
+        &__button {
+            border-width: 2px;
+            
+            &--primary,
+            &--secondary {
+                border: 2px solid currentColor;
+            }
+            
+            &--ghost {
+                border: 2px solid currentColor;
+                background: transparent;
+            }
+        }
+    }
+    
+    /**
+     * Print Styles
+     */
+    @media print {
+        &__button {
+            color: black !important;
+            background: transparent !important;
+            border: 2px solid black !important;
+            text-decoration: underline;
+            
+            &:hover {
+                transform: none;
+                box-shadow: none;
+            }
+        }
+        
+        &--animated {
+            opacity: 1 !important;
+            transform: none !important;
+        }
+    }
+    
+    /**
+     * Dark Mode Support
+     */
+    @media (prefers-color-scheme: dark) {
+        &__button--ghost {
+            color: #ffffff;
+            
+            &:hover {
+                background: rgba(255, 255, 255, 0.1);
+                color: #ffffff;
+            }
+        }
+    }
+    
+    /**
+     * RTL Support
+     */
+    [dir="rtl"] & {
+        &--align-left {
+            text-align: right;
+            align-items: flex-end;
+            
+            .zen-cta__content {
+                text-align: right;
+            }
+            
+            .zen-cta__action {
+                justify-content: flex-end;
+            }
+        }
+        
+        &--align-right {
+            text-align: left;
+            align-items: flex-start;
+            
+            .zen-cta__content {
+                text-align: left;
+            }
+            
+            .zen-cta__action {
+                justify-content: flex-start;
+            }
+        }
+    }
+}

@@ -1,0 +1,535 @@
+/**
+ * Zen Testimonial Block - Editor Styles
+ * 
+ * Editor-specific styles for optimal block editing experience
+ *
+ * @package Zenstarter
+ * @subpackage Blocks
+ * @version 1.0.0
+ */
+
+.wp-block-zenstarter-zen-testimonial {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 2rem;
+    border: 1px solid #e0e0e0;
+    border-radius: 0.5rem;
+    margin: 1rem 0;
+    gap: 1.5rem;
+    
+    /**
+     * Content Area in Editor
+     */
+    .zen-testimonial__content {
+        flex: 1;
+        width: 100%;
+        max-width: 600px;
+        position: relative;
+        z-index: 2;
+        
+        // Rich text components
+        .zen-testimonial__text {
+            &[data-rich-text-placeholder] {
+                color: #999;
+                font-style: italic;
+            }
+            
+            &:focus {
+                outline: 1px solid var(--wp-admin-theme-color, #007cba);
+                outline-offset: 2px;
+            }
+            
+            // Editor styling for blockquote
+            font-size: clamp(1rem, 2.5vw, 1.25rem);
+            line-height: 1.6;
+            margin: 0 0 1rem 0;
+            padding: 0;
+            border: none;
+            font-style: italic;
+        }
+    }
+    
+    /**
+     * Rating in Editor
+     */
+    .zen-testimonial__rating {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 0.25rem;
+        margin: 1rem 0;
+        
+        &-star {
+            width: 1.25rem;
+            height: 1.25rem;
+            
+            &.filled {
+                color: #f59e0b;
+            }
+            
+            &.empty {
+                color: #d1d5db;
+            }
+            
+            svg {
+                width: 100%;
+                height: 100%;
+                fill: currentColor;
+            }
+        }
+    }
+    
+    /**
+     * Quote Icon in Editor
+     */
+    .zen-testimonial__quote {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--wp--preset--color--primary, #2563eb);
+        opacity: 0.3;
+        
+        svg {
+            width: 2rem;
+            height: 2rem;
+            fill: currentColor;
+        }
+        
+        &--before {
+            order: -1;
+            margin-bottom: 1rem;
+        }
+        
+        &--after {
+            order: 1;
+            margin-top: 1rem;
+            transform: rotate(180deg);
+        }
+        
+        &-bg {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            z-index: 1;
+            opacity: 0.05;
+            
+            svg {
+                width: 4rem;
+                height: 4rem;
+                fill: currentColor;
+            }
+        }
+    }
+    
+    /**
+     * Author Section in Editor
+     */
+    .zen-testimonial__author {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        z-index: 2;
+        
+        &-info {
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+            gap: 0.25rem;
+        }
+        
+        &-name {
+            font-weight: 600;
+            font-style: normal;
+            color: var(--wp--preset--color--foreground, #0f172a);
+            margin: 0;
+        }
+        
+        &-meta {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            font-size: 0.875rem;
+            color: var(--wp--preset--color--gray, #64748b);
+        }
+        
+        &-role {
+            font-weight: 500;
+        }
+        
+        &-company {
+            font-weight: 400;
+        }
+        
+        &-separator {
+            opacity: 0.7;
+        }
+    }
+    
+    /**
+     * Avatar in Editor
+     */
+    .zen-testimonial__avatar {
+        flex-shrink: 0;
+        
+        &-image {
+            display: block;
+            border-radius: 50%;
+            object-fit: cover;
+            aspect-ratio: 1;
+            border: 2px solid rgba(0, 124, 186, 0.2);
+        }
+    }
+    
+    /**
+     * Avatar Control in Inspector
+     */
+    .zen-testimonial-avatar-control {
+        margin-bottom: 1rem;
+        
+        .zen-testimonial-avatar-button {
+            width: 100%;
+            min-height: 60px;
+            border: 2px dashed #ddd;
+            border-radius: 4px;
+            
+            &:hover {
+                border-color: var(--wp-admin-theme-color, #007cba);
+                background: rgba(0, 124, 186, 0.05);
+            }
+        }
+        
+        .zen-testimonial-avatar-actions {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+            justify-content: center;
+        }
+        
+        .components-responsive-wrapper {
+            max-width: 150px;
+            margin: 0 auto 0.5rem;
+            border-radius: 50%;
+            overflow: hidden;
+        }
+    }
+    
+    /**
+     * Avatar Size Variations in Editor
+     */
+    &.zen-testimonial--avatar-small {
+        .zen-testimonial__avatar-image {
+            width: 2.5rem;
+            height: 2.5rem;
+        }
+    }
+    
+    &.zen-testimonial--avatar-medium {
+        .zen-testimonial__avatar-image {
+            width: 3.5rem;
+            height: 3.5rem;
+        }
+    }
+    
+    &.zen-testimonial--avatar-large {
+        .zen-testimonial__avatar-image {
+            width: 4.5rem;
+            height: 4.5rem;
+        }
+    }
+    
+    /**
+     * Layout Variations in Editor
+     */
+    &.zen-testimonial--horizontal {
+        flex-direction: row;
+        text-align: left;
+        gap: 2rem;
+        
+        .zen-testimonial__content {
+            text-align: left;
+        }
+        
+        .zen-testimonial__rating {
+            justify-content: flex-start;
+        }
+        
+        .zen-testimonial__author {
+            flex-direction: column;
+            align-items: center;
+            flex-shrink: 0;
+            min-width: 120px;
+            
+            &-info {
+                text-align: center;
+            }
+        }
+    }
+    
+    &.zen-testimonial--centered {
+        padding: 3rem 2rem;
+        
+        .zen-testimonial__content {
+            max-width: 500px;
+        }
+        
+        .zen-testimonial__author {
+            flex-direction: column;
+            text-align: center;
+            
+            &-info {
+                text-align: center;
+            }
+        }
+    }
+    
+    &.zen-testimonial--card {
+        background: var(--wp--preset--color--background, #ffffff);
+        border: 1px solid var(--wp--preset--color--light-gray, #e5e7eb);
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+    
+    /**
+     * Alignment Variations in Editor
+     */
+    &.zen-testimonial--align-left {
+        text-align: left;
+        align-items: flex-start;
+        
+        .zen-testimonial__content {
+            text-align: left;
+        }
+        
+        .zen-testimonial__rating {
+            justify-content: flex-start;
+        }
+        
+        .zen-testimonial__author {
+            &-info {
+                text-align: left;
+            }
+        }
+    }
+    
+    &.zen-testimonial--align-right {
+        text-align: right;
+        align-items: flex-end;
+        
+        .zen-testimonial__content {
+            text-align: right;
+        }
+        
+        .zen-testimonial__rating {
+            justify-content: flex-end;
+        }
+        
+        .zen-testimonial__author {
+            flex-direction: row-reverse;
+            
+            &-info {
+                text-align: right;
+            }
+        }
+    }
+    
+    /**
+     * Visual Indicators for Settings
+     */
+    &.zen-testimonial--horizontal::before {
+        content: 'Horizontal Layout';
+        position: absolute;
+        top: -20px;
+        left: 0;
+        background: rgba(0, 124, 186, 0.9);
+        color: white;
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-size: 11px;
+        font-weight: 500;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        z-index: 10;
+    }
+    
+    &.zen-testimonial--centered::before {
+        content: 'Centered Layout';
+        position: absolute;
+        top: -20px;
+        left: 0;
+        background: rgba(0, 124, 186, 0.9);
+        color: white;
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-size: 11px;
+        font-weight: 500;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        z-index: 10;
+    }
+    
+    &.zen-testimonial--card::before {
+        content: 'Card Layout';
+        position: absolute;
+        top: -20px;
+        left: 0;
+        background: rgba(0, 124, 186, 0.9);
+        color: white;
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-size: 11px;
+        font-weight: 500;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        z-index: 10;
+    }
+    
+    &.zen-testimonial--align-left::after {
+        content: 'Left Aligned';
+        position: absolute;
+        bottom: -20px;
+        right: 0;
+        background: rgba(155, 81, 224, 0.9);
+        color: white;
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-size: 11px;
+        font-weight: 500;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        z-index: 10;
+    }
+    
+    &.zen-testimonial--align-right::after {
+        content: 'Right Aligned';
+        position: absolute;
+        bottom: -20px;
+        right: 0;
+        background: rgba(155, 81, 224, 0.9);
+        color: white;
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-size: 11px;
+        font-weight: 500;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        z-index: 10;
+    }
+    
+    &.zen-testimonial--has-rating::after {
+        content: 'Rating: ' attr(data-rating) ' stars';
+        position: absolute;
+        bottom: -20px;
+        left: 0;
+        background: rgba(245, 158, 11, 0.9);
+        color: white;
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-size: 11px;
+        font-weight: 500;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        z-index: 10;
+    }
+    
+    &.zen-testimonial--animated {
+        &::before {
+            content: 'Animated: ' attr(data-animation);
+            position: absolute;
+            top: -20px;
+            right: 0;
+            background: rgba(234, 88, 12, 0.9);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 500;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            z-index: 10;
+        }
+    }
+    
+    /**
+     * Block Selection States
+     */
+    &.is-selected {
+        outline: 2px solid var(--wp-admin-theme-color, #007cba);
+        outline-offset: -2px;
+        
+        .zen-testimonial__content {
+            outline: 1px dashed rgba(0, 124, 186, 0.3);
+            outline-offset: 8px;
+        }
+    }
+    
+    &:hover:not(.is-selected) {
+        outline: 1px solid rgba(0, 124, 186, 0.3);
+        outline-offset: -1px;
+    }
+    
+    /**
+     * Focus States for Accessibility
+     */
+    &:focus-within {
+        outline: 2px solid var(--wp-admin-theme-color, #007cba);
+        outline-offset: -2px;
+    }
+    
+    /**
+     * Responsive Editor View
+     */
+    @media (max-width: 1080px) {
+        padding: 1.5rem;
+        gap: 1rem;
+        
+        &::before,
+        &::after {
+            font-size: 10px;
+            padding: 3px 6px;
+        }
+        
+        &.zen-testimonial--horizontal {
+            flex-direction: column;
+            text-align: center;
+            
+            .zen-testimonial__content {
+                text-align: center;
+            }
+            
+            .zen-testimonial__rating {
+                justify-content: center;
+            }
+            
+            .zen-testimonial__author {
+                flex-direction: row;
+                
+                &-info {
+                    text-align: left;
+                }
+            }
+        }
+    }
+    
+    @media (max-width: 600px) {
+        padding: 1rem;
+        
+        // Hide indicators on very small screens
+        &::before,
+        &::after {
+            display: none;
+        }
+    }
+    
+    /**
+     * Empty State
+     */
+    &:empty {
+        border: 2px dashed #ddd;
+        
+        &::before {
+            content: 'Testimonial Block - Add testimonial content';
+            color: #999;
+            font-style: italic;
+            font-size: 14px;
+            position: static;
+            background: none;
+            padding: 0;
+            border-radius: 0;
+        }
+    }
+}

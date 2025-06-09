@@ -1,18 +1,18 @@
 {
   "$schema": "https://schemas.wp.org/trunk/block.json",
   "apiVersion": 2,
-  "name": "zenstarter/zen-hero",
+  "name": "zenstarter/zen-cta",
   "version": "1.0.0",
-  "title": "Zen Hero",
+  "title": "Zen CTA",
   "category": "zenstarter",
-  "icon": "cover-image",
-  "description": "A powerful hero section with background, title, description and call-to-action buttons. Perfect for landing pages and page headers.",
+  "icon": "megaphone",
+  "description": "A powerful call-to-action block with title, description, and customizable button. Perfect for conversions and engagement.",
   "keywords": [
-    "hero",
-    "banner",
-    "header",
-    "intro",
-    "landing",
+    "cta",
+    "call to action",
+    "button",
+    "conversion",
+    "marketing",
     "zen"
   ],
   "textdomain": "zenstarter",
@@ -67,59 +67,66 @@
     "style": {
       "type": "object"
     },
-    "backgroundImage": {
-      "type": "object",
-      "default": null
-    },
-    "backgroundImageId": {
-      "type": "number"
-    },
-    "backgroundImageUrl": {
-      "type": "string"
-    },
-    "backgroundPosition": {
+    "ctaTitle": {
       "type": "string",
-      "default": "center center"
+      "default": ""
     },
-    "backgroundSize": {
+    "ctaDescription": {
       "type": "string",
-      "default": "cover"
+      "default": ""
     },
-    "backgroundRepeat": {
+    "buttonText": {
       "type": "string",
-      "default": "no-repeat"
+      "default": "Learn More"
     },
-    "backgroundAttachment": {
+    "buttonUrl": {
       "type": "string",
-      "default": "scroll"
+      "default": ""
     },
-    "overlayColor": {
-      "type": "string"
-    },
-    "overlayOpacity": {
-      "type": "number",
-      "default": 0.5
-    },
-    "overlayGradient": {
-      "type": "string"
-    },
-    "minHeight": {
+    "buttonTarget": {
       "type": "string",
-      "default": "60vh"
+      "default": "_self"
+    },
+    "buttonRel": {
+      "type": "string",
+      "default": ""
+    },
+    "buttonStyle": {
+      "type": "string",
+      "default": "primary",
+      "enum": ["primary", "secondary", "outline", "ghost"]
+    },
+    "buttonSize": {
+      "type": "string",
+      "default": "medium",
+      "enum": ["small", "medium", "large"]
+    },
+    "layoutStyle": {
+      "type": "string",
+      "default": "stacked",
+      "enum": ["stacked", "horizontal", "centered"]
     },
     "contentAlignment": {
       "type": "string",
       "default": "center",
       "enum": ["left", "center", "right"]
     },
-    "verticalAlignment": {
-      "type": "string",
-      "default": "center",
-      "enum": ["top", "center", "bottom"]
+    "enableCustomContent": {
+      "type": "boolean",
+      "default": false
     },
-    "contentMaxWidth": {
+    "showIcon": {
+      "type": "boolean",
+      "default": false
+    },
+    "iconName": {
       "type": "string",
-      "default": "800px"
+      "default": "star-filled"
+    },
+    "iconPosition": {
+      "type": "string",
+      "default": "before",
+      "enum": ["before", "after"]
     },
     "animationEnabled": {
       "type": "boolean",
@@ -128,28 +135,15 @@
     "animationType": {
       "type": "string",
       "default": "fadeIn",
-      "enum": ["fadeIn", "slideUp", "slideDown", "zoomIn"]
-    },
-    "animationDuration": {
-      "type": "number",
-      "default": 1000
-    },
-    "parallaxEnabled": {
-      "type": "boolean",
-      "default": false
-    },
-    "parallaxSpeed": {
-      "type": "number",
-      "default": 0.5
+      "enum": ["fadeIn", "slideUp", "slideLeft", "slideRight", "bounce"]
     }
   },
   "providesContext": {
-    "zenstarter/heroAlignment": "contentAlignment",
-    "zenstarter/heroVerticalAlignment": "verticalAlignment"
+    "zenstarter/ctaAlignment": "contentAlignment",
+    "zenstarter/ctaStyle": "layoutStyle"
   },
   "usesContext": ["postId", "postType"],
   "editorScript": "file:./index.js",
   "editorStyle": "file:./editor.css",
-  "style": "file:./style.css",
-  "render": "file:./render.php"
+  "style": "file:./style.css"
 }

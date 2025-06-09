@@ -1,0 +1,631 @@
+/**
+ * Zen Testimonial Block - Frontend Styles
+ * 
+ * Comprehensive styling for the zen-testimonial block with
+ * responsive design, animations, and multiple layout options
+ *
+ * @package Zenstarter
+ * @subpackage Blocks
+ * @version 1.0.0
+ */
+
+.zen-testimonial {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 2rem;
+    border-radius: 0.5rem;
+    isolation: isolate;
+    
+    // Default spacing
+    gap: 1.5rem;
+    
+    /**
+     * Content Area
+     */
+    &__content {
+        flex: 1;
+        width: 100%;
+        max-width: 600px;
+        position: relative;
+        z-index: 2;
+        
+        // Ensure proper spacing for content
+        > * {
+            margin-bottom: 1rem;
+            
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+    }
+    
+    /**
+     * Testimonial Text Styling
+     */
+    &__text {
+        font-size: clamp(1rem, 2.5vw, 1.25rem);
+        line-height: 1.6;
+        margin: 0 0 1rem 0;
+        color: inherit;
+        font-style: italic;
+        position: relative;
+        
+        // Remove default blockquote styling
+        padding: 0;
+        border: none;
+        
+        @media (max-width: 768px) {
+            font-size: 1rem;
+        }
+    }
+    
+    /**
+     * Rating System
+     */
+    &__rating {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 0.25rem;
+        margin: 1rem 0;
+        
+        &-star {
+            width: 1.25rem;
+            height: 1.25rem;
+            color: #fbbf24; // Gold color for stars
+            
+            &.filled {
+                color: #f59e0b;
+            }
+            
+            &.empty {
+                color: #d1d5db;
+            }
+            
+            // Ensure proper icon rendering
+            svg {
+                width: 100%;
+                height: 100%;
+                fill: currentColor;
+            }
+        }
+    }
+    
+    /**
+     * Quote Icon Styling
+     */
+    &__quote {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--wp--preset--color--primary, #2563eb);
+        opacity: 0.3;
+        
+        svg {
+            width: 2rem;
+            height: 2rem;
+            fill: currentColor;
+        }
+        
+        &--before {
+            order: -1;
+            margin-bottom: 1rem;
+        }
+        
+        &--after {
+            order: 1;
+            margin-top: 1rem;
+            transform: rotate(180deg);
+        }
+        
+        &-bg {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            z-index: 1;
+            opacity: 0.05;
+            
+            svg {
+                width: 4rem;
+                height: 4rem;
+                fill: currentColor;
+            }
+        }
+    }
+    
+    /**
+     * Author Information
+     */
+    &__author {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        z-index: 2;
+        
+        &-info {
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+            gap: 0.25rem;
+        }
+        
+        &-name {
+            font-weight: 600;
+            font-style: normal;
+            color: var(--wp--preset--color--foreground, #0f172a);
+            margin: 0;
+        }
+        
+        &-meta {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            font-size: 0.875rem;
+            color: var(--wp--preset--color--gray, #64748b);
+        }
+        
+        &-role {
+            font-weight: 500;
+        }
+        
+        &-company {
+            font-weight: 400;
+        }
+        
+        &-separator {
+            opacity: 0.7;
+        }
+    }
+    
+    /**
+     * Avatar Styling
+     */
+    &__avatar {
+        flex-shrink: 0;
+        
+        &-image {
+            display: block;
+            border-radius: 50%;
+            object-fit: cover;
+            aspect-ratio: 1;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+    }
+    
+    /**
+     * Avatar Size Variations
+     */
+    &--avatar-small {
+        .zen-testimonial__avatar-image {
+            width: 2.5rem;
+            height: 2.5rem;
+        }
+    }
+    
+    &--avatar-medium {
+        .zen-testimonial__avatar-image {
+            width: 3.5rem;
+            height: 3.5rem;
+        }
+    }
+    
+    &--avatar-large {
+        .zen-testimonial__avatar-image {
+            width: 4.5rem;
+            height: 4.5rem;
+        }
+    }
+    
+    /**
+     * Layout Style Variations
+     */
+    // Horizontal layout
+    &--horizontal {
+        flex-direction: row;
+        text-align: left;
+        gap: 2rem;
+        
+        .zen-testimonial__content {
+            text-align: left;
+        }
+        
+        .zen-testimonial__rating {
+            justify-content: flex-start;
+        }
+        
+        .zen-testimonial__author {
+            flex-direction: column;
+            align-items: center;
+            flex-shrink: 0;
+            min-width: 120px;
+            
+            &-info {
+                text-align: center;
+            }
+        }
+        
+        // Stack on mobile
+        @media (max-width: 768px) {
+            flex-direction: column;
+            text-align: center;
+            
+            .zen-testimonial__content {
+                text-align: center;
+            }
+            
+            .zen-testimonial__rating {
+                justify-content: center;
+            }
+            
+            .zen-testimonial__author {
+                flex-direction: row;
+                
+                &-info {
+                    text-align: left;
+                }
+            }
+        }
+    }
+    
+    // Centered layout (more compact)
+    &--centered {
+        padding: 3rem 2rem;
+        
+        .zen-testimonial__content {
+            max-width: 500px;
+        }
+        
+        .zen-testimonial__author {
+            flex-direction: column;
+            text-align: center;
+            
+            &-info {
+                text-align: center;
+            }
+        }
+    }
+    
+    // Card layout
+    &--card {
+        background: var(--wp--preset--color--background, #ffffff);
+        border: 1px solid var(--wp--preset--color--light-gray, #e5e7eb);
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        transition: box-shadow 0.2s ease;
+        
+        &:hover {
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+    }
+    
+    /**
+     * Content Alignment Variations
+     */
+    &--align-left {
+        text-align: left;
+        align-items: flex-start;
+        
+        .zen-testimonial__content {
+            text-align: left;
+        }
+        
+        .zen-testimonial__rating {
+            justify-content: flex-start;
+        }
+        
+        .zen-testimonial__author {
+            &-info {
+                text-align: left;
+            }
+        }
+    }
+    
+    &--align-right {
+        text-align: right;
+        align-items: flex-end;
+        
+        .zen-testimonial__content {
+            text-align: right;
+        }
+        
+        .zen-testimonial__rating {
+            justify-content: flex-end;
+        }
+        
+        .zen-testimonial__author {
+            flex-direction: row-reverse;
+            
+            &-info {
+                text-align: right;
+            }
+        }
+    }
+    
+    &--align-center {
+        text-align: center;
+        align-items: center;
+        
+        .zen-testimonial__content {
+            text-align: center;
+        }
+        
+        .zen-testimonial__rating {
+            justify-content: center;
+        }
+        
+        .zen-testimonial__author {
+            &-info {
+                text-align: center;
+            }
+        }
+    }
+    
+    /**
+     * Quote Icon Positioning
+     */
+    &--has-quote {
+        &.zen-testimonial--quote-background {
+            .zen-testimonial__quote-bg {
+                display: block;
+            }
+        }
+        
+        &.zen-testimonial--quote-before {
+            .zen-testimonial__quote--before {
+                display: flex;
+            }
+        }
+        
+        &.zen-testimonial--quote-after {
+            .zen-testimonial__quote--after {
+                display: flex;
+            }
+        }
+    }
+    
+    /**
+     * Animation States
+     */
+    &--animated {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.6s ease;
+        
+        &.zen-testimonial--in-view {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    // Animation variations
+    &--fadeIn {
+        opacity: 0;
+        
+        &.zen-testimonial--in-view {
+            opacity: 1;
+        }
+    }
+    
+    &--slideUp {
+        opacity: 0;
+        transform: translateY(50px);
+        
+        &.zen-testimonial--in-view {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    &--slideLeft {
+        opacity: 0;
+        transform: translateX(-50px);
+        
+        &.zen-testimonial--in-view {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+    
+    &--slideRight {
+        opacity: 0;
+        transform: translateX(50px);
+        
+        &.zen-testimonial--in-view {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+    
+    &--zoomIn {
+        opacity: 0;
+        transform: scale(0.8);
+        
+        &.zen-testimonial--in-view {
+            opacity: 1;
+            transform: scale(1);
+            transition-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+    }
+    
+    /**
+     * Responsive Design
+     */
+    @media (max-width: 768px) {
+        padding: 1.5rem;
+        gap: 1rem;
+        
+        &__text {
+            margin-bottom: 0.75rem;
+        }
+        
+        &__rating {
+            margin: 0.75rem 0;
+            
+            &-star {
+                width: 1rem;
+                height: 1rem;
+            }
+        }
+        
+        // Force vertical layout on mobile for horizontal
+        &--horizontal {
+            flex-direction: column;
+            text-align: center;
+            
+            .zen-testimonial__content {
+                text-align: center;
+            }
+            
+            .zen-testimonial__rating {
+                justify-content: center;
+            }
+            
+            .zen-testimonial__author {
+                flex-direction: row;
+                
+                &-info {
+                    text-align: left;
+                }
+            }
+        }
+    }
+    
+    @media (max-width: 480px) {
+        padding: 1rem;
+        
+        &__quote {
+            svg {
+                width: 1.5rem;
+                height: 1.5rem;
+            }
+            
+            &-bg svg {
+                width: 3rem;
+                height: 3rem;
+            }
+        }
+    }
+    
+    /**
+     * Accessibility Improvements
+     */
+    @media (prefers-reduced-motion: reduce) {
+        &--animated {
+            animation: none !important;
+            transition: none !important;
+            opacity: 1 !important;
+            transform: none !important;
+        }
+    }
+    
+    /**
+     * High Contrast Mode Support
+     */
+    @media (prefers-contrast: high) {
+        &--card {
+            border-width: 2px;
+            border-color: currentColor;
+        }
+        
+        &__rating-star {
+            &.filled {
+                color: #000000;
+            }
+            
+            &.empty {
+                color: #666666;
+            }
+        }
+    }
+    
+    /**
+     * Print Styles
+     */
+    @media print {
+        &--animated {
+            opacity: 1 !important;
+            transform: none !important;
+        }
+        
+        &--card {
+            border: 2px solid black;
+            box-shadow: none;
+        }
+        
+        &__quote-bg {
+            display: none !important;
+        }
+    }
+    
+    /**
+     * Dark Mode Support
+     */
+    @media (prefers-color-scheme: dark) {
+        &--card {
+            background: #1f2937;
+            border-color: #374151;
+        }
+        
+        &__author-name {
+            color: #ffffff;
+        }
+        
+        &__author-meta {
+            color: #9ca3af;
+        }
+    }
+    
+    /**
+     * RTL Support
+     */
+    [dir="rtl"] & {
+        &--align-left {
+            text-align: right;
+            align-items: flex-end;
+            
+            .zen-testimonial__content {
+                text-align: right;
+            }
+            
+            .zen-testimonial__rating {
+                justify-content: flex-end;
+            }
+            
+            .zen-testimonial__author {
+                flex-direction: row-reverse;
+                
+                &-info {
+                    text-align: right;
+                }
+            }
+        }
+        
+        &--align-right {
+            text-align: left;
+            align-items: flex-start;
+            
+            .zen-testimonial__content {
+                text-align: left;
+            }
+            
+            .zen-testimonial__rating {
+                justify-content: flex-start;
+            }
+            
+            .zen-testimonial__author {
+                flex-direction: row;
+                
+                &-info {
+                    text-align: left;
+                }
+            }
+        }
+        
+        &__quote-bg {
+            right: auto;
+            left: 1rem;
+        }
+    }
+}

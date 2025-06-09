@@ -32,31 +32,38 @@ const ZENSTARTER_BLOCKS = [
         hasCompiledAssets: false, // Uses source files (will be compiled)
         version: '1.0.0'
     },
-    // Future blocks can be added here
-    // {
-    //     name: 'zen-cta',
-    //     title: 'Zen CTA',
-    //     description: 'Call-to-action block with customizable styling',
-    //     enabled: false, // Not yet implemented
-    //     hasCompiledAssets: false,
-    //     version: '1.0.0'
-    // },
-    // {
-    //     name: 'zen-testimonial',
-    //     title: 'Zen Testimonial',
-    //     description: 'Testimonial block with avatar and rating',
-    //     enabled: false, // Not yet implemented
-    //     hasCompiledAssets: false,
-    //     version: '1.0.0'
-    // },
-    // {
-    //     name: 'zen-grid',
-    //     title: 'Zen Grid',
-    //     description: 'Responsive grid layout block',
-    //     enabled: false, // Not yet implemented
-    //     hasCompiledAssets: false,
-    //     version: '1.0.0'
-    // }
+    {
+        name: 'zen-cta',
+        title: 'Zen CTA',
+        description: 'Call-to-action block with customizable styling and animations',
+        enabled: true,
+        hasCompiledAssets: false,
+        version: '1.0.0'
+    },
+    {
+        name: 'zen-testimonial',
+        title: 'Zen Testimonial',
+        description: 'Testimonial block with avatar, rating, and layout options',
+        enabled: true,
+        hasCompiledAssets: false,
+        version: '1.0.0'
+    },
+    {
+        name: 'zen-grid',
+        title: 'Zen Grid',
+        description: 'Responsive grid layout container block',
+        enabled: true,
+        hasCompiledAssets: false,
+        version: '1.0.0'
+    },
+    {
+        name: 'zen-card',
+        title: 'Zen Card',
+        description: 'Flexible card component with image, content, and actions',
+        enabled: true,
+        hasCompiledAssets: false,
+        version: '1.0.0'
+    }
 ];
 
 /**
@@ -126,6 +133,9 @@ function registerSourceBlock(blockName) {
             break;
         case 'zen-grid':
             import(`./zen-grid/index.js`);
+            break;
+        case 'zen-card':
+            import(`./zen-card/index.js`);
             break;
         default:
             throw new Error(`Unknown block: ${blockName}`);
@@ -292,8 +302,170 @@ function initializeZenstarterBlocks() {
     
     // Initialize frontend features
     initializeZenHeroFeatures();
+    initializeZenCtaFeatures();
+    initializeZenTestimonialFeatures();
+    initializeZenGridFeatures();
+    initializeZenCardFeatures();
     
     console.log(`✅ Zenstarter Blocks initialized: ${ZENSTARTER_BLOCKS.filter(b => b.enabled).length} blocks`);
+}
+
+/**
+ * Initialize CTA Block Features
+ */
+function initializeZenCtaFeatures() {
+    document.addEventListener('DOMContentLoaded', function() {
+        const ctas = document.querySelectorAll('.zen-cta');
+        
+        ctas.forEach(cta => {
+            // Initialize animations
+            if (cta.classList.contains('zen-cta--animated')) {
+                initializeAnimation(cta, 'zen-cta--in-view');
+            }
+        });
+    });
+}
+
+/**
+ * Initialize Testimonial Block Features
+ */
+function initializeZenTestimonialFeatures() {
+    document.addEventListener('DOMContentLoaded', function() {
+        const testimonials = document.querySelectorAll('.zen-testimonial');
+        
+        testimonials.forEach(testimonial => {
+            // Initialize animations
+            if (testimonial.classList.contains('zen-testimonial--animated')) {
+                initializeAnimation(testimonial, 'zen-testimonial--in-view');
+            }
+        });
+    });
+}
+
+/**
+ * Initialize Grid Block Features
+ */
+function initializeZenGridFeatures() {
+    document.addEventListener('DOMContentLoaded', function() {
+        const grids = document.querySelectorAll('.zen-grid');
+        
+        grids.forEach(grid => {
+            // Initialize animations
+            if (grid.classList.contains('zen-grid--animated')) {
+                initializeAnimation(grid, 'zen-grid--in-view');
+            }
+            
+            // Initialize grid responsive behavior
+            initializeGridResponsive(grid);
+        });
+    });
+}
+
+/**
+ * Initialize Card Block Features
+ */
+function initializeZenCardFeatures() {
+    document.addEventListener('DOMContentLoaded', function() {
+        const cards = document.querySelectorAll('.zen-card');
+        
+        cards.forEach(card => {
+            // Initialize animations
+            if (card.classList.contains('zen-card--animated')) {
+                initializeAnimation(card, 'zen-card--in-view');
+            }
+            
+            // Initialize clickable cards
+            if (card.classList.contains('zen-card--clickable')) {
+                initializeClickableCard(card);
+            }
+        });
+    });
+}
+
+/**
+ * Generic animation initializer
+ */
+function initializeAnimation(element, inViewClass) {
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const delay = parseInt(entry.target.dataset.delay) || 0;
+                
+                setTimeout(() => {
+                    entry.target.classList.add(inViewClass);
+                }, delay);
+                
+                // Unobserve after animation to prevent re-triggering
+                observer.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.1,
+        rootMargin: '0px 0px -10% 0px'
+    });
+    
+    observer.observe(element);
+}
+
+/**
+ * Initialize grid responsive behavior
+ */
+function initializeGridResponsive(grid) {
+    const columns = parseInt(grid.dataset.columns) || 2;
+    const columnsTablet = parseInt(grid.dataset.columnsTablet) || columns;
+    const columnsMobile = parseInt(grid.dataset.columnsMobile) || 1;
+    
+    function updateGridColumns() {
+        const width = window.innerWidth;
+        let currentColumns = columns;
+        
+        if (width <= 768) {
+            currentColumns = columnsMobile;
+        } else if (width <= 1024) {
+            currentColumns = columnsTablet;
+        }
+        
+        grid.style.setProperty('--zen-grid-columns', currentColumns);
+    }
+    
+    updateGridColumns();
+    window.addEventListener('resize', updateGridColumns);
+}
+
+/**
+ * Initialize clickable card behavior
+ */
+function initializeClickableCard(card) {
+    const url = card.dataset.url;
+    
+    if (url) {
+        card.addEventListener('click', function(e) {
+            // Don't trigger if clicking on a link or button
+            if (e.target.tagName === 'A' || e.target.tagName === 'BUTTON' || e.target.closest('a, button')) {
+                return;
+            }
+            
+            const target = card.querySelector('.zen-card__link') || card;
+            const targetAttr = target.getAttribute('target');
+            
+            if (targetAttr === '_blank') {
+                window.open(url, '_blank', 'noopener,noreferrer');
+            } else {
+                window.location.href = url;
+            }
+        });
+        
+        // Add keyboard support
+        card.setAttribute('tabindex', '0');
+        card.setAttribute('role', 'button');
+        
+        card.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                card.click();
+            }
+        });
+    }
 }
 
 /**
