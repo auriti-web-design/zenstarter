@@ -1,0 +1,230 @@
+/**
+ * Typography
+ * Font families, sizes, and text styling
+ */
+
+body {
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-normal);
+  color: var(--color-gray-900);
+}
+
+// Headings
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-family-primary);
+  font-weight: 700;
+  line-height: var(--line-height-tight);
+  margin-bottom: var(--spacing-4);
+  color: var(--color-gray-900);
+}
+
+h1 {
+  font-size: var(--font-size-4xl);
+
+  @include respond-to(md) {
+    font-size: var(--font-size-5xl);
+  }
+}
+
+h2 {
+  font-size: var(--font-size-3xl);
+
+  @include respond-to(md) {
+    font-size: var(--font-size-4xl);
+  }
+}
+
+h3 {
+  font-size: var(--font-size-2xl);
+
+  @include respond-to(md) {
+    font-size: var(--font-size-3xl);
+  }
+}
+
+h4 {
+  font-size: var(--font-size-xl);
+
+  @include respond-to(md) {
+    font-size: var(--font-size-2xl);
+  }
+}
+
+h5 {
+  font-size: var(--font-size-lg);
+
+  @include respond-to(md) {
+    font-size: var(--font-size-xl);
+  }
+}
+
+h6 {
+  font-size: var(--font-size-base);
+
+  @include respond-to(md) {
+    font-size: var(--font-size-lg);
+  }
+}
+
+// Paragraphs and text
+p {
+  margin-bottom: var(--spacing-4);
+  line-height: var(--line-height-relaxed);
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+// Links
+a {
+  color: var(--color-primary);
+  text-decoration: underline;
+  @include transition(color);
+
+  &:hover,
+  &:focus {
+    color: var(--color-primary-dark);
+  }
+
+  &:focus {
+    @include focus-outline;
+  }
+}
+
+// Lists
+ul,
+ol {
+  margin-bottom: var(--spacing-4);
+  padding-left: var(--spacing-6);
+
+  li {
+    margin-bottom: var(--spacing-2);
+  }
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+// Blockquotes
+blockquote {
+  margin: var(--spacing-6) 0;
+  padding: var(--spacing-4) var(--spacing-6);
+  border-left: 4px solid var(--color-primary);
+  background: var(--color-gray-50);
+  font-style: italic;
+  font-size: var(--font-size-lg);
+
+  p {
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  cite {
+    display: block;
+    margin-top: var(--spacing-2);
+    font-size: var(--font-size-sm);
+    font-style: normal;
+    color: var(--color-gray-600);
+
+    &::before {
+      content: '— ';
+    }
+  }
+}
+
+// Code
+code,
+pre {
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-sm);
+}
+
+code {
+  padding: 0.125rem 0.25rem;
+  background: var(--color-gray-100);
+  border-radius: var(--border-radius-sm);
+  color: var(--color-gray-800);
+}
+
+pre {
+  padding: var(--spacing-4);
+  background: var(--color-gray-900);
+  color: var(--color-gray-100);
+  border-radius: var(--border-radius-md);
+  overflow-x: auto;
+  margin-bottom: var(--spacing-4);
+
+  code {
+    padding: 0;
+    background: none;
+    color: inherit;
+  }
+}
+
+// Emphasis
+strong,
+b {
+  font-weight: 700;
+}
+
+em,
+i {
+  font-style: italic;
+}
+
+// Small text
+small {
+  font-size: var(--font-size-sm);
+  color: var(--color-gray-600);
+}
+
+// Abbreviations
+abbr {
+  text-decoration: underline dotted;
+  cursor: help;
+}
+
+// WordPress specific typography
+.entry-title {
+  margin-bottom: var(--spacing-6);
+}
+
+.entry-meta {
+  font-size: var(--font-size-sm);
+  color: var(--color-gray-600);
+  margin-bottom: var(--spacing-4);
+
+  a {
+    color: inherit;
+    text-decoration: none;
+
+    &:hover {
+      color: var(--color-primary);
+    }
+  }
+}
+
+.entry-content {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin-top: var(--spacing-8);
+    margin-bottom: var(--spacing-4);
+
+    &:first-child {
+      margin-top: 0;
+    }
+  }
+}

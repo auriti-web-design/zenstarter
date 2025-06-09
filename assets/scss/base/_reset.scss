@@ -1,0 +1,124 @@
+/**
+ * CSS Reset
+ * Modern CSS reset based on Josh Comeau's approach
+ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  line-height: var(--line-height-normal);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+
+#root,
+#__next {
+  isolation: isolate;
+}
+
+// WordPress specific resets
+.alignleft {
+  float: left;
+  margin-right: var(--spacing-4);
+  margin-bottom: var(--spacing-2);
+}
+
+.alignright {
+  float: right;
+  margin-left: var(--spacing-4);
+  margin-bottom: var(--spacing-2);
+}
+
+.aligncenter {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: var(--spacing-2);
+}
+
+.alignwide {
+  margin-left: calc(-1 * var(--spacing-4));
+  margin-right: calc(-1 * var(--spacing-4));
+  
+  @include respond-to(md) {
+    margin-left: calc(-1 * var(--spacing-8));
+    margin-right: calc(-1 * var(--spacing-8));
+  }
+}
+
+.alignfull {
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  max-width: 100vw;
+  width: 100vw;
+}
+
+// Screen reader only text
+.screen-reader-text {
+  @include visually-hidden;
+}
+
+// Skip links
+.skip-link {
+  @include visually-hidden;
+
+  &:focus {
+    position: fixed;
+    top: var(--spacing-2);
+    left: var(--spacing-2);
+    z-index: var(--z-index-tooltip);
+    padding: var(--spacing-2) var(--spacing-4);
+    background: var(--color-white);
+    color: var(--color-black);
+    text-decoration: none;
+    border: 1px solid var(--color-gray-300);
+    border-radius: var(--border-radius-md);
+    @include shadow(md);
+    width: auto;
+    height: auto;
+    clip: auto;
+    margin: 0;
+    overflow: visible;
+    white-space: normal;
+  }
+}

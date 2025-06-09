@@ -1,0 +1,139 @@
+/**
+ * Gutenberg Editor Styles
+ * Styles that apply only in the WordPress editor
+ */
+
+// Import base styles that should also apply in editor
+@import 'abstracts/variables';
+@import 'abstracts/functions';
+@import 'abstracts/mixins';
+@import 'base/typography';
+
+// Editor-specific styles
+.editor-styles-wrapper {
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-normal);
+  color: var(--color-gray-900);
+  
+  // Ensure editor content matches front-end
+  .wp-block {
+    max-width: 100%;
+  }
+  
+  // Button styles in editor
+  .wp-block-button {
+    .wp-block-button__link {
+      background: var(--color-primary);
+      color: var(--color-white);
+      border-radius: var(--border-radius-md);
+      padding: var(--spacing-3) var(--spacing-6);
+      font-weight: 600;
+      
+      &.is-style-outline {
+        background: transparent;
+        color: var(--color-primary);
+        border: 2px solid var(--color-primary);
+      }
+      
+      &.is-style-ghost {
+        background: transparent;
+        color: var(--color-primary);
+        border: none;
+        text-decoration: underline;
+      }
+    }
+  }
+  
+  // Quote styles in editor
+  .wp-block-quote {
+    border-left: 4px solid var(--color-primary);
+    padding-left: var(--spacing-4);
+    font-style: italic;
+    
+    &.is-style-modern {
+      border-left: none;
+      padding-left: 0;
+      position: relative;
+      
+      &::before {
+        content: '"';
+        font-size: 4rem;
+        color: var(--color-primary);
+        position: absolute;
+        top: -1rem;
+        left: -1rem;
+        line-height: 1;
+      }
+    }
+  }
+  
+  // Cover block styles
+  .wp-block-cover {
+    &.is-style-rounded {
+      border-radius: var(--border-radius-lg);
+      overflow: hidden;
+    }
+  }
+  
+  // Group block styles
+  .wp-block-group {
+    &.is-style-card {
+      background: var(--color-white);
+      border: 1px solid var(--color-gray-200);
+      border-radius: var(--border-radius-lg);
+      padding: var(--spacing-6);
+      @include shadow(sm);
+    }
+    
+    &.is-style-section {
+      padding: var(--spacing-12) var(--spacing-6);
+      background: var(--color-gray-50);
+    }
+  }
+  
+  // Custom inline code format
+  .inline-code {
+    background: var(--color-gray-100);
+    color: var(--color-gray-800);
+    padding: 0.125rem 0.25rem;
+    border-radius: var(--border-radius-sm);
+    font-family: var(--font-family-mono);
+    font-size: 0.875em;
+  }
+  
+  // Wide and full alignment
+  .alignwide {
+    margin-left: calc(-1 * var(--spacing-4));
+    margin-right: calc(-1 * var(--spacing-4));
+  }
+  
+  .alignfull {
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+    max-width: 100vw;
+    width: 100vw;
+  }
+}
+
+// Block editor specific overrides
+.block-editor-writing-flow {
+  .wp-block {
+    margin-bottom: var(--spacing-6);
+    
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+// Color palette preview
+.components-circular-option-picker__option {
+  &[style*="--color-primary"] {
+    background: var(--color-primary) !important;
+  }
+  
+  &[style*="--color-secondary"] {
+    background: var(--color-secondary) !important;
+  }
+}

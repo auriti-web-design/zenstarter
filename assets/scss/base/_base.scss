@@ -1,0 +1,181 @@
+/**
+ * Base Styles
+ * Basic styling for common HTML elements
+ */
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-white);
+  color: var(--color-gray-900);
+}
+
+// Images
+img {
+  height: auto;
+  max-width: 100%;
+}
+
+// Figures
+figure {
+  margin: var(--spacing-6) 0;
+
+  img {
+    margin-bottom: var(--spacing-2);
+  }
+
+  figcaption {
+    font-size: var(--font-size-sm);
+    color: var(--color-gray-600);
+    text-align: center;
+    font-style: italic;
+  }
+}
+
+// Tables
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: var(--spacing-6);
+  background: var(--color-white);
+  border-radius: var(--border-radius-md);
+  overflow: hidden;
+  @include shadow(sm);
+}
+
+th,
+td {
+  padding: var(--spacing-3) var(--spacing-4);
+  text-align: left;
+  border-bottom: 1px solid var(--color-gray-200);
+}
+
+th {
+  background: var(--color-gray-50);
+  font-weight: 600;
+  color: var(--color-gray-900);
+}
+
+tr:last-child {
+  th,
+  td {
+    border-bottom: none;
+  }
+}
+
+// Horizontal rules
+hr {
+  border: none;
+  height: 1px;
+  background: var(--color-gray-200);
+  margin: var(--spacing-8) 0;
+}
+
+// Selection
+::selection {
+  background: var(--color-primary);
+  color: var(--color-white);
+}
+
+// Focus styles
+:focus {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+// WordPress classes
+.wp-caption {
+  max-width: 100%;
+  margin-bottom: var(--spacing-4);
+
+  img {
+    display: block;
+    margin: 0 auto;
+  }
+
+  .wp-caption-text {
+    font-size: var(--font-size-sm);
+    color: var(--color-gray-600);
+    text-align: center;
+    margin-top: var(--spacing-2);
+    font-style: italic;
+  }
+}
+
+.wp-block-image {
+  margin-bottom: var(--spacing-6);
+
+  figcaption {
+    margin-top: var(--spacing-2);
+  }
+}
+
+// Gallery
+.wp-block-gallery {
+  margin-bottom: var(--spacing-6);
+}
+
+// Embeds
+.wp-block-embed {
+  margin-bottom: var(--spacing-6);
+}
+
+// Buttons (WordPress defaults)
+.wp-element-button,
+.wp-block-button__link {
+  background: var(--color-primary);
+  color: var(--color-white);
+  border: none;
+  padding: var(--spacing-3) var(--spacing-6);
+  border-radius: var(--border-radius-md);
+  text-decoration: none;
+  display: inline-block;
+  font-weight: 600;
+  @include transition();
+  cursor: pointer;
+
+  &:hover,
+  &:focus {
+    background: var(--color-primary-dark);
+    color: var(--color-white);
+  }
+
+  &:focus {
+    @include focus-outline;
+  }
+}
+
+// Utility classes
+.container {
+  @include container();
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.mb-0 { margin-bottom: 0; }
+.mb-1 { margin-bottom: var(--spacing-1); }
+.mb-2 { margin-bottom: var(--spacing-2); }
+.mb-3 { margin-bottom: var(--spacing-3); }
+.mb-4 { margin-bottom: var(--spacing-4); }
+.mb-6 { margin-bottom: var(--spacing-6); }
+.mb-8 { margin-bottom: var(--spacing-8); }
+
+.mt-0 { margin-top: 0; }
+.mt-1 { margin-top: var(--spacing-1); }
+.mt-2 { margin-top: var(--spacing-2); }
+.mt-3 { margin-top: var(--spacing-3); }
+.mt-4 { margin-top: var(--spacing-4); }
+.mt-6 { margin-top: var(--spacing-6); }
+.mt-8 { margin-top: var(--spacing-8); }

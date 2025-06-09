@@ -1,0 +1,66 @@
+/**
+ * SCSS Functions
+ * Utility functions for calculations and transformations
+ */
+
+// Convert pixels to rem
+@function rem($pixels, $base: 16) {
+  @return #{$pixels / $base}rem;
+}
+
+// Convert pixels to em
+@function em($pixels, $base: 16) {
+  @return #{$pixels / $base}em;
+}
+
+// Strip units from a value
+@function strip-unit($value) {
+  @return $value / ($value * 0 + 1);
+}
+
+// Calculate fluid typography
+@function fluid-type($min-font-size, $max-font-size, $min-vw: 320, $max-vw: 1200) {
+  $slope: ($max-font-size - $min-font-size) / ($max-vw - $min-vw);
+  $y-axis-intersection: -$min-vw * $slope + $min-font-size;
+  
+  @return clamp(#{$min-font-size}px, #{$y-axis-intersection}px + #{$slope * 100}vw, #{$max-font-size}px);
+}
+
+// Get color with opacity
+@function rgba-color($color, $opacity) {
+  @return rgba($color, $opacity);
+}
+
+// Calculate contrast ratio
+@function contrast-ratio($color1, $color2) {
+  $luminance1: luminance($color1) + 0.05;
+  $luminance2: luminance($color2) + 0.05;
+  
+  @if $luminance1 > $luminance2 {
+    @return $luminance1 / $luminance2;
+  } @else {
+    @return $luminance2 / $luminance1;
+  }
+}
+
+// Calculate luminance of a color
+@function luminance($color) {
+  $red: red($color);
+  $green: green($color);
+  $blue: blue($color);
+  
+  $red: if($red > 10.31475, pow($red / 269.025, 2.4), $red / 3294.6);
+  $green: if($green > 10.31475, pow($green / 269.025, 2.4), $green / 3294.6);
+  $blue: if($blue > 10.31475, pow($blue / 269.025, 2.4), $blue / 3294.6);
+  
+  @return 0.2126 * $red + 0.7152 * $green + 0.0722 * $blue;
+}
+
+// Power function
+@function pow($base, $exponent) {
+  $result: 1;
+  @for $i from 1 through $exponent {
+    $result: $result * $base;
+  }
+  @return $result;
+}
