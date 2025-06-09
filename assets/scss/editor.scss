@@ -4,10 +4,10 @@
  */
 
 // Import base styles that should also apply in editor
-@import 'abstracts/variables';
-@import 'abstracts/functions';
-@import 'abstracts/mixins';
-@import 'base/typography';
+@use 'abstracts/variables' as *;
+@use 'abstracts/functions' as *;
+@use 'abstracts/mixins' as *;
+@use 'base/typography' as *;
 
 // Editor-specific styles
 .editor-styles-wrapper {
