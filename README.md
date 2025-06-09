@@ -112,6 +112,9 @@ assets/scss/
 └── main.scss       # File principale
 ```
 
+### Theme Settings
+Le impostazioni principali di colori, tipografia e spaziature sono definite nel file `theme.json`. Modificando i valori in `settings` è possibile personalizzare la palette, la scala tipografica e le unità di misura senza toccare il codice PHP.
+
 ## 🔧 Configurazione Avanzata
 
 ### PSR-4 Autoload

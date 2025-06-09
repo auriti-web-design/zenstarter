@@ -191,128 +191,93 @@
       "fontSizes": [
         {
           "size": "0.75rem",
-          "slug": "x-small",
-          "name": "Extra Small"
+          "slug": "xs",
+          "name": "XS"
         },
         {
           "size": "0.875rem",
-          "slug": "small",
-          "name": "Small"
+          "slug": "sm",
+          "name": "SM"
         },
         {
           "size": "1rem",
-          "slug": "medium",
-          "name": "Medium"
+          "slug": "base",
+          "name": "Base"
         },
         {
           "size": "1.125rem",
-          "slug": "large",
-          "name": "Large"
+          "slug": "lg",
+          "name": "LG"
         },
         {
           "size": "1.25rem",
-          "slug": "x-large",
-          "name": "Extra Large"
+          "slug": "xl",
+          "name": "XL"
         },
         {
           "size": "1.5rem",
-          "slug": "xx-large",
-          "name": "2X Large"
+          "slug": "2xl",
+          "name": "2XL"
         },
         {
           "size": "1.875rem",
-          "slug": "xxx-large",
-          "name": "3X Large"
+          "slug": "3xl",
+          "name": "3XL"
         },
         {
           "size": "2.25rem",
-          "slug": "xxxx-large",
-          "name": "4X Large"
+          "slug": "4xl",
+          "name": "4XL"
         },
         {
           "size": "3rem",
-          "slug": "xxxxx-large",
-          "name": "5X Large"
+          "slug": "5xl",
+          "name": "5XL"
         }
       ]
     },
     "spacing": {
       "custom": true,
-      "units": ["px", "em", "rem", "vh", "vw", "%"],
+      "units": ["px", "em", "%", "vw"],
       "padding": true,
       "margin": true,
       "spacingScale": {
         "operator": "*",
-        "increment": 1.5,
-        "steps": 7,
-        "mediumStep": 1.5,
+        "increment": 0.5,
+        "steps": 6,
+        "mediumStep": 1,
         "unit": "rem"
       },
       "spacingSizes": [
         {
-          "size": "0",
-          "slug": "0",
-          "name": "0"
-        },
-        {
-          "size": "0.25rem",
-          "slug": "10",
-          "name": "1"
-        },
-        {
           "size": "0.5rem",
-          "slug": "20",
-          "name": "2"
+          "slug": "xs",
+          "name": "XS"
         },
         {
           "size": "0.75rem",
-          "slug": "30",
-          "name": "3"
+          "slug": "sm",
+          "name": "SM"
         },
         {
           "size": "1rem",
-          "slug": "40",
-          "name": "4"
-        },
-        {
-          "size": "1.25rem",
-          "slug": "50",
-          "name": "5"
+          "slug": "md",
+          "name": "MD"
         },
         {
           "size": "1.5rem",
-          "slug": "60",
-          "name": "6"
+          "slug": "lg",
+          "name": "LG"
         },
         {
           "size": "2rem",
-          "slug": "70",
-          "name": "7"
-        },
-        {
-          "size": "2.5rem",
-          "slug": "80",
-          "name": "8"
+          "slug": "xl",
+          "name": "XL"
         },
         {
           "size": "3rem",
-          "slug": "90",
-          "name": "9"
-        },
-        {
-          "size": "4rem",
-          "slug": "100",
-          "name": "10"
-        },
-        {
-          "size": "5rem",
-          "slug": "110",
-          "name": "11"
-        },
-        {
-          "size": "6rem",
-          "slug": "120",
-          "name": "12"
+          "slug": "xxl",
+          "name": "XXL"
         }
       ]
     },
@@ -453,6 +418,10 @@
         "left": "var(--wp--preset--spacing--40)"
       }
     },
+    "layout": {
+      "contentSize": "768px",
+      "wideSize": "1280px"
+    },
     "elements": {
       "link": {
         "color": {
@@ -467,6 +436,11 @@
           "color": {
             "text": "var(--wp--preset--color--primary-dark)"
           }
+        }
+      },
+      "heading": {
+        "typography": {
+          "fontWeight": "600"
         }
       },
       "h1": {
@@ -568,6 +542,16 @@
         ":focus": {
           "color": {
             "background": "var(--wp--preset--color--primary-dark)"
+          }
+        }
+      },
+      "image": {
+        "border": {
+          "radius": "0.375rem"
+        },
+        "spacing": {
+          "margin": {
+            "bottom": "var(--wp--preset--spacing--40)"
           }
         }
       }
