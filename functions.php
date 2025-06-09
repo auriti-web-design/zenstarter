@@ -26,6 +26,10 @@ if (file_exists(ZENSTARTER_PATH . '/vendor/autoload.php')) {
     require_once ZENSTARTER_PATH . '/vendor/autoload.php';
 }
 
+// Include block patterns and variations
+require_once get_template_directory() . '/inc/block-patterns.php';
+require_once get_template_directory() . '/inc/block-variations.php';
+
 // Bootstrap the theme
 if (class_exists('Theme\Core\Setup')) {
     new Theme\Core\Setup();

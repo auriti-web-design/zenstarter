@@ -1,6 +1,10 @@
 {
   "$schema": "https://schemas.wp.org/trunk/theme.json",
   "version": 2,
+  "editor-styles": [
+    "style.css",
+    "assets/dist/editor.css"
+  ],
   "settings": {
     "appearanceTools": true,
     "useRootPaddingAwareAlignments": true,

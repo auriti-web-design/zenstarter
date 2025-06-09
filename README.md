@@ -11,6 +11,7 @@
 
 - 🏗️ **Architettura Modulare** con PSR-4 autoload
 - 🎨 **Full Site Editing** e Gutenberg ready
+- 🧩 **Block Patterns** personalizzati e varianti blocchi
 - ⚡ **Build System Moderno** con Vite.js
 - 🛒 **WooCommerce Compatible** 
 - 🚀 **Performance Optimized** (Core Web Vitals)
@@ -28,6 +29,7 @@ zenstarter/
 │   ├── images/
 │   └── fonts/
 ├── blocks/              # Blocchi Gutenberg personalizzati
+├── patterns/            # Block patterns riutilizzabili
 ├── components/          # Classi PHP (PSR-4)
 │   ├── Core/
 │   ├── Utils/
