@@ -1,0 +1,70 @@
+/**
+ * WooCommerce specific styles
+ */
+
+.products-grid {
+  @include grid-auto-fit(250px, var(--spacing-6));
+}
+
+.product-card {
+  position: relative;
+  padding: var(--spacing-4);
+  border: 1px solid var(--color-gray-200);
+  border-radius: var(--border-radius-md);
+  background: var(--color-white);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  @include shadow(sm);
+
+  .product-image {
+    margin-bottom: var(--spacing-4);
+    width: 100%;
+    height: auto;
+  }
+
+  .badge--sale {
+    position: absolute;
+    top: var(--spacing-2);
+    left: var(--spacing-2);
+    background: var(--color-primary);
+    color: var(--color-white);
+    padding: var(--spacing-1) var(--spacing-2);
+    font-size: var(--font-size-sm);
+    border-radius: var(--border-radius-sm);
+  }
+
+  .product-title {
+    font-size: var(--font-size-md);
+    margin-bottom: var(--spacing-2);
+  }
+
+  .price {
+    font-weight: 600;
+    margin-bottom: var(--spacing-4);
+  }
+
+  .product-actions {
+    margin-top: auto;
+
+    .button {
+      @extend .btn;
+      @extend .btn--primary;
+      width: 100%;
+    }
+  }
+}
+
+.woocommerce-cart-form,
+.woocommerce-checkout {
+  .shop_table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .shop_table th,
+  .shop_table td {
+    padding: var(--spacing-2);
+    text-align: left;
+  }
+}
