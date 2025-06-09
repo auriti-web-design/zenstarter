@@ -215,9 +215,13 @@ iframe {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 2rem;
-    margin-bottom: var(--spacing-6);
+    margin-bottom: var(--spacing-4);
 
     @include respond-to(md) {
+        margin-bottom: var(--spacing-6);
+    }
+
+    @include respond-to(lg) {
         margin-bottom: var(--spacing-8);
     }
     
