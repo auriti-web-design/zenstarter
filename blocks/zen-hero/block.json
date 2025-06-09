@@ -1,0 +1,155 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 2,
+  "name": "zenstarter/zen-hero",
+  "version": "1.0.0",
+  "title": "Zen Hero",
+  "category": "zenstarter",
+  "icon": "cover-image",
+  "description": "A powerful hero section with background, title, description and call-to-action buttons. Perfect for landing pages and page headers.",
+  "keywords": [
+    "hero",
+    "banner",
+    "header",
+    "intro",
+    "landing",
+    "zen"
+  ],
+  "textdomain": "zenstarter",
+  "supports": {
+    "align": ["wide", "full"],
+    "anchor": true,
+    "className": true,
+    "customClassName": true,
+    "html": false,
+    "spacing": {
+      "margin": true,
+      "padding": true,
+      "blockGap": true
+    },
+    "color": {
+      "background": true,
+      "text": true,
+      "gradients": true,
+      "link": true
+    },
+    "typography": {
+      "fontSize": true,
+      "lineHeight": true,
+      "textAlign": true,
+      "fontWeight": true,
+      "fontFamily": true
+    },
+    "__experimentalBorder": {
+      "color": true,
+      "radius": true,
+      "style": true,
+      "width": true
+    },
+    "__experimentalLayout": {
+      "allowSwitching": false,
+      "allowInheriting": false,
+      "default": {
+        "type": "default"
+      }
+    }
+  },
+  "attributes": {
+    "backgroundColor": {
+      "type": "string"
+    },
+    "textColor": {
+      "type": "string"
+    },
+    "gradient": {
+      "type": "string"
+    },
+    "style": {
+      "type": "object"
+    },
+    "backgroundImage": {
+      "type": "object",
+      "default": null
+    },
+    "backgroundImageId": {
+      "type": "number"
+    },
+    "backgroundImageUrl": {
+      "type": "string"
+    },
+    "backgroundPosition": {
+      "type": "string",
+      "default": "center center"
+    },
+    "backgroundSize": {
+      "type": "string",
+      "default": "cover"
+    },
+    "backgroundRepeat": {
+      "type": "string",
+      "default": "no-repeat"
+    },
+    "backgroundAttachment": {
+      "type": "string",
+      "default": "scroll"
+    },
+    "overlayColor": {
+      "type": "string"
+    },
+    "overlayOpacity": {
+      "type": "number",
+      "default": 0.5
+    },
+    "overlayGradient": {
+      "type": "string"
+    },
+    "minHeight": {
+      "type": "string",
+      "default": "60vh"
+    },
+    "contentAlignment": {
+      "type": "string",
+      "default": "center",
+      "enum": ["left", "center", "right"]
+    },
+    "verticalAlignment": {
+      "type": "string",
+      "default": "center",
+      "enum": ["top", "center", "bottom"]
+    },
+    "contentMaxWidth": {
+      "type": "string",
+      "default": "800px"
+    },
+    "animationEnabled": {
+      "type": "boolean",
+      "default": false
+    },
+    "animationType": {
+      "type": "string",
+      "default": "fadeIn",
+      "enum": ["fadeIn", "slideUp", "slideDown", "zoomIn"]
+    },
+    "animationDuration": {
+      "type": "number",
+      "default": 1000
+    },
+    "parallaxEnabled": {
+      "type": "boolean",
+      "default": false
+    },
+    "parallaxSpeed": {
+      "type": "number",
+      "default": 0.5
+    }
+  },
+  "providesContext": {
+    "zenstarter/heroAlignment": "contentAlignment",
+    "zenstarter/heroVerticalAlignment": "verticalAlignment"
+  },
+  "usesContext": ["postId", "postType"],
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./editor.css",
+  "style": "file:./style.css",
+  "render": "file:./render.php"
+}

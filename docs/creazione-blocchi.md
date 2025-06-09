@@ -319,18 +319,251 @@ npm run build
 npm run lighthouse
 ```
 
-## 📦 Blocchi Pianificati
+## 📚 **Libreria Blocchi Zenstarter**
 
-### Roadmap Blocchi Zenstarter
+### 🏗 **Architettura Modulare**
 
-1. **✅ Zen Box** - Container flessibile (Completato)
-2. **🔄 Zen Hero** - Sezione hero con background
-3. **📅 Zen CTA** - Call-to-action con bottoni
-4. **💬 Zen Testimonial** - Testimonianze con avatar
-5. **📊 Zen Stats** - Statistiche e numeri
-6. **🎨 Zen Gallery** - Galleria immagini avanzata
-7. **📝 Zen Content** - Content block con media
+La libreria blocchi Zenstarter utilizza un approccio modulare con:
+- **Utility condivise** (`blocks/lib/utils.js`)
+- **Sistema di inizializzazione** (`blocks/init-blocks.js`) 
+- **Asset management** automatico
+- **Registrazione PHP** centralizzata
+
+### 📋 **Blocchi Disponibili**
+
+#### 1. **✅ Zen Box** - Container Flessibile
+**File**: `blocks/zen-box/`
+- InnerBlocks support completo
+- Container types: Default, Narrow, Wide, Full
+- Vertical alignment: Top, Center, Bottom, Stretch
+- Shadow levels (5 opzioni)
+- Personalizzazione completa colori/bordi
+
+#### 2. **✅ Zen Hero** - Sezione Hero Avanzata
+**File**: `blocks/zen-hero/`
+- Background image con focal point picker
+- Overlay con colori/gradienti e opacità
+- Layout: alignment orizzontale/verticale
+- Animazioni: fadeIn, slideUp, slideDown, zoomIn
+- Parallax effect con controllo velocità
+- InnerBlocks template: titolo + descrizione + bottoni
+- Server-side rendering (PHP)
+- JavaScript frontend per animazioni
+
+**Caratteristiche Avanzate**:
+```javascript
+// Animazioni con Intersection Observer
+// Parallax ottimizzato con requestAnimationFrame
+// Background loading con stati loading/error
+// Accessibility automatica (ARIA, focus management)
+// Performance monitoring in development
+```
+
+### 🚀 **Sistema di Registrazione**
+
+#### **Automatic Block Registry**
+```javascript
+// blocks/init-blocks.js
+const ZENSTARTER_BLOCKS = [
+    {
+        name: 'zen-box',
+        title: 'Zen Box',
+        enabled: true,
+        hasCompiledAssets: true
+    },
+    {
+        name: 'zen-hero', 
+        title: 'Zen Hero',
+        enabled: true,
+        hasCompiledAssets: true
+    }
+];
+```
+
+#### **PHP Registration (Setup.php)**
+```php
+// Registrazione automatica in components/Core/Setup.php
+private function register_custom_blocks() {
+    $this->register_zen_box_block();
+    $this->register_zen_hero_block();
+}
+```
+
+#### **Asset Management**
+- **Compiled Assets**: `/assets/blocks/{block-name}/`
+- **Source Files**: `/blocks/{block-name}/`
+- **Auto-enqueue**: Solo quando il blocco è utilizzato
+- **Performance**: Caricamento condizionale
+
+### 🔧 **Utility Condivise**
+
+#### **generateBlockClasses()**
+```javascript
+import { generateBlockClasses } from '../lib/utils.js';
+
+const classes = generateBlockClasses('hero', attributes, [
+    'zen-hero--has-background',
+    'zen-hero--animated'
+]);
+```
+
+#### **generateInlineStyles()**
+```javascript
+import { generateInlineStyles } from '../lib/utils.js';
+
+const styles = generateInlineStyles(attributes);
+// Auto-gestisce: spacing, border, typography
+```
+
+#### **commonSupports**
+```javascript
+import { commonSupports, containerSupports } from '../lib/utils.js';
+
+// Per blocchi container
+supports: containerSupports
+
+// Per blocchi semplici  
+supports: commonSupports
+```
+
+### 🔄 **Creare un Nuovo Blocco**
+
+#### **Step 1: Struttura Directory**
+```bash
+mkdir blocks/zen-cta
+mkdir assets/blocks/zen-cta
+```
+
+#### **Step 2: File Richiesti**
+```
+blocks/zen-cta/
+├── block.json          # Configurazione blocco
+├── edit.js            # Componente editor (JSX)
+├── save.js            # Componente save (JSX)
+├── index.js           # Entry point (JSX)
+├── render.php         # Server-side render (opzionale)
+├── style.scss         # Stili frontend
+└── editor.scss        # Stili editor
+```
+
+#### **Step 3: Template block.json**
+```json
+{
+  "apiVersion": 2,
+  "name": "zenstarter/zen-cta",
+  "title": "Zen CTA",
+  "category": "zenstarter",
+  "icon": "megaphone",
+  "description": "Call-to-action block description",
+  "supports": {
+    "align": ["wide", "full"],
+    "spacing": true,
+    "color": true,
+    "typography": true
+  },
+  "attributes": {
+    "customAttribute": {
+      "type": "string",
+      "default": "value"
+    }
+  }
+}
+```
+
+#### **Step 4: Template edit.js**
+```javascript
+import { __ } from '@wordpress/i18n';
+import { InspectorControls, InnerBlocks, useBlockProps } from '@wordpress/block-editor';
+import { PanelBody, TextControl } from '@wordpress/components';
+import { generateBlockClasses, commonSupports } from '../lib/utils.js';
+
+export default function Edit({ attributes, setAttributes }) {
+    const { customAttribute } = attributes;
+    
+    const blockProps = useBlockProps({
+        className: generateBlockClasses('cta', attributes)
+    });
+
+    return (
+        <>
+            <InspectorControls>
+                <PanelBody title={__('CTA Settings', 'zenstarter')}>
+                    <TextControl
+                        label={__('Custom Setting', 'zenstarter')}
+                        value={customAttribute}
+                        onChange={(value) => setAttributes({ customAttribute: value })}
+                    />
+                </PanelBody>
+            </InspectorControls>
+            
+            <div {...blockProps}>
+                <InnerBlocks />
+            </div>
+        </>
+    );
+}
+```
+
+#### **Step 5: Registrazione**
+
+**1. Aggiungi in `blocks/init-blocks.js`:**
+```javascript
+{
+    name: 'zen-cta',
+    title: 'Zen CTA',
+    enabled: true,
+    hasCompiledAssets: true
+}
+```
+
+**2. Compila gli asset:**
+```bash
+# Compila SCSS
+npx sass blocks/zen-cta/style.scss assets/blocks/zen-cta/style.css
+npx sass blocks/zen-cta/editor.scss assets/blocks/zen-cta/editor.css
+
+# Crea versione JavaScript compilata
+# (Usa il template di zen-hero come riferimento)
+```
+
+**3. Aggiungi in `Setup.php`:**
+```php
+private function register_custom_blocks() {
+    $this->register_zen_box_block();
+    $this->register_zen_hero_block();
+    $this->register_zen_cta_block(); // <-- Nuovo
+}
+
+private function register_zen_cta_block() {
+    register_block_type('zenstarter/zen-cta', array(
+        'editor_script' => 'zenstarter-zen-cta-editor',
+        'editor_style' => 'zenstarter-zen-cta-editor-style',
+        'style' => 'zenstarter-zen-cta-style',
+    ));
+    
+    add_action('enqueue_block_editor_assets', array($this, 'enqueue_zen_cta_editor_assets'));
+    add_action('wp_enqueue_scripts', array($this, 'enqueue_zen_cta_frontend_assets'));
+}
+```
+
+### 📦 **Roadmap Blocchi Futuri**
+
+3. **📅 Zen CTA** - Call-to-action avanzato
+4. **💬 Zen Testimonial** - Testimonianze con rating
+5. **📊 Zen Stats** - Contatori animati
+6. **🎨 Zen Gallery** - Galleria con lightbox
+7. **📝 Zen Content** - Content split con media
 8. **📞 Zen Contact** - Form di contatto
+
+### 🎯 **Best Practices per Nuovi Blocchi**
+
+1. **Usa le utility condivise** da `lib/utils.js`
+2. **Segui le convenzioni naming**: `zen-{nome}`
+3. **Implementa accessibility** (ARIA, focus management)
+4. **Testa su mobile** e desktop
+5. **Documenta gli attributi** e le funzionalità
+6. **Usa theme.json** per design tokens
+7. **Ottimizza performance** (lazy loading, conditional assets)
 
 ## 🚨 Troubleshooting
 

@@ -149,6 +149,9 @@ class Setup {
         
         // Register zen-box block
         $this->register_zen_box_block();
+        
+        // Register zen-hero block
+        $this->register_zen_hero_block();
     }
     
     /**
@@ -202,6 +205,82 @@ class Setup {
         }
     }
     
+    /**
+     * Register the zen-hero block
+     */
+    private function register_zen_hero_block() {
+        // Register the block with compiled assets
+        register_block_type('zenstarter/zen-hero', array(
+            'editor_script' => 'zenstarter-zen-hero-editor',
+            'editor_style' => 'zenstarter-zen-hero-editor-style',
+            'style' => 'zenstarter-zen-hero-style',
+            'render_callback' => array($this, 'render_zen_hero_block'),
+        ));
+        
+        // Enqueue compiled assets
+        add_action('enqueue_block_editor_assets', array($this, 'enqueue_zen_hero_editor_assets'));
+        add_action('wp_enqueue_scripts', array($this, 'enqueue_zen_hero_frontend_assets'));
+    }
+    
+    /**
+     * Enqueue zen-hero editor assets
+     */
+    public function enqueue_zen_hero_editor_assets() {
+        wp_enqueue_script(
+            'zenstarter-zen-hero-editor',
+            ZENSTARTER_ASSETS_URL . '/blocks/zen-hero/index.js',
+            array('wp-blocks', 'wp-element', 'wp-editor', 'wp-block-editor', 'wp-components', 'wp-i18n', 'wp-compose', 'wp-data'),
+            ZENSTARTER_VERSION,
+            true
+        );
+        
+        wp_enqueue_style(
+            'zenstarter-zen-hero-editor-style',
+            ZENSTARTER_ASSETS_URL . '/blocks/zen-hero/editor.css',
+            array('wp-edit-blocks'),
+            ZENSTARTER_VERSION
+        );
+    }
+    
+    /**
+     * Enqueue zen-hero frontend assets
+     */
+    public function enqueue_zen_hero_frontend_assets() {
+        // Only enqueue if the block is used on the page
+        if (has_block('zenstarter/zen-hero')) {
+            wp_enqueue_style(
+                'zenstarter-zen-hero-style',
+                ZENSTARTER_ASSETS_URL . '/blocks/zen-hero/style.css',
+                array(),
+                ZENSTARTER_VERSION
+            );
+            
+            // Enqueue hero JavaScript for animations and parallax
+            wp_enqueue_script(
+                'zenstarter-zen-hero-frontend',
+                ZENSTARTER_ASSETS_URL . '/blocks/zen-hero/frontend.js',
+                array(),
+                ZENSTARTER_VERSION,
+                true
+            );
+        }
+    }
+    
+    /**
+     * Render zen-hero block on frontend
+     */
+    public function render_zen_hero_block($attributes, $content) {
+        // Include the PHP render file
+        $render_file = ZENSTARTER_PATH . '/blocks/zen-hero/render.php';
+        
+        if (file_exists($render_file)) {
+            ob_start();
+            include $render_file;
+            return ob_get_clean();
+        }
+        
+        return $content;
+    }
     
     /**
      * Register theme sidebars

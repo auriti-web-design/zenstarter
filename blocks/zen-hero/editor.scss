@@ -1,0 +1,454 @@
+/**
+ * Zen Hero Block - Editor Styles
+ * 
+ * Editor-specific styles for optimal block editing experience
+ *
+ * @package Zenstarter
+ * @subpackage Blocks
+ * @version 1.0.0
+ */
+
+.wp-block-zenstarter-zen-hero {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 400px;
+    overflow: hidden;
+    
+    // Editor-specific improvements
+    margin: 1rem 0;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    
+    /**
+     * Background Image in Editor
+     */
+    &.zen-hero--has-background-image {
+        background-attachment: scroll;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center center;
+        
+        // Ensure text is readable in editor
+        .zen-hero__content {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 8px;
+            backdrop-filter: blur(10px);
+            
+            [data-rich-text-placeholder] {
+                color: #666;
+            }
+        }
+    }
+    
+    /**
+     * Overlay in Editor
+     */
+    .zen-hero__overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 1;
+        pointer-events: none;
+        
+        // Visual indicator in editor
+        &::after {
+            content: 'Overlay';
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 500;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+    }
+    
+    /**
+     * Content Container in Editor
+     */
+    .zen-hero__content {
+        width: 100%;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 3rem 2rem;
+        text-align: center;
+        position: relative;
+        z-index: 2;
+        
+        // Ensure proper editor experience
+        min-height: 200px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        
+        // InnerBlocks in editor
+        .block-editor-inner-blocks {
+            width: 100%;
+        }
+        
+        .block-editor-block-list__layout {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            min-height: inherit;
+        }
+        
+        // Block appender styling
+        .block-editor-button-block-appender {
+            color: var(--wp-admin-theme-color, #007cba);
+            border: 2px dashed #ddd;
+            border-radius: 4px;
+            padding: 2rem;
+            margin: 1rem 0;
+            width: 100%;
+            justify-content: center;
+            font-size: 14px;
+            
+            &:hover {
+                border-color: var(--wp-admin-theme-color, #007cba);
+                background: rgba(0, 124, 186, 0.05);
+            }
+            
+            &::before {
+                content: 'Add hero content (title, description, buttons)';
+                display: block;
+                margin-bottom: 8px;
+                font-weight: 500;
+                color: #666;
+            }
+        }
+        
+        // Empty state
+        &:empty {
+            &::before {
+                content: 'Hero Content Area - Click to add blocks';
+                color: #999;
+                font-style: italic;
+                font-size: 16px;
+            }
+        }
+    }
+    
+    /**
+     * Alignment Variations in Editor
+     */
+    &.zen-hero--align-left {
+        justify-content: flex-start;
+        
+        .zen-hero__content {
+            text-align: left;
+            margin-left: 0;
+            margin-right: auto;
+        }
+    }
+    
+    &.zen-hero--align-right {
+        justify-content: flex-end;
+        
+        .zen-hero__content {
+            text-align: right;
+            margin-left: auto;
+            margin-right: 0;
+        }
+    }
+    
+    &.zen-hero--valign-top {
+        align-items: flex-start;
+        
+        .zen-hero__content {
+            padding-top: 4rem;
+        }
+    }
+    
+    &.zen-hero--valign-bottom {
+        align-items: flex-end;
+        
+        .zen-hero__content {
+            padding-bottom: 4rem;
+        }
+    }
+    
+    /**
+     * Visual Indicators for Settings
+     */
+    // Container type indicators
+    &.zen-hero--align-left::before {
+        content: 'Left Aligned';
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        background: rgba(0, 124, 186, 0.9);
+        color: white;
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-size: 11px;
+        font-weight: 500;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        z-index: 10;
+    }
+    
+    &.zen-hero--align-right::before {
+        content: 'Right Aligned';
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        background: rgba(0, 124, 186, 0.9);
+        color: white;
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-size: 11px;
+        font-weight: 500;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        z-index: 10;
+    }
+    
+    &.zen-hero--valign-top::after {
+        content: 'Top Aligned';
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        background: rgba(0, 124, 186, 0.9);
+        color: white;
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-size: 11px;
+        font-weight: 500;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        z-index: 10;
+    }
+    
+    &.zen-hero--valign-bottom::after {
+        content: 'Bottom Aligned';
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        background: rgba(0, 124, 186, 0.9);
+        color: white;
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-size: 11px;
+        font-weight: 500;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        z-index: 10;
+    }
+    
+    // Animation indicator
+    &.zen-hero--animated {
+        &::before {
+            content: 'Animated: ' attr(data-animation);
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(155, 81, 224, 0.9);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 500;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            z-index: 10;
+        }
+    }
+    
+    // Parallax indicator
+    &.zen-hero--parallax {
+        &::after {
+            content: 'Parallax Enabled';
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            background: rgba(234, 88, 12, 0.9);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 500;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            z-index: 10;
+        }
+    }
+    
+    /**
+     * Block Selection States
+     */
+    &.is-selected {
+        outline: 2px solid var(--wp-admin-theme-color, #007cba);
+        outline-offset: -2px;
+        
+        .zen-hero__content {
+            outline: 1px dashed rgba(0, 124, 186, 0.3);
+            outline-offset: 8px;
+        }
+    }
+    
+    &:hover:not(.is-selected) {
+        outline: 1px solid rgba(0, 124, 186, 0.3);
+        outline-offset: -1px;
+    }
+    
+    /**
+     * Focus States for Accessibility
+     */
+    &:focus-within {
+        outline: 2px solid var(--wp-admin-theme-color, #007cba);
+        outline-offset: -2px;
+    }
+    
+    /**
+     * Background Control Styles
+     */
+    .zen-hero-background-control {
+        margin-bottom: 1rem;
+        
+        .zen-hero-background-button {
+            width: 100%;
+            padding: 2rem;
+            border: 2px dashed #ddd;
+            background: transparent;
+            color: #666;
+            font-size: 14px;
+            
+            &:hover {
+                border-color: var(--wp-admin-theme-color, #007cba);
+                color: var(--wp-admin-theme-color, #007cba);
+            }
+        }
+        
+        .zen-hero-background-actions {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            justify-content: center;
+            
+            .components-button {
+                flex: 1;
+            }
+        }
+        
+        img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 4px;
+        }
+    }
+    
+    /**
+     * Responsive Editor View
+     */
+    @media (max-width: 1080px) {
+        .zen-hero__content {
+            padding: 2rem 1rem;
+        }
+        
+        &::before,
+        &::after,
+        .zen-hero__overlay::after {
+            font-size: 10px;
+            padding: 3px 6px;
+        }
+    }
+    
+    @media (max-width: 600px) {
+        min-height: 300px;
+        
+        .zen-hero__content {
+            padding: 1.5rem 1rem;
+            min-height: 150px;
+        }
+        
+        // Hide indicators on very small screens
+        &::before,
+        &::after,
+        .zen-hero__overlay::after {
+            display: none;
+        }
+    }
+    
+    /**
+     * Nested Block Styling
+     */
+    .wp-block {
+        margin-top: 0;
+        margin-bottom: 1rem;
+        
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+    
+    // Heading blocks in hero
+    .wp-block-heading {
+        margin-bottom: 1rem;
+        
+        &:first-child {
+            margin-top: 0;
+        }
+    }
+    
+    // Paragraph blocks in hero
+    .wp-block-paragraph {
+        margin-bottom: 1rem;
+        
+        &[data-empty="true"] {
+            margin-bottom: 0.5rem;
+        }
+    }
+    
+    // Button blocks in hero
+    .wp-block-buttons {
+        margin-top: 1.5rem;
+        justify-content: center;
+        
+        .wp-block-button {
+            margin: 0 0.25rem;
+        }
+    }
+    
+    // Align buttons based on hero alignment
+    &.zen-hero--align-left .wp-block-buttons {
+        justify-content: flex-start;
+    }
+    
+    &.zen-hero--align-right .wp-block-buttons {
+        justify-content: flex-end;
+    }
+    
+    /**
+     * Loading State for Editor
+     */
+    &.zen-hero--loading {
+        &::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, 
+                rgba(0, 0, 0, 0.05) 25%, 
+                transparent 25%, 
+                transparent 75%, 
+                rgba(0, 0, 0, 0.05) 75%);
+            background-size: 20px 20px;
+            animation: zen-hero-loading 1s linear infinite;
+            z-index: 0;
+        }
+    }
+}
+
+@keyframes zen-hero-loading {
+    0% {
+        background-position: 0 0;
+    }
+    100% {
+        background-position: 20px 20px;
+    }
+}

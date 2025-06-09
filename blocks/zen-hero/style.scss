@@ -1,0 +1,465 @@
+/**
+ * Zen Hero Block - Frontend Styles
+ * 
+ * Comprehensive styling for the zen-hero block with
+ * responsive design, animations, and accessibility features
+ *
+ * @package Zenstarter
+ * @subpackage Blocks
+ * @version 1.0.0
+ */
+
+.zen-hero {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 60vh;
+    overflow: hidden;
+    isolation: isolate;
+    
+    // Ensure proper text rendering
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    
+    /**
+     * Background Image Styles
+     */
+    &--has-background-image {
+        background-attachment: scroll;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center center;
+        
+        // Optimize background image rendering
+        will-change: transform;
+    }
+    
+    /**
+     * Overlay Styles
+     */
+    &__overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 1;
+        pointer-events: none;
+        
+        // Smooth overlay transitions
+        transition: opacity 0.3s ease;
+    }
+    
+    &--has-overlay {
+        .zen-hero__content {
+            position: relative;
+            z-index: 2;
+        }
+    }
+    
+    /**
+     * Content Container
+     */
+    &__content {
+        width: 100%;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 4rem 2rem;
+        text-align: center;
+        
+        // Ensure content is above overlay
+        position: relative;
+        z-index: 2;
+        
+        // Typography defaults
+        color: inherit;
+        
+        // Better text rendering on images
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        
+        @media (max-width: 768px) {
+            padding: 3rem 1.5rem;
+        }
+        
+        @media (max-width: 480px) {
+            padding: 2rem 1rem;
+        }
+    }
+    
+    /**
+     * Content Alignment Variations
+     */
+    &--align-left {
+        justify-content: flex-start;
+        
+        .zen-hero__content {
+            text-align: left;
+            margin-left: 0;
+            margin-right: auto;
+        }
+    }
+    
+    &--align-right {
+        justify-content: flex-end;
+        
+        .zen-hero__content {
+            text-align: right;
+            margin-left: auto;
+            margin-right: 0;
+        }
+    }
+    
+    &--align-center {
+        justify-content: center;
+        
+        .zen-hero__content {
+            text-align: center;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    }
+    
+    /**
+     * Vertical Alignment Variations
+     */
+    &--valign-top {
+        align-items: flex-start;
+        
+        .zen-hero__content {
+            padding-top: 6rem;
+            
+            @media (max-width: 768px) {
+                padding-top: 4rem;
+            }
+        }
+    }
+    
+    &--valign-bottom {
+        align-items: flex-end;
+        
+        .zen-hero__content {
+            padding-bottom: 6rem;
+            
+            @media (max-width: 768px) {
+                padding-bottom: 4rem;
+            }
+        }
+    }
+    
+    &--valign-center {
+        align-items: center;
+    }
+    
+    /**
+     * Inner Content Styling
+     */
+    // Hero Title
+    .zen-hero__title,
+    h1,
+    h2 {
+        margin-bottom: 1.5rem;
+        font-weight: 700;
+        line-height: 1.2;
+        
+        // Responsive font sizing
+        font-size: clamp(2rem, 5vw, 4rem);
+        
+        @media (max-width: 768px) {
+            margin-bottom: 1rem;
+        }
+    }
+    
+    // Hero Description
+    .zen-hero__description,
+    p {
+        margin-bottom: 2rem;
+        font-size: 1.25rem;
+        line-height: 1.6;
+        opacity: 0.9;
+        
+        @media (max-width: 768px) {
+            font-size: 1.125rem;
+            margin-bottom: 1.5rem;
+        }
+    }
+    
+    // Hero Actions (Buttons)
+    .zen-hero__actions,
+    .wp-block-buttons {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-top: 2rem;
+        
+        @media (max-width: 768px) {
+            flex-direction: column;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        
+        .wp-block-button {
+            margin: 0;
+        }
+        
+        .wp-block-button__link {
+            padding: 1rem 2rem;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 0.375rem;
+            transition: all 0.2s ease;
+            
+            &:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            }
+            
+            &:focus {
+                outline: 2px solid currentColor;
+                outline-offset: 2px;
+            }
+        }
+    }
+    
+    // Align actions based on content alignment
+    &--align-left .zen-hero__actions,
+    &--align-left .wp-block-buttons {
+        justify-content: flex-start;
+    }
+    
+    &--align-right .zen-hero__actions,
+    &--align-right .wp-block-buttons {
+        justify-content: flex-end;
+    }
+    
+    /**
+     * Parallax Effect
+     */
+    &--parallax {
+        .zen-hero__overlay,
+        &::before {
+            will-change: transform;
+        }
+    }
+    
+    /**
+     * Animation Styles
+     */
+    &--animated {
+        // Base animation setup
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.6s ease;
+        
+        &.zen-hero--in-view {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    // Fade In Animation
+    &--fadeIn {
+        opacity: 0;
+        
+        &.zen-hero--in-view {
+            opacity: 1;
+        }
+    }
+    
+    // Slide Up Animation
+    &--slideUp {
+        opacity: 0;
+        transform: translateY(50px);
+        
+        &.zen-hero--in-view {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    // Slide Down Animation
+    &--slideDown {
+        opacity: 0;
+        transform: translateY(-50px);
+        
+        &.zen-hero--in-view {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    // Zoom In Animation
+    &--zoomIn {
+        opacity: 0;
+        transform: scale(0.8);
+        
+        &.zen-hero--in-view {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+    
+    /**
+     * Accessibility Improvements
+     */
+    @media (prefers-reduced-motion: reduce) {
+        &--animated {
+            animation: none !important;
+            transition: none !important;
+            opacity: 1 !important;
+            transform: none !important;
+        }
+        
+        &--parallax {
+            transform: none !important;
+        }
+        
+        .zen-hero__actions .wp-block-button__link:hover {
+            transform: none;
+        }
+    }
+    
+    /**
+     * High Contrast Mode Support
+     */
+    @media (prefers-contrast: high) {
+        .zen-hero__overlay {
+            display: none;
+        }
+        
+        &--has-background-image {
+            &::after {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: rgba(0, 0, 0, 0.8);
+                z-index: 1;
+            }
+        }
+        
+        .zen-hero__content {
+            color: white;
+            z-index: 3;
+        }
+    }
+    
+    /**
+     * Print Styles
+     */
+    @media print {
+        min-height: auto !important;
+        background-image: none !important;
+        
+        .zen-hero__overlay {
+            display: none;
+        }
+        
+        .zen-hero__content {
+            padding: 2rem 0;
+            text-shadow: none;
+            color: black !important;
+        }
+        
+        .zen-hero__actions {
+            display: none;
+        }
+    }
+    
+    /**
+     * Dark Mode Support
+     */
+    @media (prefers-color-scheme: dark) {
+        &:not(.zen-hero--has-background-image):not(.has-background) {
+            background-color: #1a1a1a;
+            color: #ffffff;
+        }
+    }
+    
+    /**
+     * RTL Support
+     */
+    [dir="rtl"] & {
+        &--align-left {
+            justify-content: flex-end;
+            
+            .zen-hero__content {
+                text-align: right;
+                margin-left: auto;
+                margin-right: 0;
+            }
+        }
+        
+        &--align-right {
+            justify-content: flex-start;
+            
+            .zen-hero__content {
+                text-align: left;
+                margin-left: 0;
+                margin-right: auto;
+            }
+        }
+    }
+}
+
+/**
+ * Loading State for Background Images
+ */
+.zen-hero--has-background-image {
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(45deg, 
+            rgba(0, 0, 0, 0.05) 25%, 
+            transparent 25%, 
+            transparent 75%, 
+            rgba(0, 0, 0, 0.05) 75%);
+        background-size: 20px 20px;
+        animation: zen-hero-loading 1s linear infinite;
+        z-index: 0;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+    
+    &.zen-hero--loading::before {
+        opacity: 1;
+    }
+}
+
+@keyframes zen-hero-loading {
+    0% {
+        background-position: 0 0;
+    }
+    100% {
+        background-position: 20px 20px;
+    }
+}
+
+/**
+ * Container Query Support (Future Enhancement)
+ */
+@supports (container-type: inline-size) {
+    .zen-hero {
+        container-type: inline-size;
+        container-name: hero;
+    }
+    
+    @container hero (max-width: 600px) {
+        .zen-hero__content {
+            padding: 2rem 1rem;
+        }
+        
+        .zen-hero__title,
+        .zen-hero h1,
+        .zen-hero h2 {
+            font-size: clamp(1.75rem, 4vw, 2.5rem);
+        }
+    }
+}
