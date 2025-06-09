@@ -134,6 +134,17 @@ add_action('zenstarter/before_header', 'my_custom_function');
 add_filter('zenstarter/assets_version', 'my_version_filter');
 ```
 
+## 🗂 Templates & Sidebars
+
+Zenstarter include tre template di pagina predefiniti in `/templates/`:
+
+- **Full Width** – contenuto a tutta larghezza senza sidebar
+- **Sidebar Left** – layout con barra laterale a sinistra
+- **Sidebar Right** – layout con barra laterale a destra
+
+Le nuove aree widget possono essere registrate in `inc/widgets.php` tramite
+`register_sidebar()` e richiamate nei template con `get_sidebar('nome')`.
+
 ## 📦 Estensioni
 
 ### WooCommerce
