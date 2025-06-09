@@ -33,6 +33,8 @@ class Setup {
         add_action('enqueue_block_editor_assets', array($this, 'enqueue_editor_assets'));
         add_action('init', array($this, 'register_block_patterns'));
         add_action('widgets_init', array($this, 'register_sidebars'));
+        add_filter('body_class', array($this, 'body_classes'));
+        add_action('wp_head', array($this, 'add_pingback_url'));
     }
     
     /**
@@ -188,5 +190,34 @@ class Setup {
             'before_title' => '<h4 class="widget-title">',
             'after_title' => '</h4>'
         ));
+    }
+    
+    /**
+     * Add custom body classes
+     */
+    public function body_classes($classes) {
+        // Add class of hfeed to non-singular pages
+        if (!is_singular()) {
+            $classes[] = 'hfeed';
+        }
+        
+        // Add class for keyboard navigation
+        $classes[] = 'keyboard-navigation';
+        
+        // Add class if we have a sidebar
+        if (is_active_sidebar('sidebar-primary')) {
+            $classes[] = 'has-sidebar';
+        }
+        
+        return $classes;
+    }
+    
+    /**
+     * Add pingback URL for single posts
+     */
+    public function add_pingback_url() {
+        if (is_singular() && pings_open()) {
+            printf('<link rel="pingback" href="%s">', esc_url(get_bloginfo('pingback_url')));
+        }
     }
 }
