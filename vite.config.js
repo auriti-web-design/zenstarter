@@ -53,9 +53,7 @@ export default defineConfig(({ mode }) => {
     
     css: {
       preprocessorOptions: {
-        scss: {
-          additionalData: `@import "./assets/scss/abstracts/_variables.scss"; @import "./assets/scss/abstracts/_mixins.scss";`
-        }
+        scss: {}
       }
     },
     

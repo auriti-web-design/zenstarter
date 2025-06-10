@@ -27,7 +27,7 @@ h6 {
 h1 {
   font-size: var(--font-size-4xl);
 
-  @include respond-to(md) {
+  @media (min-width: 768px) {
     font-size: var(--font-size-5xl);
   }
 }
@@ -35,7 +35,7 @@ h1 {
 h2 {
   font-size: var(--font-size-3xl);
 
-  @include respond-to(md) {
+  @media (min-width: 768px) {
     font-size: var(--font-size-4xl);
   }
 }
@@ -43,7 +43,7 @@ h2 {
 h3 {
   font-size: var(--font-size-2xl);
 
-  @include respond-to(md) {
+  @media (min-width: 768px) {
     font-size: var(--font-size-3xl);
   }
 }
@@ -51,7 +51,7 @@ h3 {
 h4 {
   font-size: var(--font-size-xl);
 
-  @include respond-to(md) {
+  @media (min-width: 768px) {
     font-size: var(--font-size-2xl);
   }
 }
@@ -59,7 +59,7 @@ h4 {
 h5 {
   font-size: var(--font-size-lg);
 
-  @include respond-to(md) {
+  @media (min-width: 768px) {
     font-size: var(--font-size-xl);
   }
 }
@@ -67,7 +67,7 @@ h5 {
 h6 {
   font-size: var(--font-size-base);
 
-  @include respond-to(md) {
+  @media (min-width: 768px) {
     font-size: var(--font-size-lg);
   }
 }
@@ -86,7 +86,7 @@ p {
 a {
   color: var(--color-primary);
   text-decoration: underline;
-  @include transition(color);
+  transition: color var(--transition-normal) ease;
 
   &:hover,
   &:focus {
@@ -94,7 +94,8 @@ a {
   }
 
   &:focus {
-    @include focus-outline;
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
   }
 }
 

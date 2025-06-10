@@ -3,9 +3,29 @@
   "version": 2,
   "patterns": true,
   "templateParts": true,
+  "customTemplates": [
+    {
+      "name": "page-fullwidth",
+      "title": "Full Width Page",
+      "postTypes": ["page"]
+    },
+    {
+      "name": "page-landing",
+      "title": "Landing Page", 
+      "postTypes": ["page"]
+    },
+    {
+      "name": "single-minimal",
+      "title": "Minimal Post",
+      "postTypes": ["post"]
+    }
+  ],
   "postTypes": {
     "page": {
-      "customTemplates": ["default"]
+      "customTemplates": ["default", "page-fullwidth", "page-landing"]
+    },
+    "post": {
+      "customTemplates": ["default", "single-minimal"]
     }
   },
   "editor-styles": [

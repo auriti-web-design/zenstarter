@@ -10,7 +10,9 @@
   z-index: var(--z-index-sticky);
 
   .container {
-    @include flex-between;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     padding-top: var(--spacing-4);
     padding-bottom: var(--spacing-4);
   }

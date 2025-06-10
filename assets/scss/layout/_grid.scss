@@ -7,22 +7,24 @@
   gap: var(--spacing-6);
 
   &--2-cols {
-    @include respond-to(md) {
+    @media (min-width: 768px) {
       grid-template-columns: repeat(2, 1fr);
     }
   }
 
   &--3-cols {
-    @include respond-to(md) {
+    @media (min-width: 768px) {
       grid-template-columns: repeat(2, 1fr);
     }
 
-    @include respond-to(lg) {
+    @media (min-width: 1024px) {
       grid-template-columns: repeat(3, 1fr);
     }
   }
 
   &--auto-fit {
-    @include grid-auto-fit();
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--spacing-4);
   }
 }

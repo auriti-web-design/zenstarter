@@ -17,7 +17,7 @@
 - 🚀 **Performance Optimized** (Core Web Vitals)
 - ♿ **Accessibility First** (WCAG 2.1)
 - 🌐 **i18n Ready** con traduzioni complete
-- 📝 **Blog avanzato** con loop personalizzabile e post correlati
+- 📝 **Blog Avanzato** con FSE, loop modulare e articoli correlati
 - 📱 **Mobile-First Design**
 
 ## 📁 Struttura del Progetto
@@ -59,9 +59,9 @@ zenstarter/
 ### Setup
 
 ```bash
-# Clona il repository
-git clone https://github.com/zenstarter/wordpress-theme.git zenstarter
-cd zenstarter
+# Scarica e installa il tema
+# Scarica da WordPress.org o copia nella cartella temi
+# wp-content/themes/zenstarter/
 
 # Installa dipendenze PHP
 composer install
@@ -146,6 +146,35 @@ Zenstarter include tre template di pagina predefiniti in `/templates/`:
 Le nuove aree widget possono essere registrate in `inc/widgets.php` tramite
 `register_sidebar()` e richiamate nei template con `get_sidebar('nome')`.
 
+## 📚 Funzionalità Blog
+
+### Pattern Modificabili dal Site Editor
+- **Blog Post Grid** - Griglia responsive per archivi e homepage
+- **Featured Post Layout** - Layout hero per post in evidenza  
+- **Author Bio Section** - Biografia autore con social links
+
+### Loop Personalizzato
+```php
+// Hook system modulare per customizzazioni
+add_action('zenstarter_loop_post_meta', 'my_custom_meta');
+add_action('zenstarter_loop_post_actions', 'my_custom_buttons');
+```
+
+### Articoli Correlati Intelligenti
+- Algoritmo a 3 livelli: categorie → tag → recenti
+- Caching automatico per performance
+- Configurabile tramite filtri WordPress
+
+### Sistema Hook Completo
+```php
+// Funzioni helper per attivazione rapida
+zenstarter_enable_reading_time();     // Tempo di lettura
+zenstarter_enable_category_chips();   // Categoria chips
+zenstarter_enable_post_format_icons(); // Icone formato post
+```
+
+**Documentazione completa**: [docs/blog.md](docs/blog.md)
+
 ## 📦 Estensioni
 
 ### WooCommerce
@@ -203,7 +232,7 @@ Documentazione completa in `/docs/`:
 - [Sviluppo](docs/sviluppo.md)
 - [Creazione Blocchi](docs/creazione-blocchi.md)
 - [Personalizzazione](docs/personalizzazione.md)
-- [Blog](docs/blog.md)
+- [📚 Funzionalità Blog](docs/blog.md)
 - [Deployment](docs/deployment.md)
 
 ## 🤝 Contribuire
@@ -220,10 +249,9 @@ Distribuito sotto licenza GPL-2.0-or-later. Vedi `LICENSE` per maggiori informaz
 
 ## 🌟 Supporto
 
-- 📧 Email: support@zenstarter.com
-- 🐛 Issues: [GitHub Issues](https://github.com/zenstarter/wordpress-theme/issues)
-- 💬 Discussions: [GitHub Discussions](https://github.com/zenstarter/wordpress-theme/discussions)
+- 💬 Forum: [WordPress.org Support](https://wordpress.org/support/theme/zenstarter/)
+- 📧 Email: hello@auritidesign.com
 
 ---
 
-> Creato con ❤️ da [Zenstarter Team](https://zenstarter.com)
+> Creato con ❤️ da [Juan Camilo Auriti](https://auritidesign.com)

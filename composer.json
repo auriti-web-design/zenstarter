@@ -3,7 +3,7 @@
     "description": "Modern WordPress starter theme with Gutenberg, FSE, and advanced development tools",
     "type": "wordpress-theme",
     "keywords": ["wordpress", "theme", "starter", "gutenberg", "fse", "tailwind"],
-    "homepage": "https://github.com/zenstarter/wordpress-theme",
+    "homepage": "https://wordpress.org/themes/zenstarter/",
     "license": "GPL-2.0-or-later",
     "authors": [
         {

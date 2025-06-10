@@ -42,7 +42,7 @@ table {
   background: var(--color-white);
   border-radius: var(--border-radius-md);
   overflow: hidden;
-  @include shadow(sm);
+  box-shadow: var(--shadow-sm);
 }
 
 th,
@@ -133,7 +133,7 @@ hr {
   text-decoration: none;
   display: inline-block;
   font-weight: 600;
-  @include transition();
+  transition: all var(--transition-normal) ease;
   cursor: pointer;
 
   &:hover,
@@ -143,13 +143,29 @@ hr {
   }
 
   &:focus {
-    @include focus-outline;
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
   }
 }
 
 // Utility classes
 .container {
-  @include container();
+  width: 100%;
+  max-width: var(--container-xl);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--spacing-4);
+  padding-right: var(--spacing-4);
+
+  @media (min-width: 576px) {
+    padding-left: var(--spacing-6);
+    padding-right: var(--spacing-6);
+  }
+
+  @media (min-width: 1024px) {
+    padding-left: var(--spacing-8);
+    padding-right: var(--spacing-8);
+  }
 }
 
 .text-center {

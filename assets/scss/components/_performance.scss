@@ -217,11 +217,11 @@ iframe {
     gap: 2rem;
     margin-bottom: var(--spacing-4);
 
-    @include respond-to(md) {
+    @media (min-width: 768px) {
         margin-bottom: var(--spacing-6);
     }
 
-    @include respond-to(lg) {
+    @media (min-width: 1024px) {
         margin-bottom: var(--spacing-8);
     }
     

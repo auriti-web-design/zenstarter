@@ -83,7 +83,7 @@
       border: 1px solid var(--color-gray-200);
       border-radius: var(--border-radius-lg);
       padding: var(--spacing-6);
-      @include shadow(sm);
+      box-shadow: var(--shadow-sm);
     }
     
     &.is-style-section {

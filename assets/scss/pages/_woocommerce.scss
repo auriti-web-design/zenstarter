@@ -3,7 +3,9 @@
  */
 
 .products-grid {
-  @include grid-auto-fit(250px, var(--spacing-6));
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--spacing-4);
 }
 
 .product-card {
@@ -15,7 +17,7 @@
   text-align: center;
   display: flex;
   flex-direction: column;
-  @include shadow(sm);
+  box-shadow: var(--shadow-sm);
 
   .product-image {
     margin-bottom: var(--spacing-4);
@@ -48,8 +50,8 @@
     margin-top: auto;
 
     .button {
-      @extend .btn;
-      @extend .btn--primary;
+      @extend .btn !optional;
+      @extend .btn--primary !optional;
       width: 100%;
     }
   }
