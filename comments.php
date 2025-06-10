@@ -24,6 +24,72 @@ if (!defined('ABSPATH')) {
 if (post_password_required()) {
     return;
 }
+
+/**
+ * Custom comment callback function
+ */
+if (!function_exists('zenstarter_comment_callback')) :
+    function zenstarter_comment_callback($comment, $args, $depth) {
+        if ('div' === $args['style']) {
+            $tag       = 'div';
+            $add_below = 'comment';
+        } else {
+            $tag       = 'li';
+            $add_below = 'div-comment';
+        }
+        ?>
+        <<?php echo $tag; ?> <?php comment_class(empty($args['has_children']) ? '' : 'parent'); ?> id="comment-<?php comment_ID(); ?>">
+        <?php if ('div' != $args['style']) : ?>
+            <div id="div-comment-<?php comment_ID(); ?>" class="comment-body">
+        <?php endif; ?>
+
+        <div class="comment-author vcard">
+            <?php if ($args['avatar_size'] != 0) echo get_avatar($comment, $args['avatar_size']); ?>
+            <cite class="fn"><?php echo get_comment_author_link(); ?></cite>
+        </div>
+
+        <?php if ($comment->comment_approved == '0') : ?>
+            <em class="comment-awaiting-moderation"><?php esc_html_e('Your comment is awaiting moderation.', 'zenstarter'); ?></em>
+            <br />
+        <?php endif; ?>
+
+        <div class="comment-meta commentmetadata">
+            <a href="<?php echo esc_url(get_comment_link($comment->comment_ID)); ?>">
+                <time datetime="<?php comment_time('c'); ?>">
+                    <?php
+                    /* translators: 1: date, 2: time */
+                    printf(esc_html__('%1$s at %2$s', 'zenstarter'), get_comment_date(), get_comment_time());
+                    ?>
+                </time>
+            </a>
+            <?php edit_comment_link(esc_html__('(Edit)', 'zenstarter'), '&nbsp;&nbsp;', ''); ?>
+        </div>
+
+        <div class="comment-content">
+            <?php comment_text(); ?>
+        </div>
+
+        <div class="reply">
+            <?php
+            comment_reply_link(
+                array_merge(
+                    $args,
+                    array(
+                        'add_below' => $add_below,
+                        'depth'     => $depth,
+                        'max_depth' => $args['max_depth']
+                    )
+                )
+            );
+            ?>
+        </div>
+
+        <?php if ('div' != $args['style']) : ?>
+            </div>
+        <?php endif; ?>
+        <?php
+    }
+endif;
 ?>
 
 <div id="comments" class="comments-area">
@@ -119,75 +185,7 @@ if (post_password_required()) {
     /**
      * Hook: zenstarter_after_comments
      */
-    do_action('zenstarter_after_comments');
-    ?>
-    
-</div><!-- #comments -->
-
-<?php
-/**
- * Custom comment callback function
- */
-if (!function_exists('zenstarter_comment_callback')) :
-    function zenstarter_comment_callback($comment, $args, $depth) {
-        if ('div' === $args['style']) {
-            $tag       = 'div';
-            $add_below = 'comment';
-        } else {
-            $tag       = 'li';
-            $add_below = 'div-comment';
-        }
-        ?>
-        <<?php echo $tag; ?> <?php comment_class(empty($args['has_children']) ? '' : 'parent'); ?> id="comment-<?php comment_ID(); ?>">
-        <?php if ('div' != $args['style']) : ?>
-            <div id="div-comment-<?php comment_ID(); ?>" class="comment-body">
-        <?php endif; ?>
-        
-        <div class="comment-author vcard">
-            <?php if ($args['avatar_size'] != 0) echo get_avatar($comment, $args['avatar_size']); ?>
-            <cite class="fn"><?php echo get_comment_author_link(); ?></cite>
-        </div>
-        
-        <?php if ($comment->comment_approved == '0') : ?>
-            <em class="comment-awaiting-moderation"><?php esc_html_e('Your comment is awaiting moderation.', 'zenstarter'); ?></em>
-            <br />
-        <?php endif; ?>
-        
-        <div class="comment-meta commentmetadata">
-            <a href="<?php echo esc_url(get_comment_link($comment->comment_ID)); ?>">
-                <time datetime="<?php comment_time('c'); ?>">
-                    <?php
-                    /* translators: 1: date, 2: time */
-                    printf(esc_html__('%1$s at %2$s', 'zenstarter'), get_comment_date(), get_comment_time());
-                    ?>
-                </time>
-            </a>
-            <?php edit_comment_link(esc_html__('(Edit)', 'zenstarter'), '&nbsp;&nbsp;', ''); ?>
-        </div>
-        
-        <div class="comment-content">
-            <?php comment_text(); ?>
-        </div>
-        
-        <div class="reply">
-            <?php
-            comment_reply_link(
-                array_merge(
-                    $args,
-                    array(
-                        'add_below' => $add_below,
-                        'depth'     => $depth,
-                        'max_depth' => $args['max_depth']
-                    )
-                )
-            );
-            ?>
-        </div>
-        
-        <?php if ('div' != $args['style']) : ?>
-            </div>
-        <?php endif; ?>
-        <?php
-    }
-endif;
+do_action('zenstarter_after_comments');
 ?>
+
+</div><!-- #comments -->
