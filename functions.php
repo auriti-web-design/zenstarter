@@ -69,12 +69,40 @@ if (!class_exists('Theme\Core\Setup')) {
      * Enqueue basic styles and scripts fallback
      */
     function zenstarter_fallback_scripts() {
-        wp_enqueue_style(
-            'zenstarter-style',
-            get_stylesheet_uri(),
-            array(),
-            ZENSTARTER_VERSION
-        );
+        // Find compiled CSS file dynamically
+        $css_files = glob(ZENSTARTER_PATH . '/assets/dist/css/main-*.css');
+        if (!empty($css_files)) {
+            $latest_css = end($css_files);
+            $css_filename = basename($latest_css);
+            wp_enqueue_style(
+                'zenstarter-main',
+                ZENSTARTER_URL . '/assets/dist/css/' . $css_filename,
+                array(),
+                ZENSTARTER_VERSION
+            );
+        } else {
+            // Fallback to basic style.css
+            wp_enqueue_style(
+                'zenstarter-style',
+                get_stylesheet_uri(),
+                array(),
+                ZENSTARTER_VERSION
+            );
+        }
+        
+        // Find compiled JS file dynamically
+        $js_files = glob(ZENSTARTER_PATH . '/assets/dist/js/main-*.js');
+        if (!empty($js_files)) {
+            $latest_js = end($js_files);
+            $js_filename = basename($latest_js);
+            wp_enqueue_script(
+                'zenstarter-main',
+                ZENSTARTER_URL . '/assets/dist/js/' . $js_filename,
+                array('jquery'),
+                ZENSTARTER_VERSION,
+                true
+            );
+        }
     }
     add_action('wp_enqueue_scripts', 'zenstarter_fallback_scripts');
 }
